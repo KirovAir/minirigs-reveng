@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:id="@+id/persistent_frame" android:visibility="visible" android:layout_width="match_parent" android:layout_height="match_parent">
+    <RelativeLayout android:id="@+id/battery_bar" android:layout_width="0dp" android:layout_height="0dp" android:layout_marginTop="@dimen/thin_margin" android:layout_marginBottom="@dimen/thin_margin" android:layout_marginStart="@dimen/thin_margin" android:layout_marginEnd="@dimen/thin_margin" app:layout_constraintDimensionRatio="11:1" app:layout_constraintEnd_toEndOf="0" app:layout_constraintStart_toStartOf="0" app:layout_constraintTop_toTopOf="0">
+        <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="match_parent">
+            <android.support.p039v7.widget.AppCompatTextView android:textColor="#ffffff" android:gravity="center" android:id="@+id/batteryText" android:background="@color/battery_high" android:visibility="visible" android:layout_width="0dp" android:layout_height="match_parent" android:text="Battery level" android:ems="15" android:layout_weight="1" android:fontFamily="@font/bebas"/>
+            <Button android:enabled="true" android:textColor="#000" android:id="@+id/batteryChargeOut" android:background="@drawable/bg_rounded_light" android:paddingLeft="15dp" android:paddingRight="15dp" android:layout_width="0dp" android:layout_height="wrap_content" android:text="Power out" android:ems="15" android:layout_weight="1" android:layout_alignParentRight="true" android:onClick="clickedChargeOut" android:fontFamily="@font/bebas"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <RelativeLayout android:id="@+id/name_bar" android:background="@drawable/bg_rounded_primary" android:layout_width="0dp" android:layout_height="0dp" android:layout_marginTop="@dimen/thin_margin" android:layout_marginBottom="@dimen/thin_margin" android:layout_marginStart="@dimen/thin_margin" android:layout_marginEnd="@dimen/thin_margin" app:layout_constraintBottom_toTopOf="@+id/main_frame" app:layout_constraintEnd_toEndOf="0" app:layout_constraintStart_toStartOf="0" app:layout_constraintTop_toBottomOf="@+id/battery_bar">
+        <LinearLayout android:orientation="horizontal" android:id="@+id/dummyFocus" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="0px" android:layout_height="0px"/>
+        <EditText android:enabled="true" android:textSize="30sp" android:textColor="#ffffff" android:gravity="center" android:id="@+id/etDeviceName" android:background="@android:color/transparent" android:padding="0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:text="MINIRIG" android:hint="Name your Minirig" android:maxLength="20" android:inputType="textNoSuggestions" android:imeOptions="actionSend" android:textAllCaps="true" android:fontFamily="@font/bebas" android:textAlignment="center"/>
+    </RelativeLayout>
+    <LinearLayout android:orientation="vertical" android:id="@+id/main_frame" android:layout_width="0dp" android:layout_height="0dp" android:layout_marginStart="@dimen/thin_margin" android:layout_marginEnd="@dimen/thin_margin" app:layout_constraintDimensionRatio="1:1" app:layout_constraintEnd_toEndOf="0" app:layout_constraintStart_toStartOf="0" app:layout_constraintTop_toTopOf="@+id/guideline">
+        <LinearLayout android:orientation="vertical" android:id="@+id/grid_controls" android:visibility="gone" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginBottom="@dimen/thin_margin" android:layout_weight="1">
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="@dimen/circles_margin">
+                    <ImageButton android:id="@+id/gainButton" android:background="@drawable/button_selector" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/high_gain_button" android:scaleType="fitCenter" android:adjustViewBounds="true" android:onClick="toggleGain" android:contentDescription="@string/gainDescription"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <ImageButton android:id="@+id/audioConfigButton" android:background="@drawable/button_selector" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/audio_config_button" android:scaleType="fitCenter" android:adjustViewBounds="true" android:onClick="clickedAudioConfig" android:contentDescription="@string/audioConfigDescription"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="@dimen/circles_margin">
+                    <ImageButton android:id="@+id/muteButton" android:background="@drawable/button_selector" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/mute_button" android:scaleType="fitCenter" android:adjustViewBounds="true" android:contentDescription="@string/muteDescription"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginBottom="@dimen/thin_margin" android:layout_weight="1">
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="@dimen/circles_margin">
+                    <ImageButton android:id="@+id/switchDeviceButton" android:background="@drawable/button_selector" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/a_phone_button" android:scaleType="fitCenter" android:adjustViewBounds="true" android:onClick="clickedSwitchDevice" android:contentDescription="@string/deviceSwitchDescription"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <ImageButton android:id="@+id/eqButton" android:background="@drawable/button_selector" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/eq_button" android:scaleType="fitCenter" android:adjustViewBounds="true" android:onClick="clickedEq" android:contentDescription="@string/eqDescription"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="@dimen/circles_margin">
+                    <ImageButton android:id="@+id/twsButton" android:background="@drawable/button_selector" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/tws_button" android:scaleType="fitCenter" android:adjustViewBounds="true" android:onClick="clickedTWS" android:contentDescription="@string/linkUpDescription"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginBottom="@dimen/thin_margin" android:layout_weight="1">
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="@dimen/circles_margin">
+                    <ImageButton android:id="@+id/settingsButton" android:background="@drawable/button_selector" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/settings_button" android:scaleType="fitCenter" android:adjustViewBounds="true" android:onClick="clickedSettings" android:contentDescription="@string/settingsDescription"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <ImageButton android:id="@+id/powerButton" android:background="@drawable/button_selector" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/power_off_button" android:scaleType="fitCenter" android:adjustViewBounds="true" android:onClick="clickedPower" android:contentDescription="@string/powerDescription"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="@dimen/circles_margin">
+                    <ImageButton android:id="@+id/infoButton" android:background="@drawable/button_selector" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@drawable/info_button" android:scaleType="fitCenter" android:adjustViewBounds="true" android:onClick="clickedInfo" android:contentDescription="@string/infoDescription"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@+id/settings_list_layout" android:paddingLeft="@dimen/activity_horizontal_margin" android:paddingTop="@dimen/activity_vertical_margin" android:paddingRight="@dimen/activity_horizontal_margin" android:paddingBottom="@dimen/activity_vertical_margin" android:visibility="gone" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="0" app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <ListView android:id="@+id/listView" android:layout_width="match_parent" android:layout_height="0dp" android:divider="@color/colorPrimary" android:dividerHeight="2dp" android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@+id/eq_home_layout" android:visibility="visible" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+            <RelativeLayout android:id="@+id/eqhome_row_1" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/eq_home1" android:tag="eqHome1" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/eq_home1" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedEQHome"/>
+            </RelativeLayout>
+            <RelativeLayout android:id="@+id/eqhome_row_2" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/eq_home2" android:tag="eqHome2" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/eq_home2" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedEQHome"/>
+            </RelativeLayout>
+            <RelativeLayout android:id="@+id/eqhome_row_3" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="0">
+                <ImageButton android:id="@+id/eq_home3" android:tag="eqHome3" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/eq_home3" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedEQHome"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@+id/eq_controls_layout" android:visibility="gone" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+            <LinearLayout android:orientation="horizontal" android:id="@+id/eq_controls_sliders" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginBottom="@dimen/thin_margin" android:layout_weight="7">
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="@dimen/thin_margin">
+                    <com.minirig.android.custom.VerticalSeekBar android:id="@+id/vband1" android:padding="0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:progressDrawable="@drawable/eq_bar" android:thumb="@drawable/thumb_image" android:thumbOffset="0dp" android:contentDescription="@string/eqSlideDescription1" android:paddingStart="0dp" android:paddingEnd="0dp" android:splitTrack="false"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="@dimen/thin_margin">
+                    <com.minirig.android.custom.VerticalSeekBar android:id="@+id/vband2" android:padding="0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:progressDrawable="@drawable/eq_bar" android:thumb="@drawable/thumb_image" android:thumbOffset="0dp" android:contentDescription="@string/eqSlideDescription2" android:paddingStart="0dp" android:paddingEnd="0dp" android:splitTrack="false"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <com.minirig.android.custom.VerticalSeekBar android:id="@+id/vband3" android:padding="0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:progressDrawable="@drawable/eq_bar" android:thumb="@drawable/thumb_image" android:thumbOffset="0dp" android:contentDescription="@string/eqSlideDescription3" android:paddingStart="0dp" android:paddingEnd="0dp" android:splitTrack="false"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="@dimen/thin_margin">
+                    <com.minirig.android.custom.VerticalSeekBar android:id="@+id/vband4" android:padding="0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:progressDrawable="@drawable/eq_bar" android:thumb="@drawable/thumb_image" android:thumbOffset="0dp" android:contentDescription="@string/eqSlideDescription4" android:paddingStart="0dp" android:paddingEnd="0dp" android:splitTrack="false"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="@dimen/thin_margin">
+                    <com.minirig.android.custom.VerticalSeekBar android:id="@+id/vband5" android:padding="0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:progressDrawable="@drawable/eq_bar" android:thumb="@drawable/thumb_image" android:thumbOffset="0dp" android:contentDescription="@string/eqSlideDescription5" android:paddingStart="0dp" android:paddingEnd="0dp" android:splitTrack="false"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginBottom="@dimen/thin_margin" android:layout_weight="0.5">
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="@dimen/thin_margin">
+                    <TextView android:gravity="center" android:id="@+id/bandText1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="70Hz" android:layout_centerInParent="true" android:textAlignment="center"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="@dimen/thin_margin">
+                    <TextView android:gravity="center" android:id="@+id/bandText2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="250Hz" android:layout_centerInParent="true" android:textAlignment="center"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <TextView android:gravity="center" android:id="@+id/bandText3" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="850Hz" android:layout_centerInParent="true" android:textAlignment="center"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="@dimen/thin_margin">
+                    <TextView android:gravity="center" android:id="@+id/bandText4" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="3KHz" android:layout_centerInParent="true" android:textAlignment="center"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="@dimen/thin_margin">
+                    <TextView android:gravity="center" android:id="@+id/bandText5" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="10.5KHz" android:layout_centerInParent="true" android:textAlignment="center"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginBottom="@dimen/thin_margin" android:layout_weight="1.5">
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="@dimen/thin_margin">
+                    <ImageButton android:id="@+id/setPreset0" android:tag="00" android:background="@drawable/button_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:src="@drawable/eq_preset1_off" android:scaleType="fitCenter" android:adjustViewBounds="true" android:layout_centerInParent="true" android:onClick="setPreset" android:contentDescription="@string/eqButton1Description"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="@dimen/thin_margin">
+                    <ImageButton android:id="@+id/setPreset1" android:tag="01" android:background="@drawable/button_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:src="@drawable/eq_preset2_off" android:scaleType="fitCenter" android:adjustViewBounds="true" android:layout_centerInParent="true" android:onClick="setPreset" android:contentDescription="@string/eqButton2Description"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <ImageButton android:id="@+id/setPreset2" android:tag="02" android:background="@drawable/button_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:src="@drawable/eq_preset3_off" android:scaleType="fitCenter" android:adjustViewBounds="true" android:layout_centerInParent="true" android:onClick="setPreset" android:contentDescription="@string/eqButton3Description"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="@dimen/thin_margin">
+                    <ImageButton android:id="@+id/setPreset3" android:tag="03" android:background="@drawable/button_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:src="@drawable/eq_preset4_off" android:scaleType="fitCenter" android:adjustViewBounds="true" android:layout_centerInParent="true" android:onClick="setPreset" android:contentDescription="@string/eqButton4Description"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="@dimen/thin_margin">
+                    <ImageButton android:id="@+id/eqLock" android:background="@drawable/button_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:src="@drawable/eq_lock_off" android:scaleType="fitCenter" android:adjustViewBounds="true" android:layout_centerInParent="true" android:onClick="clickedEqLock" android:contentDescription="@string/eqButton5Description"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@+id/eq_twin_layout" android:visibility="gone" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+            <LinearLayout android:orientation="horizontal" android:id="@+id/leftSliderParent" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginBottom="@dimen/thin_margin" android:layout_weight="7">
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="@dimen/thin_margin">
+                    <ImageView android:id="@+id/leftSliderDefaultMark" android:background="@drawable/grid_button_active" android:layout_width="match_parent" android:layout_height="10dp" android:layout_alignParentBottom="true"/>
+                    <ImageView android:id="@+id/leftSliderDefaultMark2" android:background="@drawable/grid_button_active" android:layout_width="match_parent" android:layout_height="10dp" android:layout_alignParentBottom="true"/>
+                    <com.minirig.android.custom.VerticalSeekBar android:id="@+id/leftSlider" android:padding="0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:progressDrawable="@drawable/eq_bar" android:thumb="@drawable/thumb_image" android:thumbOffset="0dp" android:contentDescription="@string/volumeSlideDescription" android:paddingStart="0dp" android:paddingEnd="0dp" android:splitTrack="false"/>
+                </RelativeLayout>
+                <RelativeLayout android:id="@+id/twinMidParent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="3" android:layout_marginEnd="@dimen/thin_margin">
+                    <ImageView android:id="@+id/eq_twin_image" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/stereo_with_one_sub" android:scaleType="centerInside" android:layout_centerHorizontal="true"/>
+                    <ImageView android:id="@+id/midSliderDefaultMark" android:background="@drawable/grid_button_active" android:layout_width="match_parent" android:layout_height="10dp" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"/>
+                    <ImageView android:id="@+id/midSliderDefaultMark2" android:background="@drawable/grid_button_active" android:layout_width="match_parent" android:layout_height="10dp" android:layout_alignParentBottom="true"/>
+                    <com.minirig.android.custom.VerticalSeekBar android:id="@+id/midSlider" android:padding="0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:progressDrawable="@drawable/eq_bar" android:thumb="@drawable/thumb_image" android:thumbOffset="0dp" android:contentDescription="@string/volumeSlideDescription" android:paddingStart="0dp" android:paddingEnd="0dp" android:splitTrack="false"/>
+                </RelativeLayout>
+                <RelativeLayout android:id="@+id/rightSliderParent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <ImageView android:id="@+id/rightSliderDefaultMark" android:background="@drawable/grid_button_active" android:layout_width="match_parent" android:layout_height="10dp" android:layout_alignParentBottom="true"/>
+                    <com.minirig.android.custom.VerticalSeekBar android:id="@+id/rightSlider" android:padding="0dp" android:layout_width="match_parent" android:layout_height="match_parent" android:progressDrawable="@drawable/eq_bar" android:thumb="@drawable/thumb_image" android:thumbOffset="0dp" android:contentDescription="@string/volumeOutSlideDescription" android:paddingStart="0dp" android:paddingEnd="0dp" android:splitTrack="false"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:id="@+id/twin_row_2" android:clipChildren="false" android:clipToPadding="false" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginBottom="@dimen/thin_margin" android:layout_weight="1">
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="@dimen/thin_margin">
+                    <TextView android:textSize="25sp" android:gravity="center" android:id="@+id/leftTwinInfo" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="L" android:layout_centerInParent="true" android:fontFamily="@font/bebas" android:textAlignment="center"/>
+                </RelativeLayout>
+                <RelativeLayout android:id="@+id/twinMidInfoParent" android:clipChildren="false" android:clipToPadding="false" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="3" android:layout_marginEnd="@dimen/thin_margin">
+                    <TextView android:textSize="25sp" android:gravity="center" android:id="@+id/midTwinInfo" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Device" android:layout_centerInParent="true" android:fontFamily="@font/bebas" android:textAlignment="center"/>
+                    <Button android:textSize="24sp" android:textStyle="bold" android:textColor="@color/minirig_grey" android:id="@+id/twinDefault" android:background="@drawable/device_list_selector" android:paddingLeft="35dp" android:paddingTop="15dp" android:paddingRight="35dp" android:paddingBottom="15dp" android:clipChildren="false" android:clipToPadding="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="-20dp" android:layout_marginBottom="10dp" android:text="Reset" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true" android:onClick="twinDefault" android:fontFamily="@font/bebas" android:paddingHorizontal="35dp" android:paddingVertical="15dp"/>
+                </RelativeLayout>
+                <RelativeLayout android:id="@+id/rightTwinInfoParent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <TextView android:textSize="25sp" android:gravity="center" android:id="@+id/rightTwinInfo" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="R" android:layout_centerInParent="true" android:fontFamily="@font/bebas" android:textAlignment="center"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@+id/eq_presets_layout" android:visibility="gone" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginBottom="@dimen/thin_margin" android:layout_weight="7.5">
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="@dimen/thin_margin">
+                    <TextView android:textSize="28dp" android:gravity="center" android:id="@+id/presetDescription" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Standard" android:layout_centerInParent="true" android:fontFamily="@font/bebas" android:textAlignment="center"/>
+                </RelativeLayout>
+            </LinearLayout>
+            <LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginBottom="@dimen/thin_margin" android:layout_weight="1.5">
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="@dimen/thin_margin">
+                    <ImageButton android:id="@+id/setDefinedPreset0" android:tag="0" android:background="@drawable/button_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:src="@drawable/eq_preset1_off" android:scaleType="fitCenter" android:adjustViewBounds="true" android:layout_centerInParent="true" android:onClick="setDefinedPreset"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="@dimen/thin_margin">
+                    <ImageButton android:id="@+id/setDefinedPreset1" android:tag="2" android:background="@drawable/button_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:src="@drawable/eq_preset2_off" android:scaleType="fitCenter" android:adjustViewBounds="true" android:layout_centerInParent="true" android:onClick="setDefinedPreset"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                    <ImageButton android:id="@+id/setDefinedPreset2" android:tag="3" android:background="@drawable/button_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:src="@drawable/eq_preset3_off" android:scaleType="fitCenter" android:adjustViewBounds="true" android:layout_centerInParent="true" android:onClick="setDefinedPreset"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="@dimen/thin_margin">
+                    <ImageButton android:id="@+id/setDefinedPreset3" android:tag="4" android:background="@drawable/button_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:src="@drawable/eq_preset4_off" android:scaleType="fitCenter" android:adjustViewBounds="true" android:layout_centerInParent="true" android:onClick="setDefinedPreset"/>
+                </RelativeLayout>
+                <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="@dimen/thin_margin">
+                    <ImageButton android:id="@+id/definedEqLock" android:background="@drawable/button_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:src="@drawable/eq_lock_off" android:scaleType="fitCenter" android:adjustViewBounds="true" android:layout_centerInParent="true" android:onClick="clickedDefinedEqLock"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@+id/eq_config_layout" android:visibility="visible" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+            <RelativeLayout android:id="@+id/eq_config_row_1" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/eq_config_button1" android:tag="eqConfig1" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/stereo_with_one_sub" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedEqConfig"/>
+            </RelativeLayout>
+            <RelativeLayout android:id="@+id/eq_config_row_2" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/eq_config_button2" android:tag="eqConfig2" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/stereo_with_two_subs" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedEqConfig"/>
+            </RelativeLayout>
+            <RelativeLayout android:id="@+id/eq_config_row_3" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/eq_config_button3" android:tag="eqConfig3" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/mono_link_mode" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedEqConfig"/>
+            </RelativeLayout>
+            <RelativeLayout android:id="@+id/eq_config_row_4" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/eq_config_button4" android:tag="eqConfig4" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/config_mono" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedEqConfig"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@+id/info_layout" android:paddingLeft="@dimen/activity_horizontal_margin" android:paddingTop="@dimen/activity_vertical_margin" android:paddingRight="@dimen/activity_horizontal_margin" android:paddingBottom="@dimen/activity_vertical_margin" android:visibility="gone" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="0" app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <ListView android:id="@+id/infoListView" android:layout_width="match_parent" android:layout_height="0dp" android:divider="@color/colorPrimary" android:dividerHeight="2dp" android:layout_weight="1"/>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@+id/about_layout" android:paddingLeft="@dimen/activity_horizontal_margin" android:paddingTop="@dimen/activity_vertical_margin" android:paddingRight="@dimen/activity_horizontal_margin" android:paddingBottom="@dimen/activity_vertical_margin" android:visibility="gone" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="0" app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <ScrollView android:id="@+id/about_view" android:layout_width="match_parent" android:layout_height="match_parent" android:fillViewport="true">
+                <TextView android:textSize="14dp" android:textColor="@color/minirig_grey" android:id="@+id/about_text" android:layout_width="match_parent" android:layout_height="match_parent" android:fontFamily="@font/lato" android:textAlignment="viewStart"/>
+            </ScrollView>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@+id/audio_config_layout" android:visibility="visible" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+            <RelativeLayout android:id="@+id/audio_row_1" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/routing1_0Button" android:tag="stereoWithOneSub" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/stereo_with_one_sub" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedRouting"/>
+            </RelativeLayout>
+            <RelativeLayout android:id="@+id/audio_row_2" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/routing2_0Button" android:tag="stereoWithTwoSubs" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/stereo_with_two_subs" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedRouting"/>
+            </RelativeLayout>
+            <RelativeLayout android:id="@+id/audio_row_3" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/routing2_1Button" android:tag="monoLinkMode" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/mono_link_mode" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedRouting"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@+id/broadcast_config_layout" android:visibility="visible" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+            <RelativeLayout android:id="@+id/tws_row_1" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/broadcast_sa" android:tag="broadcastStandAlone" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/broadcast_sa" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedBroadcastOption"/>
+            </RelativeLayout>
+            <RelativeLayout android:id="@+id/tws_row_2" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/broadcast_ws" android:tag="broadcastWirelessStereo" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/broadcast_ws" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedBroadcastOption"/>
+            </RelativeLayout>
+            <RelativeLayout android:id="@+id/tws_row_3" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/broadcast_lu" android:tag="broadcastLinkUp" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/broadcast_lu" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedBroadcastOption"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@+id/broadcast_linkup_layout" android:visibility="visible" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+            <RelativeLayout android:id="@+id/linkup_row_1" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/broadcast_start" android:tag="linkupStart" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/broadcast_start" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedLinkupOption"/>
+            </RelativeLayout>
+            <RelativeLayout android:id="@+id/linkup_row_2" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/broadcast_join" android:tag="linkupJoin" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/broadcast_join" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedLinkupOption"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@+id/broadcast_linkup_start" android:visibility="visible" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+            <RelativeLayout android:id="@+id/lus_row_1" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/broadcast_lus_state" android:tag="start" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/broadcast_start" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedBroadcastStartOption"/>
+            </RelativeLayout>
+            <RelativeLayout android:id="@+id/lus_row_2" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/broadcast_add" android:tag="add" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/broadcast_add" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedBroadcastStartOption"/>
+            </RelativeLayout>
+            <RelativeLayout android:id="@+id/lus_row_3" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/broadcast_start_stop" android:tag="stop" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/broadcast_stop" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedBroadcastStartOption"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@+id/broadcast_linkup_join" android:visibility="visible" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+            <RelativeLayout android:id="@+id/luj_row_1" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/broadcast_luj_state" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/broadcast_lu" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedBroadcastJoinOption"/>
+            </RelativeLayout>
+            <RelativeLayout android:id="@+id/luj_row_2" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/broadcast_join_join" android:tag="join" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/broadcast_join" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedBroadcastJoinOption"/>
+            </RelativeLayout>
+            <RelativeLayout android:id="@+id/luj_row_3" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+                <ImageButton android:id="@+id/broadcast_join_leave" android:tag="leave" android:background="@drawable/device_list_selector" android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_margin="5dp" android:src="@drawable/broadcast_stop" android:scaleType="centerInside" android:layout_centerHorizontal="true" android:onClick="clickedBroadcastJoinOption"/>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@+id/soundcloud_view" android:visibility="gone" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+            <WebView android:id="@+id/soundcloud_webview" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+    <android.support.constraint.Guideline android:orientation="horizontal" android:id="@+id/guideline" android:layout_width="wrap_content" android:layout_height="wrap_content" app:layout_constraintGuide_percent="0.17"/>
+    <LinearLayout android:orientation="vertical" android:id="@+id/media_frame" android:layout_width="0dp" android:layout_height="0dp" android:layout_marginLeft="@dimen/thin_margin" android:layout_marginRight="@dimen/thin_margin" app:layout_constraintBottom_toBottomOf="0" app:layout_constraintEnd_toEndOf="0" app:layout_constraintStart_toStartOf="0" app:layout_constraintTop_toBottomOf="@+id/main_frame">
+        <RelativeLayout android:id="@+id/media_info" android:background="@drawable/bg_rounded_primary" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginTop="@dimen/thin_margin" android:layout_weight="2">
+            <TextView android:textColor="#ffffff" android:ellipsize="marquee" android:gravity="center" android:id="@+id/trackInfo" android:focusable="true" android:focusableInTouchMode="true" android:layout_width="match_parent" android:layout_height="match_parent" android:text="Tap for the latest Minirig Mixtapes" android:ems="26" android:scrollHorizontally="true" android:singleLine="true" android:marqueeRepeatLimit="marquee_forever" android:fontFamily="@font/lato" android:textAlignment="center" android:layout_marginStart="16dp" android:layout_marginEnd="16dp"/>
+        </RelativeLayout>
+        <LinearLayout android:orientation="horizontal" android:id="@+id/media_controls" android:background="@drawable/bg_rounded_primary" android:paddingLeft="10dp" android:paddingRight="10dp" android:layout_width="match_parent" android:layout_height="0dp" android:layout_marginTop="@dimen/thin_margin" android:layout_marginBottom="@dimen/thin_margin" android:layout_weight="3">
+            <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="@dimen/media_controls_gap">
+                <ImageButton android:id="@+id/backButton" android:background="@drawable/button_media_selector" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/media_controls_margin" android:layout_marginBottom="@dimen/media_controls_margin" android:src="@drawable/back_button" android:scaleType="centerInside" android:adjustViewBounds="true" android:layout_centerInParent="true" android:onClick="backClicked" android:contentDescription="@string/backDescription"/>
+            </RelativeLayout>
+            <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginEnd="@dimen/media_controls_gap">
+                <ImageButton android:id="@+id/previousTrackButton" android:background="@drawable/button_media_selector" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/media_controls_margin" android:layout_marginBottom="@dimen/media_controls_margin" android:src="@drawable/previous_button" android:scaleType="centerInside" android:adjustViewBounds="true" android:layout_centerInParent="true" android:onClick="previousTrack" android:contentDescription="@string/previousTrackDescription"/>
+            </RelativeLayout>
+            <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1">
+                <ImageButton android:id="@+id/playPauseButton" android:background="@drawable/button_media_selector" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/media_controls_margin" android:layout_marginBottom="@dimen/media_controls_margin" android:src="@drawable/play_button" android:scaleType="centerInside" android:adjustViewBounds="true" android:layout_centerInParent="true" android:onClick="togglePlaying" android:contentDescription="@string/playPauseDescription"/>
+            </RelativeLayout>
+            <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="@dimen/media_controls_gap">
+                <ImageButton android:id="@+id/nextTrackButton" android:background="@drawable/button_media_selector" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/media_controls_margin" android:layout_marginBottom="@dimen/media_controls_margin" android:src="@drawable/next_button" android:scaleType="centerInside" android:adjustViewBounds="true" android:layout_centerInParent="true" android:onClick="nextTrack" android:contentDescription="@string/nextTrackDescription"/>
+            </RelativeLayout>
+            <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:layout_marginStart="@dimen/media_controls_gap">
+                <ImageButton android:id="@+id/openPlayersButton" android:background="@drawable/button_media_selector" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/media_controls_margin" android:layout_marginBottom="@dimen/media_controls_margin" android:src="@drawable/open_players_button" android:scaleType="centerInside" android:adjustViewBounds="true" android:layout_centerInParent="true" android:onClick="openPlayersClicked" android:contentDescription="@string/mediaDescription"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

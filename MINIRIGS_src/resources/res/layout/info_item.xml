@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:aapt="http://schemas.android.com/aapt" android:orientation="horizontal" android:paddingTop="20dp" android:paddingBottom="20dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+    <RelativeLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.2">
+        <ImageView android:id="@+id/infoImage" android:layout_width="80dp" android:layout_height="80dp" android:src="@drawable/ic_launcher" android:layout_alignParentLeft="true" android:layout_centerVertical="true"/>
+    </RelativeLayout>
+    <RelativeLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="3">
+        <TextView android:textSize="30sp" android:textStyle="bold" android:textColor="@color/minirig_grey" android:id="@+id/infoName" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TextView" android:layout_alignParentTop="true" android:fontFamily="@font/bebas"/>
+        <TextView android:textSize="12sp" android:textColor="@color/minirig_grey" android:id="@+id/infoDescription" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="0dp" android:text="Description of the option" android:layout_below="@+id/infoName" android:fontFamily="@font/lato"/>
+    </RelativeLayout>
+</LinearLayout>
