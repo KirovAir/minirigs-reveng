@@ -9,7 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.minirig.android.p048a.C1230e;
-import com.minirig.android.p048a.minirigMainClass;
+import com.minirig.android.p048a.minirigStatusClass;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -164,19 +164,19 @@ class C1258c extends BaseAdapter {
         C1230e eVar = new C1230e(this.f4611a, bluetoothDevice.getName(), a);
         String str = " | Not connected for audio";
         if (eVar.f4401c) {
-            a = eVar.f4406h + " v" + eVar.f4407i + " " + eVar.f4410l + " " + eVar.f4408j + " " + eVar.f4411m + " " + eVar.f4405g;
+            a = eVar.f4406h + " v" + eVar.f4407i + " " + eVar.twsConnectionState + " " + eVar.audioConnectionState + " " + eVar.ledColorStr + " " + eVar.f4405g;
             if (this.f4611a.f3967m.equals(eVar.f4405g)) {
                 str = " | Connected for audio";
             }
         } else {
             view.setBackgroundColor(-1);
         }
-        if (eVar.f4411m == null) {
+        if (eVar.ledColorStr == null) {
             bVar.f4620a.setImageResource(this.f4615f.get("NO_DEVICE_COLOUR").intValue());
-        } else if (eVar.minirigType == minirigMainClass.modelTypeEnum.MINIMINI || eVar.minirigType == minirigMainClass.modelTypeEnum.MINIMINI2) {
-            bVar.f4620a.setImageResource(this.f4614e.get(eVar.f4411m).intValue());
+        } else if (eVar.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || eVar.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2) {
+            bVar.f4620a.setImageResource(this.f4614e.get(eVar.ledColorStr).intValue());
         } else {
-            bVar.f4620a.setImageResource(this.f4615f.get(eVar.f4411m).intValue());
+            bVar.f4620a.setImageResource(this.f4615f.get(eVar.ledColorStr).intValue());
         }
         String name = bluetoothDevice.getName();
         if (eVar.f4405g.equals(this.f4611a.f3971q)) {
@@ -196,9 +196,9 @@ class C1258c extends BaseAdapter {
         this.f4611a.mo5229a(f4610b, "              device.getAddress(): " + eVar.f4405g);
         view.setActivated(false);
         String str2 = "";
-        if (eVar.f4409k == minirigMainClass.audioConnectionStateEnum.POWER_OFF) {
+        if (eVar.audioConnectionState2 == minirigStatusClass.audioConnectionStateEnum.POWER_OFF) {
             str2 = "OFF";
-        } else if (eVar.f4409k == minirigMainClass.audioConnectionStateEnum.CONNECTED_A2DP && this.f4611a.f3967m.equalsIgnoreCase(eVar.f4405g)) {
+        } else if (eVar.audioConnectionState2 == minirigStatusClass.audioConnectionStateEnum.CONNECTED_A2DP && this.f4611a.f3967m.equalsIgnoreCase(eVar.f4405g)) {
             str2 = "CONNECTED";
             view.setActivated(true);
         }

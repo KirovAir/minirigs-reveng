@@ -11,7 +11,7 @@ import com.minirig.android.p048a.C1228c;
 import com.minirig.android.p048a.C1229d;
 import com.minirig.android.p048a.C1230e;
 import com.minirig.android.p048a.C1231f;
-import com.minirig.android.p048a.minirigMainClass;
+import com.minirig.android.p048a.minirigStatusClass;
 import com.minirig.android.p049b.C1250e;
 import java.util.HashMap;
 import org.json.JSONArray;
@@ -33,7 +33,7 @@ public class GlobalApplication extends Application {
     public C1228c f3958d = new C1228c();
 
     /* renamed from: e */
-    public minirigMainClass f3959e = new minirigMainClass();
+    public minirigStatusClass minirigf3 = new minirigStatusClass();
 
     /* renamed from: f */
     public C1231f f3960f = new C1231f();
@@ -98,9 +98,9 @@ public class GlobalApplication extends Application {
     /* renamed from: a */
     public void mo5228a(C1230e eVar) {
         this.f3966l = eVar;
-        this.f3966l.mo5474a();
-        this.f3959e.ledColorf4464d = this.f3966l.f4412n;
-        this.f3959e.minirigType = eVar.minirigType;
+        this.f3966l.setModel();
+        this.minirigf3.ledColorf4464d = this.f3966l.ledColor;
+        this.minirigf3.minirigType = eVar.minirigType;
     }
 
     /* renamed from: a */

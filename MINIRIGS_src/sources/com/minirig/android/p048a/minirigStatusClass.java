@@ -4,28 +4,28 @@ import android.util.Log;
 import java.io.PrintStream;
 
 /* renamed from: com.minirig.android.a.g */
-public class minirigMainClass {
+public class minirigStatusClass {
 
     /* renamed from: a */
     protected static final String f4455a = "g";
 
     /* renamed from: A */
-    private boolean f4456A = false;
+    private boolean isBluetoothStreaming = false;
 
     /* renamed from: B */
-    private boolean f4457B = false;
+    private boolean isSingleButtonPressMediaControl = false;
 
     /* renamed from: C */
-    private boolean f4458C = false;
+    private boolean isDoubleButtonPressMediaControlCode = false;
 
     /* renamed from: D */
-    private boolean f4459D = false;
+    private boolean hasBLE_StandByEnabledCode = false;
 
     /* renamed from: E */
-    private boolean f4460E = false;
+    private boolean auxPowerSavingEnabled = false;
 
     /* renamed from: F */
-    private int f4461F = 1;
+    private int channelCode = 1;
 
     /* renamed from: b */
     public modelTypeEnum minirigType = modelTypeEnum.NO_MODEL;
@@ -73,34 +73,34 @@ public class minirigMainClass {
     private boolean f4476p = false;
 
     /* renamed from: q */
-    private boolean f4477q = false;
+    private boolean isInLockedMode = false;
 
     /* renamed from: r */
-    private boolean f4478r = false;
+    private boolean inactivitySwitchOff = false;
 
     /* renamed from: s */
-    private boolean f4479s = false;
+    private boolean isTonesEnabled = false;
 
     /* renamed from: t */
-    private boolean f4480t = false;
+    private boolean hasNightmode = false;
 
     /* renamed from: u */
-    private boolean f4481u = false;
+    private boolean hasSubEq = false;
 
     /* renamed from: v */
-    private boolean f4482v = false;
+    private boolean hasRightChannelActive = false;
 
     /* renamed from: w */
-    private boolean f4483w = false;
+    private boolean hasLeftChannelActive = false;
 
     /* renamed from: x */
-    private boolean f4484x = false;
+    private boolean hasAmplifierActive = false;
 
     /* renamed from: y */
-    private boolean f4485y = false;
+    private boolean hasJackInsertedTop = false;
 
     /* renamed from: z */
-    private boolean f4486z = false;
+    private boolean hasJackInsertedBottom = false;
 
     /* renamed from: com.minirig.android.a.g$a */
     public enum minirigModeEnum {
@@ -225,52 +225,52 @@ public class minirigMainClass {
                 parseGainCode(str.substring(17, 18));
             }
             if (str.length() >= 19) {
-                mo5528t(str.substring(18, 19));
+                parseTwsLockedCode(str.substring(18, 19));
             }
             if (str.length() >= 20) {
-                mo5530u(str.substring(19, 20));
+                inactivitySwitchOffCode(str.substring(19, 20));
             }
             if (str.length() >= 21) {
-                mo5532v(str.substring(20, 21));
+                parseTonesEnabledCode(str.substring(20, 21));
             }
             if (str.length() >= 22) {
-                mo5534w(str.substring(21, 22));
+                parseNightmodeCode(str.substring(21, 22));
             }
             if (str.length() >= 23) {
-                mo5536x(str.substring(22, 23));
+                parseSubEqMode(str.substring(22, 23));
             }
             if (str.length() >= 24) {
-                mo5538y(str.substring(23, 24));
+                parseRightChannelActiveCode(str.substring(23, 24));
             }
             if (str.length() >= 25) {
-                mo5539z(str.substring(24, 25));
+                parseLeftChannelActiveCode(str.substring(24, 25));
             }
             if (str.length() >= 26) {
-                mo5480A(str.substring(25, 26));
+                parseAmplifierActiveCode(str.substring(25, 26));
             }
             if (str.length() >= 27) {
-                mo5481B(str.substring(26, 27));
+                parseJackTopInsertedCode(str.substring(26, 27));
             }
             if (str.length() >= 28) {
-                mo5482C(str.substring(27, 28));
+                parseJackBottomInsertedCode(str.substring(27, 28));
             }
             if (str.length() >= 29) {
-                mo5483D(str.substring(28, 29));
+                parseIsBluetoothStreamingCode(str.substring(28, 29));
             }
             if (str.length() >= 30) {
-                mo5484E(str.substring(29, 30));
+                parseIsSingleButtonPressMediaControlCode(str.substring(29, 30));
             }
             if (str.length() >= 31) {
-                mo5485F(str.substring(30, 31));
+                parseIsDoubleButtonPressMediaControlCode(str.substring(30, 31));
             }
             if (str.length() >= 32) {
-                mo5486G(str.substring(31, 32));
+                parseBLE_StandByEnabledCode(str.substring(31, 32));
             }
             if (str.length() >= 33) {
-                mo5487H(str.substring(32, 33));
+                parseAuxPowerSavingMode(str.substring(32, 33));
             }
             if (str.length() >= 34) {
-                mo5488I(str.substring(33, 34));
+                parseChannelCode(str.substring(33, 34));
             }
             if (str.length() >= 35) {
                 mo5526s(str.substring(34, 35));
@@ -717,282 +717,282 @@ public class minirigMainClass {
     }
 
     /* renamed from: t */
-    public boolean mo5528t(String str) {
+    public boolean parseTwsLockedCode(String str) {
         if (str.equals("l")) {
-            this.f4477q = true;
+            this.isInLockedMode = true;
         } else if (str.equals(".")) {
-            this.f4477q = false;
+            this.isInLockedMode = false;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught TWS locked code '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4477q;
+        return this.isInLockedMode;
     }
 
     /* renamed from: l */
-    public boolean mo5512l() {
-        return this.f4477q;
+    public boolean getIsInLockedMode() {
+        return this.isInLockedMode;
     }
 
     /* renamed from: u */
-    public boolean mo5530u(String str) {
+    public boolean inactivitySwitchOffCode(String str) {
         if (str.equals("d")) {
-            this.f4478r = false;
+            this.inactivitySwitchOff = false;
         } else if (str.equals(".")) {
-            this.f4478r = true;
+            this.inactivitySwitchOff = true;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught Inactivity switch off code '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4478r;
+        return this.inactivitySwitchOff;
     }
 
     /* renamed from: m */
-    public boolean mo5514m() {
-        return this.f4478r;
+    public boolean getInactivitySwitchOff() {
+        return this.inactivitySwitchOff;
     }
 
     /* renamed from: v */
-    public boolean mo5532v(String str) {
+    public boolean parseTonesEnabledCode(String str) {
         if (str.equals("t")) {
-            this.f4479s = true;
+            this.isTonesEnabled = true;
         } else if (str.equals(".")) {
-            this.f4479s = false;
+            this.isTonesEnabled = false;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught Tones enabled code '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4479s;
+        return this.isTonesEnabled;
     }
 
     /* renamed from: n */
-    public boolean mo5515n() {
-        return this.f4479s;
+    public boolean getIsTonesEnabled() {
+        return this.isTonesEnabled;
     }
 
     /* renamed from: w */
-    public boolean mo5534w(String str) {
+    public boolean parseNightmodeCode(String str) {
         if (str.equals("n")) {
-            this.f4480t = true;
+            this.hasNightmode = true;
         } else if (str.equals(".")) {
-            this.f4480t = false;
+            this.hasNightmode = false;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught Night mode code '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4480t;
+        return this.hasNightmode;
     }
 
     /* renamed from: o */
-    public boolean mo5517o() {
-        return this.f4480t;
+    public boolean getHasNightmode() {
+        return this.hasNightmode;
     }
 
     /* renamed from: x */
-    public boolean mo5536x(String str) {
+    public boolean parseSubEqMode(String str) {
         if (str.equals("s")) {
-            this.f4481u = true;
+            this.hasSubEq = true;
         } else if (str.equals(".")) {
-            this.f4481u = false;
+            this.hasSubEq = false;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught Sub EQ mode code '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4481u;
+        return this.hasSubEq;
     }
 
     /* renamed from: y */
-    public boolean mo5538y(String str) {
+    public boolean parseRightChannelActiveCode(String str) {
         if (str.equals("R")) {
-            this.f4482v = true;
+            this.hasRightChannelActive = true;
         } else if (str.equals(".")) {
-            this.f4482v = false;
+            this.hasRightChannelActive = false;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught Right channel active code '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4482v;
+        return this.hasRightChannelActive;
     }
 
     /* renamed from: p */
-    public boolean mo5520p() {
-        return this.f4482v;
+    public boolean getHasRightChannelActive() {
+        return this.hasRightChannelActive;
     }
 
     /* renamed from: z */
-    public boolean mo5539z(String str) {
+    public boolean parseLeftChannelActiveCode(String str) {
         if (str.equals("L")) {
-            this.f4483w = true;
+            this.hasLeftChannelActive = true;
         } else if (str.equals(".")) {
-            this.f4483w = false;
+            this.hasLeftChannelActive = false;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught Left channel active code '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4483w;
+        return this.hasLeftChannelActive;
     }
 
     /* renamed from: q */
-    public boolean mo5521q() {
-        return this.f4483w;
+    public boolean getHasLeftChannelActive() {
+        return this.hasLeftChannelActive;
     }
 
     /* renamed from: A */
-    public boolean mo5480A(String str) {
+    public boolean parseAmplifierActiveCode(String str) {
         if (str.equals("A")) {
-            this.f4484x = true;
+            this.hasAmplifierActive = true;
         } else if (str.equals(".")) {
-            this.f4484x = false;
+            this.hasAmplifierActive = false;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught Amplifier active code '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4484x;
+        return this.hasAmplifierActive;
     }
 
     /* renamed from: r */
-    public boolean mo5524r() {
-        return this.f4484x;
+    public boolean getHasAmplifierActive() {
+        return this.hasAmplifierActive;
     }
 
     /* renamed from: B */
-    public boolean mo5481B(String str) {
+    public boolean parseJackTopInsertedCode(String str) {
         if (str.equals("J")) {
-            this.f4485y = true;
+            this.hasJackInsertedTop = true;
         } else if (str.equals(".")) {
-            this.f4485y = false;
+            this.hasJackInsertedTop = false;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught Jack top inserted code '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4485y;
+        return this.hasJackInsertedTop;
     }
 
     /* renamed from: s */
-    public boolean mo5525s() {
-        return this.f4485y;
+    public boolean getHasJackInsertedTop() {
+        return this.hasJackInsertedTop;
     }
 
     /* renamed from: C */
-    public boolean mo5482C(String str) {
+    public boolean parseJackBottomInsertedCode(String str) {
         if (str.equals("j")) {
-            this.f4486z = true;
+            this.hasJackInsertedBottom = true;
         } else if (str.equals(".")) {
-            this.f4486z = false;
+            this.hasJackInsertedBottom = false;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught Jack bottom inserted code '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4486z;
+        return this.hasJackInsertedBottom;
     }
 
     /* renamed from: t */
-    public boolean mo5527t() {
-        return this.f4486z;
+    public boolean getHasJackInsertedBottom() {
+        return this.hasJackInsertedBottom;
     }
 
     /* renamed from: D */
-    public boolean mo5483D(String str) {
+    public boolean parseIsBluetoothStreamingCode(String str) {
         if (str.equals("p")) {
-            this.f4456A = true;
+            this.isBluetoothStreaming = true;
         } else if (str.equals(".")) {
-            this.f4456A = false;
+            this.isBluetoothStreaming = false;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught is bluetooth streaming audio code '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4456A;
+        return this.isBluetoothStreaming;
     }
 
     /* renamed from: E */
-    public boolean mo5484E(String str) {
+    public boolean parseIsSingleButtonPressMediaControlCode(String str) {
         if (str.equals("}")) {
-            this.f4457B = true;
+            this.isSingleButtonPressMediaControl = true;
         } else if (str.equals(".")) {
-            this.f4457B = false;
+            this.isSingleButtonPressMediaControl = false;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught is single button press media control code '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4457B;
+        return this.isSingleButtonPressMediaControl;
     }
 
     /* renamed from: u */
-    public boolean mo5529u() {
-        return this.f4457B;
+    public boolean getIsSingleButtonPressMediaControl() {
+        return this.isSingleButtonPressMediaControl;
     }
 
     /* renamed from: F */
-    public boolean mo5485F(String str) {
+    public boolean parseIsDoubleButtonPressMediaControlCode(String str) {
         if (str.equals(")")) {
-            this.f4458C = true;
+            this.isDoubleButtonPressMediaControlCode = true;
         } else if (str.equals(".")) {
-            this.f4458C = false;
+            this.isDoubleButtonPressMediaControlCode = false;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught is double button press media control code '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4458C;
+        return this.isDoubleButtonPressMediaControlCode;
     }
 
     /* renamed from: v */
-    public boolean mo5531v() {
-        return this.f4458C;
+    public boolean getIsDoubleButtonPressMediaControlCode() {
+        return this.isDoubleButtonPressMediaControlCode;
     }
 
     /* renamed from: G */
-    public boolean mo5486G(String str) {
+    public boolean parseBLE_StandByEnabledCode(String str) {
         if (str.equals("]")) {
-            this.f4459D = true;
+            this.hasBLE_StandByEnabledCode = true;
         } else if (str.equals(".")) {
-            this.f4459D = false;
+            this.hasBLE_StandByEnabledCode = false;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught BLE stand by enabled code '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4459D;
+        return this.hasBLE_StandByEnabledCode;
     }
 
     /* renamed from: w */
-    public boolean mo5533w() {
-        return this.f4459D;
+    public boolean getHasBLE_StandByEnabledCode() {
+        return this.hasBLE_StandByEnabledCode;
     }
 
     /* renamed from: H */
-    public boolean mo5487H(String str) {
+    public boolean parseAuxPowerSavingMode(String str) {
         if (str.equals("S")) {
-            this.f4460E = true;
+            this.auxPowerSavingEnabled = true;
         } else if (str.equals(".")) {
-            this.f4460E = false;
+            this.auxPowerSavingEnabled = false;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught AUX power saving code '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4460E;
+        return this.auxPowerSavingEnabled;
     }
 
     /* renamed from: x */
-    public boolean mo5535x() {
-        return this.f4460E;
+    public boolean getAuxPowerSavingEnabled() {
+        return this.auxPowerSavingEnabled;
     }
 
     /* renamed from: I */
-    public int mo5488I(String str) {
+    public int parseChannelCode(String str) {
         if (str.equals("1")) {
-            this.f4461F = 1;
+            this.channelCode = 1;
         } else if (str.equals("2")) {
-            this.f4461F = 2;
+            this.channelCode = 2;
         } else if (str.equals("3")) {
-            this.f4461F = 3;
+            this.channelCode = 3;
         } else if (this.isInErrorMode) {
             PrintStream printStream = System.err;
             printStream.println("ERROR: Uncaught Channel '" + str + "' | IN " + f4455a + " LINE " + new Throwable().getStackTrace()[0].getLineNumber());
         }
-        return this.f4461F;
+        return this.channelCode;
     }
 
     /* renamed from: y */
-    public int mo5537y() {
-        return this.f4461F;
+    public int getChannelCode() {
+        return this.channelCode;
     }
 }

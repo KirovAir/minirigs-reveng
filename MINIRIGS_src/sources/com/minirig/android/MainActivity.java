@@ -73,7 +73,7 @@ import com.minirig.android.custom.VerticalSeekBar;
 import com.minirig.android.p048a.C1226a;
 import com.minirig.android.p048a.C1229d;
 import com.minirig.android.p048a.C1230e;
-import com.minirig.android.p048a.minirigMainClass;
+import com.minirig.android.p048a.minirigStatusClass;
 import com.minirig.android.p049b.C1244b;
 import com.minirig.android.p049b.C1246d;
 import com.minirig.android.p049b.C1250e;
@@ -1426,31 +1426,31 @@ public class MainActivity extends C0670c {
         int time = (int) ((new Date().getTime() - this.f3989O.getTime()) / 1000);
         this.f3989O = new Date();
         if (this.f4214k.f3964j.f4685f != null) {
-            if (this.f4214k.f3959e.minirigAudioModef4463c.equals(minirigMainClass.minirigModeEnum.MONO)) {
+            if (this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.MONO)) {
                 if (this.f4214k.f3964j.f4685f != null) {
                     this.f4214k.f3964j.f4685f.f4705S += time;
                 }
-            } else if (this.f4214k.f3959e.minirigAudioModef4463c.equals(minirigMainClass.minirigModeEnum.MONO_MIC)) {
+            } else if (this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.MONO_MIC)) {
                 if (this.f4214k.f3964j.f4685f != null) {
                     this.f4214k.f3964j.f4685f.f4699M += time;
                 }
-            } else if (this.f4214k.f3959e.minirigAudioModef4463c.equals(minirigMainClass.minirigModeEnum.MONO_SUB)) {
+            } else if (this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.MONO_SUB)) {
                 if (this.f4214k.f3964j.f4685f != null) {
                     this.f4214k.f3964j.f4685f.f4700N += time;
                 }
-            } else if (this.f4214k.f3959e.minirigAudioModef4463c.equals(minirigMainClass.minirigModeEnum.STEREO_AUX)) {
+            } else if (this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.STEREO_AUX)) {
                 if (this.f4214k.f3964j.f4685f != null) {
                     this.f4214k.f3964j.f4685f.f4701O += time;
                 }
-            } else if (this.f4214k.f3959e.minirigAudioModef4463c.equals(minirigMainClass.minirigModeEnum.STEREO_ONE_SUB)) {
+            } else if (this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.STEREO_ONE_SUB)) {
                 if (this.f4214k.f3964j.f4685f != null) {
                     this.f4214k.f3964j.f4685f.f4702P += time;
                 }
-            } else if (this.f4214k.f3959e.minirigAudioModef4463c.equals(minirigMainClass.minirigModeEnum.STEREO_TWO_SUBS)) {
+            } else if (this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.STEREO_TWO_SUBS)) {
                 if (this.f4214k.f3964j.f4685f != null) {
                     this.f4214k.f3964j.f4685f.f4703Q += time;
                 }
-            } else if (this.f4214k.f3959e.minirigAudioModef4463c.equals(minirigMainClass.minirigModeEnum.MONO_LINK) && this.f4214k.f3964j.f4685f != null) {
+            } else if (this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.MONO_LINK) && this.f4214k.f3964j.f4685f != null) {
                 this.f4214k.f3964j.f4685f.f4704R += time;
             }
         }
@@ -1836,7 +1836,7 @@ public class MainActivity extends C0670c {
             public void run() {
                 String str;
                 String str2 = "";
-                if (MainActivity.this.f4214k.f3959e.powerStatef4468h == minirigMainClass.powerStateEnum.CHARGING) {
+                if (MainActivity.this.f4214k.minirigf3.powerStatef4468h == minirigStatusClass.powerStateEnum.CHARGING) {
                     str2 = "ON CHARGE - ";
                 }
                 if (i < 20) {
@@ -1856,27 +1856,27 @@ public class MainActivity extends C0670c {
     private void m5809aa() {
         runOnUiThread(new Runnable() {
             public void run() {
-                if (MainActivity.this.f4214k.f3959e.ledColorf4469i == minirigMainClass.anotherledColorEnum.GREEN) {
+                if (MainActivity.this.f4214k.minirigf3.ledColorf4469i == minirigStatusClass.anotherledColorEnum.GREEN) {
                     MainActivity.this.f3994T.setBackgroundResource(R.drawable.battery_very_high);
                     MainActivity.this.f3993S.setBackgroundResource(R.drawable.battery_very_high);
                     MainActivity.this.f3994T.setTextColor(-7829368);
                     MainActivity.this.f3993S.setTextColor(-7829368);
-                } else if (MainActivity.this.f4214k.f3959e.ledColorf4469i == minirigMainClass.anotherledColorEnum.CYAN) {
+                } else if (MainActivity.this.f4214k.minirigf3.ledColorf4469i == minirigStatusClass.anotherledColorEnum.CYAN) {
                     MainActivity.this.f3994T.setBackgroundResource(R.drawable.battery_high);
                     MainActivity.this.f3993S.setBackgroundResource(R.drawable.battery_high);
                     MainActivity.this.f3994T.setTextColor(-7829368);
                     MainActivity.this.f3993S.setTextColor(-7829368);
-                } else if (MainActivity.this.f4214k.f3959e.ledColorf4469i == minirigMainClass.anotherledColorEnum.BLUE) {
+                } else if (MainActivity.this.f4214k.minirigf3.ledColorf4469i == minirigStatusClass.anotherledColorEnum.BLUE) {
                     MainActivity.this.f3994T.setBackgroundResource(R.drawable.battery_medium);
                     MainActivity.this.f3993S.setBackgroundResource(R.drawable.battery_medium);
                     MainActivity.this.f3994T.setTextColor(-1);
                     MainActivity.this.f3993S.setTextColor(-1);
-                } else if (MainActivity.this.f4214k.f3959e.ledColorf4469i == minirigMainClass.anotherledColorEnum.PURPLE) {
+                } else if (MainActivity.this.f4214k.minirigf3.ledColorf4469i == minirigStatusClass.anotherledColorEnum.PURPLE) {
                     MainActivity.this.f3994T.setBackgroundResource(R.drawable.battery_low);
                     MainActivity.this.f3993S.setBackgroundResource(R.drawable.battery_low);
                     MainActivity.this.f3994T.setTextColor(-1);
                     MainActivity.this.f3993S.setTextColor(-1);
-                } else if (MainActivity.this.f4214k.f3959e.ledColorf4469i == minirigMainClass.anotherledColorEnum.RED) {
+                } else if (MainActivity.this.f4214k.minirigf3.ledColorf4469i == minirigStatusClass.anotherledColorEnum.RED) {
                     MainActivity.this.f3994T.setBackgroundResource(R.drawable.battery_very_low);
                     MainActivity.this.f3993S.setBackgroundResource(R.drawable.battery_very_low);
                     MainActivity.this.f3994T.setTextColor(-1);
@@ -1890,12 +1890,12 @@ public class MainActivity extends C0670c {
     private void m5811ab() {
         runOnUiThread(new Runnable() {
             public void run() {
-                if (MainActivity.this.f4214k.f3959e.powerStatef4468h == minirigMainClass.powerStateEnum.CHARGING) {
+                if (MainActivity.this.f4214k.minirigf3.powerStatef4468h == minirigStatusClass.powerStateEnum.CHARGING) {
                     MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "      CHARGING");
                     MainActivity.this.f3994T.startAnimation(MainActivity.this.f4148cr);
                     MainActivity.this.f3993S.clearAnimation();
                     MainActivity.this.f3993S.setText("Power out");
-                } else if (MainActivity.this.f4214k.f3959e.powerStatef4468h == minirigMainClass.powerStateEnum.POWER_OUT) {
+                } else if (MainActivity.this.f4214k.minirigf3.powerStatef4468h == minirigStatusClass.powerStateEnum.POWER_OUT) {
                     MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "      POWER_OUT");
                     MainActivity.this.f3994T.clearAnimation();
                     MainActivity.this.f3993S.startAnimation(MainActivity.this.f4147cq);
@@ -1970,7 +1970,7 @@ public class MainActivity extends C0670c {
                             MainActivity mainActivity3 = MainActivity.this;
                             mainActivity3.sendCommand(mainActivity3.f4214k.f3958d.mo5467a("09", Integer.parseInt(MainActivity.this.f4119cO)), MainActivity.this.f4214k.f3958d.f4394a);
                         }
-                        if (MainActivity.this.f4214k.f3966l != null && MainActivity.this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG2) {
+                        if (MainActivity.this.f4214k.f3966l != null && MainActivity.this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2) {
                             MainActivity.this.sendCommand("Z", "MUTE_1");
                         }
                         MainActivity.this.sendCommand("F", "MUTE_2");
@@ -1981,7 +1981,7 @@ public class MainActivity extends C0670c {
                     } else {
                         if (MainActivity.this.f4033ag) {
                             if (MainActivity.this.mo5284r()) {
-                                if (MainActivity.this.f4214k.f3966l != null && MainActivity.this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG2) {
+                                if (MainActivity.this.f4214k.f3966l != null && MainActivity.this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2) {
                                     MainActivity.this.sendCommand("Y", "UNMUTE_1");
                                 }
                                 MainActivity.this.sendCommand("A", "UNMUTE_2");
@@ -2240,12 +2240,12 @@ public class MainActivity extends C0670c {
             }
             sendCommand("q p 00 50", "GET_EQ");
         } else {
-            if (this.f4214k.f3959e.mo5507j() == 3) {
+            if (this.f4214k.minirigf3.mo5507j() == 3) {
                 sendCommand("7", "HIGH_GAIN");
-            } else if (this.f4214k.f3959e.mo5507j() == 7) {
+            } else if (this.f4214k.minirigf3.mo5507j() == 7) {
                 sendCommand("3", "LOW_GAIN");
             } else {
-                Log.d(f3974m, "!-!  Could not change gain  !-! UNKNOWN GAIN: " + this.f4214k.f3959e.mo5507j());
+                Log.d(f3974m, "!-!  Could not change gain  !-! UNKNOWN GAIN: " + this.f4214k.minirigf3.mo5507j());
             }
             sendCommand("x", "GET_STATUS");
         }
@@ -2274,7 +2274,7 @@ public class MainActivity extends C0670c {
     /* renamed from: al */
     private void m5831al() {
         if (!mo5284r()) {
-            if (this.f4214k.f3966l != null && this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG2) {
+            if (this.f4214k.f3966l != null && this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2) {
                 sendCommand("Z", "MUTE_1");
             }
             sendCommand("F", "MUTE_2");
@@ -2291,7 +2291,7 @@ public class MainActivity extends C0670c {
     /* renamed from: am */
     public void m5833am() {
         if (!mo5284r()) {
-            if (this.f4214k.f3966l != null && this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG2) {
+            if (this.f4214k.f3966l != null && this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2) {
                 sendCommand("Y", "UNMUTE_1");
             }
             sendCommand("A", "UNMUTE_2");
@@ -2343,9 +2343,9 @@ public class MainActivity extends C0670c {
             setView(this.f4046at);
             return;
         }
-        if (this.f4214k.f3966l != null && this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG3) {
+        if (this.f4214k.f3966l != null && this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
             setView(this.f4046at);
-        } else if (this.f4214k.f3959e.twsConnectionStatef4466f == minirigMainClass.twsConnectionStateEnum.CONNECTED_AS_SLAVE || this.f4214k.f3959e.twsConnectionStatef4466f == minirigMainClass.twsConnectionStateEnum.CONNECTED_AS_MASTER || this.f4214k.f3959e.twsConnectionStatef4466f == minirigMainClass.twsConnectionStateEnum.CONNECTED_UNKNOWN) {
+        } else if (this.f4214k.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_SLAVE || this.f4214k.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_MASTER || this.f4214k.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_UNKNOWN) {
             mo5281p();
         } else {
             this.f4031ae = true;
@@ -2377,18 +2377,18 @@ public class MainActivity extends C0670c {
             setView(this.f4009aI);
         } else if (this.f4214k.f3966l == null) {
             setView(this.f4136cf);
-        } else if (this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI2) {
+        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2) {
             setView(this.f4079ba);
-        } else if (this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG3) {
+        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
             if (mo5284r()) {
                 this.f4215l.mo5543a(getResources().getString(R.string.helpEQTitle), getResources().getString(R.string.helpEQBody));
                 setView(this.f4009aI);
                 return;
             }
             setView(this.f4079ba);
-        } else if (this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG2) {
+        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2) {
             setView(this.f4090bl);
-        } else if (this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG1) {
+        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG1) {
             mo5246b("Feature unavailable", getResources().getString(R.string.feature_unavailable));
         }
     }
@@ -2457,14 +2457,14 @@ public class MainActivity extends C0670c {
             } else {
                 this.f4156cz.setImageResource(R.drawable.high_gain_button);
             }
-        } else if (this.f4214k.f3959e.mo5507j() == 7) {
+        } else if (this.f4214k.minirigf3.mo5507j() == 7) {
             this.f4156cz.setImageResource(R.drawable.high_gain_button);
-        } else if (this.f4214k.f3959e.mo5507j() == 3) {
+        } else if (this.f4214k.minirigf3.mo5507j() == 3) {
             this.f4156cz.setImageResource(R.drawable.low_gain_button);
         } else {
             GlobalApplication globalApplication = this.f4214k;
             String str = f3974m;
-            globalApplication.mo5229a(str, "!-!  Uncaught  !-! GAIN SET TO: " + this.f4214k.f3959e.mo5507j());
+            globalApplication.mo5229a(str, "!-!  Uncaught  !-! GAIN SET TO: " + this.f4214k.minirigf3.mo5507j());
         }
     }
 
@@ -2477,7 +2477,7 @@ public class MainActivity extends C0670c {
             } else {
                 this.f4105cA.setImageResource(R.drawable.mute_button);
             }
-        } else if (!this.f4214k.f3959e.mo5524r()) {
+        } else if (!this.f4214k.minirigf3.getHasAmplifierActive()) {
             this.f4105cA.setImageResource(R.drawable.mute_button);
         } else {
             this.f4105cA.setImageResource(R.drawable.unmute_button);
@@ -2487,7 +2487,7 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: ar */
     public void m5843ar() {
-        if (this.f4214k.f3959e.twsConnectionStatef4466f == minirigMainClass.twsConnectionStateEnum.CONNECTED_AS_SLAVE || this.f4214k.f3959e.twsConnectionStatef4466f == minirigMainClass.twsConnectionStateEnum.CONNECTED_AS_MASTER || this.f4214k.f3959e.twsConnectionStatef4466f == minirigMainClass.twsConnectionStateEnum.CONNECTED_UNKNOWN || this.f4214k.f3959e.broadcastStatef4467g != minirigMainClass.broadcastStateEnum.NO_BROADCAST) {
+        if (this.f4214k.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_SLAVE || this.f4214k.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_MASTER || this.f4214k.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_UNKNOWN || this.f4214k.minirigf3.broadcastStatef4467g != minirigStatusClass.broadcastStateEnum.NO_BROADCAST) {
             this.f4106cB.setImageResource(R.drawable.tws_paired_button);
             this.f4106cB.setImageResource(R.drawable.tws_paired_button);
             return;
@@ -2498,7 +2498,7 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: as */
     public void m5845as() {
-        if (this.f4214k.f3959e.mo5537y() == 1) {
+        if (this.f4214k.minirigf3.getChannelCode() == 1) {
             this.f4107cC.setImageResource(R.drawable.a_phone_button);
         } else {
             this.f4107cC.setImageResource(R.drawable.b_phone_button);
@@ -2520,7 +2520,7 @@ public class MainActivity extends C0670c {
         if (this.f4042ap) {
             runOnUiThread(new Runnable() {
                 public void run() {
-                    if (MainActivity.this.f4214k.f3959e.isTwsConnected()) {
+                    if (MainActivity.this.f4214k.minirigf3.isTwsConnected()) {
                         MainActivity.this.f4039am.setImageResource(R.drawable.stereo_with_one_sub);
                         MainActivity.this.f4041ao.setImageResource(R.drawable.mono_link_mode);
                         MainActivity.this.f4038al.setVisibility(0);
@@ -2532,11 +2532,11 @@ public class MainActivity extends C0670c {
                     MainActivity.this.f4039am.setBackgroundResource(R.drawable.device_list_selector);
                     MainActivity.this.f4040an.setBackgroundResource(R.drawable.device_list_selector);
                     MainActivity.this.f4041ao.setBackgroundResource(R.drawable.device_list_selector);
-                    if (!MainActivity.this.f4214k.f3959e.isTwsConnected()) {
-                        if (!MainActivity.this.f4214k.f3959e.mo5525s() && !MainActivity.this.f4214k.f3959e.mo5527t()) {
+                    if (!MainActivity.this.f4214k.minirigf3.isTwsConnected()) {
+                        if (!MainActivity.this.f4214k.minirigf3.getHasJackInsertedTop() && !MainActivity.this.f4214k.minirigf3.getHasJackInsertedBottom()) {
                             return;
                         }
-                        if (!MainActivity.this.f4214k.f3959e.mo5521q() || !MainActivity.this.f4214k.f3959e.mo5520p()) {
+                        if (!MainActivity.this.f4214k.minirigf3.getHasLeftChannelActive() || !MainActivity.this.f4214k.minirigf3.getHasRightChannelActive()) {
                             MainActivity.this.f4039am.setBackgroundResource(R.drawable.bg_device_list_selected);
                         } else {
                             MainActivity.this.f4041ao.setBackgroundResource(R.drawable.bg_device_list_selected);
@@ -2561,7 +2561,7 @@ public class MainActivity extends C0670c {
     private void m5850av() {
         if (!m5792aO()) {
             String str = "The Minirigs will play in stereo but with reduced volume to match the output of the single subwoofer.";
-            if (!this.f4214k.f3959e.isTwsConnected()) {
+            if (!this.f4214k.minirigf3.isTwsConnected()) {
                 str = "This will allow you to Bluetooth to one of your Minirigs and use a cable to the other whilst keeping them in stereo.";
             }
             new AlertDialog.Builder(this).setTitle("Change audio configuration?").setMessage(str).setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -2594,7 +2594,7 @@ public class MainActivity extends C0670c {
     /* renamed from: ax */
     private void m5855ax() {
         String str = "The Minirigs will play in mono at full volume. Useful for playing music in different rooms and for large link ups.";
-        if (!this.f4214k.f3959e.isTwsConnected()) {
+        if (!this.f4214k.minirigf3.isTwsConnected()) {
             str = "This will put your Minirig & subwoofer into mono.";
         }
         new AlertDialog.Builder(this).setTitle("Change audio configuration?").setMessage(str).setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -2635,18 +2635,18 @@ public class MainActivity extends C0670c {
     public void clickedBroadcastOption(View view) {
         if (view.getTag() != null) {
             if (view.getTag().equals("broadcastStandAlone")) {
-                if (this.f4214k.f3959e.broadcastStatef4467g != minirigMainClass.broadcastStateEnum.NO_BROADCAST) {
+                if (this.f4214k.minirigf3.broadcastStatef4467g != minirigStatusClass.broadcastStateEnum.NO_BROADCAST) {
                     m5858az();
-                } else if (this.f4214k.f3959e.isTwsConnected() || this.f4214k.f3959e.isTwsScanning()) {
+                } else if (this.f4214k.minirigf3.isTwsConnected() || this.f4214k.minirigf3.isTwsScanning()) {
                     sendCommand("J", "J");
                 }
             } else if (view.getTag().equals("broadcastWirelessStereo")) {
                 m5763aA();
             } else if (!view.getTag().equals("broadcastLinkUp")) {
             } else {
-                if (this.f4214k.f3959e.mo5502g()) {
+                if (this.f4214k.minirigf3.mo5502g()) {
                     setView(this.f4002aB);
-                } else if (this.f4214k.f3959e.mo5496d() || this.f4214k.f3959e.mo5494c()) {
+                } else if (this.f4214k.minirigf3.mo5496d() || this.f4214k.minirigf3.mo5494c()) {
                     setView(this.f4001aA);
                 } else {
                     m5765aB();
@@ -2764,8 +2764,8 @@ public class MainActivity extends C0670c {
     public void clickedBroadcastStartOption(View view) {
         if (view.getTag() != null) {
             if (view.getTag().equals("start")) {
-                if (!this.f4214k.f3959e.mo5496d()) {
-                    if (!this.f4214k.f3959e.mo5494c()) {
+                if (!this.f4214k.minirigf3.mo5496d()) {
+                    if (!this.f4214k.minirigf3.mo5494c()) {
                         setView(this.f3996V);
                     }
                     m5776aG();
@@ -2781,7 +2781,7 @@ public class MainActivity extends C0670c {
     public void clickedBroadcastJoinOption(View view) {
         if (view.getTag() != null) {
             if (view.getTag().equals("join")) {
-                if (!this.f4214k.f3959e.mo5502g()) {
+                if (!this.f4214k.minirigf3.mo5502g()) {
                     setView(this.f3996V);
                 }
                 joinLinkup();
@@ -2795,10 +2795,10 @@ public class MainActivity extends C0670c {
     /* renamed from: aG */
     public void m5776aG() {
         sendCommand("H", "BROADCAST_START");
-        if (!this.f4214k.f3959e.mo5494c() && !this.f4214k.f3959e.mo5496d()) {
+        if (!this.f4214k.minirigf3.mo5494c() && !this.f4214k.minirigf3.mo5496d()) {
             this.f4043aq = true;
         }
-        this.f4214k.f3959e.broadcastStatef4467g = minirigMainClass.broadcastStateEnum.TX_PAIRING_MUSIC_OFF;
+        this.f4214k.minirigf3.broadcastStatef4467g = minirigStatusClass.broadcastStateEnum.TX_PAIRING_MUSIC_OFF;
         mo5283q();
     }
 
@@ -2815,10 +2815,10 @@ public class MainActivity extends C0670c {
     /* renamed from: aI */
     public void joinLinkup() {
         sendCommand("I", "BROADCAST_JOIN");
-        if (!this.f4214k.f3959e.mo5502g()) {
+        if (!this.f4214k.minirigf3.mo5502g()) {
             this.f4043aq = true;
         }
-        this.f4214k.f3959e.broadcastStatef4467g = minirigMainClass.broadcastStateEnum.RX_SEARCHING;
+        this.f4214k.minirigf3.broadcastStatef4467g = minirigStatusClass.broadcastStateEnum.RX_SEARCHING;
         mo5283q();
     }
 
@@ -2846,7 +2846,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: aK */
     private void m5784aK() {
-        if (this.f4214k.f3959e.twsConnectionStatef4466f != minirigMainClass.twsConnectionStateEnum.NO_TWS && this.f4214k.f3959e.twsConnectionStatef4466f != minirigMainClass.twsConnectionStateEnum.CONNECTED_AS_MASTER && this.f4214k.f3959e.twsConnectionStatef4466f != minirigMainClass.twsConnectionStateEnum.CONNECTED_AS_SLAVE && this.f4214k.f3959e.twsConnectionStatef4466f != minirigMainClass.twsConnectionStateEnum.CONNECTED_UNKNOWN) {
+        if (this.f4214k.minirigf3.twsConnectionStatef4466f != minirigStatusClass.twsConnectionStateEnum.NO_TWS && this.f4214k.minirigf3.twsConnectionStatef4466f != minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_MASTER && this.f4214k.minirigf3.twsConnectionStatef4466f != minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_SLAVE && this.f4214k.minirigf3.twsConnectionStatef4466f != minirigStatusClass.twsConnectionStateEnum.CONNECTED_UNKNOWN) {
             return;
         }
         if (this.f4214k.f3966l == null || this.f4214k.f3966l.f4406h != "MRBT3") {
@@ -2896,28 +2896,28 @@ public class MainActivity extends C0670c {
                 MainActivity.this.f4004aD.setBackgroundResource(R.drawable.device_list_selector);
                 GlobalApplication globalApplication = MainActivity.this.f4214k;
                 String str = MainActivity.f3974m;
-                globalApplication.mo5229a(str, "Broadcast state: " + MainActivity.this.f4214k.f3959e.broadcastStatef4467g.toString());
-                if (MainActivity.this.f4214k.f3959e.broadcastStatef4467g != minirigMainClass.broadcastStateEnum.NO_BROADCAST) {
+                globalApplication.mo5229a(str, "Broadcast state: " + MainActivity.this.f4214k.minirigf3.broadcastStatef4467g.toString());
+                if (MainActivity.this.f4214k.minirigf3.broadcastStatef4467g != minirigStatusClass.broadcastStateEnum.NO_BROADCAST) {
                     MainActivity.this.f4049aw.setBackgroundResource(R.drawable.bg_device_list_selected);
                     z = false;
                 } else {
                     z = true;
                 }
-                if (MainActivity.this.f4214k.f3959e.isTwsScanning()) {
+                if (MainActivity.this.f4214k.minirigf3.isTwsScanning()) {
                     MainActivity mainActivity = MainActivity.this;
                     mainActivity.m5746a(mainActivity.f4048av);
-                } else if (MainActivity.this.f4214k.f3959e.isTwsConnected()) {
+                } else if (MainActivity.this.f4214k.minirigf3.isTwsConnected()) {
                     MainActivity.this.f4048av.setBackgroundResource(R.drawable.bg_device_list_selected);
                     z = false;
                 }
-                if (MainActivity.this.f4214k.f3959e.mo5496d()) {
+                if (MainActivity.this.f4214k.minirigf3.mo5496d()) {
                     MainActivity mainActivity2 = MainActivity.this;
                     mainActivity2.m5746a(mainActivity2.f4003aC);
                 }
-                if (MainActivity.this.f4214k.f3959e.mo5498e()) {
+                if (MainActivity.this.f4214k.minirigf3.mo5498e()) {
                     MainActivity mainActivity3 = MainActivity.this;
                     mainActivity3.m5746a(mainActivity3.f4004aD);
-                } else if (MainActivity.this.f4214k.f3959e.mo5500f()) {
+                } else if (MainActivity.this.f4214k.minirigf3.mo5500f()) {
                     MainActivity.this.f4004aD.setBackgroundResource(R.drawable.bg_device_list_selected);
                 }
                 if (z) {
@@ -2981,7 +2981,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: r */
     public boolean mo5284r() {
-        if (this.f4214k.f3966l != null && this.f4214k.f3959e.minirigType == minirigMainClass.modelTypeEnum.MINIRIG3 && Integer.parseInt(this.f4214k.f3966l.f4407i) >= 15) {
+        if (this.f4214k.f3966l != null && this.f4214k.minirigf3.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3 && Integer.parseInt(this.f4214k.f3966l.f4407i) >= 15) {
             return true;
         }
         String str = this.f4162dF;
@@ -3067,7 +3067,7 @@ public class MainActivity extends C0670c {
         if (this.f4016aP) {
             runOnUiThread(new Runnable() {
                 public void run() {
-                    if (!MainActivity.this.f4214k.f3959e.isTwsConnected()) {
+                    if (!MainActivity.this.f4214k.minirigf3.isTwsConnected()) {
                         MainActivity.this.f4012aL.setImageResource(R.drawable.config_mono);
                         MainActivity.this.f4013aM.setImageResource(R.drawable.config_mono_sub);
                         MainActivity.this.f4014aN.setImageResource(R.drawable.config_stereo_aux);
@@ -3083,51 +3083,51 @@ public class MainActivity extends C0670c {
                     MainActivity.this.f4013aM.setBackgroundResource(R.drawable.device_list_selector);
                     MainActivity.this.f4014aN.setBackgroundResource(R.drawable.device_list_selector);
                     MainActivity.this.f4015aO.setBackgroundResource(R.drawable.device_list_selector);
-                    if (MainActivity.this.f4214k.f3959e.isTwsConnected()) {
+                    if (MainActivity.this.f4214k.minirigf3.isTwsConnected()) {
                         if (!MainActivity.this.f4017aQ) {
-                            MainActivity.this.f4214k.f3959e.minirigAudioModef4463c = minirigMainClass.minirigModeEnum.MONO_LINK;
+                            MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO_LINK;
                             MainActivity.this.f4014aN.setBackgroundResource(R.drawable.bg_device_list_selected);
                         } else if (MainActivity.this.f4123cS == 0) {
                             if (MainActivity.this.f4188df <= 7) {
-                                MainActivity.this.f4214k.f3959e.minirigAudioModef4463c = minirigMainClass.minirigModeEnum.STEREO_TWO_SUBS;
+                                MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.STEREO_TWO_SUBS;
                                 MainActivity.this.f4012aL.setBackgroundResource(R.drawable.bg_device_list_selected);
                                 return;
                             }
-                            MainActivity.this.f4214k.f3959e.minirigAudioModef4463c = minirigMainClass.minirigModeEnum.STEREO_ONE_SUB;
+                            MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.STEREO_ONE_SUB;
                             MainActivity.this.f4013aM.setBackgroundResource(R.drawable.bg_device_list_selected);
                         } else if (MainActivity.this.f4123cS == 1) {
-                            MainActivity.this.f4214k.f3959e.minirigAudioModef4463c = minirigMainClass.minirigModeEnum.STEREO_ONE_SUB;
+                            MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.STEREO_ONE_SUB;
                             MainActivity.this.f4012aL.setBackgroundResource(R.drawable.bg_device_list_selected);
                         } else {
-                            MainActivity.this.f4214k.f3959e.minirigAudioModef4463c = minirigMainClass.minirigModeEnum.STEREO_TWO_SUBS;
+                            MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.STEREO_TWO_SUBS;
                             MainActivity.this.f4013aM.setBackgroundResource(R.drawable.bg_device_list_selected);
                         }
                     } else if (MainActivity.this.f4187de) {
-                        MainActivity.this.f4214k.f3959e.minirigAudioModef4463c = minirigMainClass.minirigModeEnum.MONO_MIC;
+                        MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO_MIC;
                         MainActivity.this.f4015aO.setBackgroundResource(R.drawable.bg_device_list_selected);
-                    } else if (!MainActivity.this.f4214k.f3959e.mo5521q() || !MainActivity.this.f4214k.f3959e.mo5520p()) {
-                        MainActivity.this.f4214k.f3959e.minirigAudioModef4463c = minirigMainClass.minirigModeEnum.STEREO_AUX;
+                    } else if (!MainActivity.this.f4214k.minirigf3.getHasLeftChannelActive() || !MainActivity.this.f4214k.minirigf3.getHasRightChannelActive()) {
+                        MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.STEREO_AUX;
                         MainActivity.this.f4014aN.setBackgroundResource(R.drawable.bg_device_list_selected);
                     } else {
                         MainActivity mainActivity = MainActivity.this;
                         if (mainActivity.m5868b(mainActivity.f4083be)) {
-                            MainActivity.this.f4214k.f3959e.minirigAudioModef4463c = minirigMainClass.minirigModeEnum.MONO_SUB;
+                            MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO_SUB;
                             MainActivity.this.f4013aM.setBackgroundResource(R.drawable.bg_device_list_selected);
                             return;
                         }
                         MainActivity mainActivity2 = MainActivity.this;
                         if (mainActivity2.m5868b(mainActivity2.f4086bh)) {
-                            MainActivity.this.f4214k.f3959e.minirigAudioModef4463c = minirigMainClass.minirigModeEnum.MONO_SUB;
+                            MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO_SUB;
                             MainActivity.this.f4013aM.setBackgroundResource(R.drawable.bg_device_list_selected);
                             return;
                         }
                         MainActivity mainActivity3 = MainActivity.this;
                         if (mainActivity3.m5868b(mainActivity3.f4088bj)) {
-                            MainActivity.this.f4214k.f3959e.minirigAudioModef4463c = minirigMainClass.minirigModeEnum.MONO_SUB;
+                            MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO_SUB;
                             MainActivity.this.f4013aM.setBackgroundResource(R.drawable.bg_device_list_selected);
                             return;
                         }
-                        MainActivity.this.f4214k.f3959e.minirigAudioModef4463c = minirigMainClass.minirigModeEnum.MONO;
+                        MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO;
                         MainActivity.this.f4012aL.setBackgroundResource(R.drawable.bg_device_list_selected);
                     }
                 }
@@ -3137,7 +3137,7 @@ public class MainActivity extends C0670c {
 
     public void clickedEqConfig(View view) {
         if (view.getTag().equals("eqConfig1")) {
-            if (this.f4214k.f3966l == null || !this.f4214k.f3959e.isTwsConnected()) {
+            if (this.f4214k.f3966l == null || !this.f4214k.minirigf3.isTwsConnected()) {
                 this.f4186dd = 8;
                 if (this.f4214k.f3964j.f4685f != null) {
                     this.f4214k.f3964j.f4685f.f4708V++;
@@ -3158,7 +3158,7 @@ public class MainActivity extends C0670c {
                 this.f4215l.mo5543a(getResources().getString(R.string.helpAcStereo1SubTitle), getResources().getString(R.string.helpAcStereo1SubBody));
             }
         } else if (view.getTag().equals("eqConfig2")) {
-            if (this.f4214k.f3966l != null && this.f4214k.f3959e.isTwsConnected()) {
+            if (this.f4214k.f3966l != null && this.f4214k.minirigf3.isTwsConnected()) {
                 this.f4186dd = 5;
                 if (this.f4214k.f3964j.f4685f != null) {
                     this.f4214k.f3964j.f4685f.f4715ab++;
@@ -3181,7 +3181,7 @@ public class MainActivity extends C0670c {
                 return;
             }
         } else if (view.getTag().equals("eqConfig3")) {
-            if (this.f4214k.f3966l != null && this.f4214k.f3959e.isTwsConnected()) {
+            if (this.f4214k.f3966l != null && this.f4214k.minirigf3.isTwsConnected()) {
                 this.f4186dd = 6;
                 if (this.f4214k.f3964j.f4685f != null) {
                     this.f4214k.f3964j.f4685f.f4712Z++;
@@ -3203,7 +3203,7 @@ public class MainActivity extends C0670c {
                 return;
             }
         } else if (view.getTag().equals("eqConfig4")) {
-            if (this.f4214k.f3966l != null && this.f4214k.f3959e.isTwsConnected()) {
+            if (this.f4214k.f3966l != null && this.f4214k.minirigf3.isTwsConnected()) {
                 this.f4186dd = 6;
                 if (this.f4214k.f3964j.f4685f != null) {
                     this.f4214k.f3964j.f4685f.f4712Z++;
@@ -3226,7 +3226,7 @@ public class MainActivity extends C0670c {
         }
         sendCommand("q p 00 50", "GET_EQ");
         sendCommand("x", "GET_STATUS");
-        if (this.f4214k.f3966l != null && this.f4214k.f3959e.isTwsConnected()) {
+        if (this.f4214k.f3966l != null && this.f4214k.minirigf3.isTwsConnected()) {
             m5794aP();
         }
         mo5293u();
@@ -3235,7 +3235,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: aO */
     private boolean m5792aO() {
-        if (this.f4214k.f3959e.mo5525s() || this.f4214k.f3959e.mo5527t()) {
+        if (this.f4214k.minirigf3.getHasJackInsertedTop() || this.f4214k.minirigf3.getHasJackInsertedBottom()) {
             return false;
         }
         mo5246b("No AUX detected", "Please connect a second device with an AUX cable first.");
@@ -3535,7 +3535,7 @@ public class MainActivity extends C0670c {
     /* renamed from: aT */
     public void m5801aT() {
         if (this.f4214k.f3966l != null) {
-            if (this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI2 || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG3) {
+            if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2 || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
                 m5804aW();
                 m5880bc();
                 return;
@@ -3552,7 +3552,7 @@ public class MainActivity extends C0670c {
                 if (MainActivity.this.f4208dz == null) {
                     return;
                 }
-                if (MainActivity.this.f4214k.f3959e.mo5506i()) {
+                if (MainActivity.this.f4214k.minirigf3.mo5506i()) {
                     MainActivity.this.f4208dz.setActivated(true);
                     MainActivity.this.f4208dz.setImageResource(R.drawable.eq_lock_on);
                     MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Refresh eq lock: ON");
@@ -4083,7 +4083,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: bb */
     private boolean m5879bb() {
-        if (!this.f4214k.f3959e.minirigAudioModef4463c.equals(minirigMainClass.minirigModeEnum.MONO_SUB) && !this.f4214k.f3959e.minirigAudioModef4463c.equals(minirigMainClass.minirigModeEnum.STEREO_TWO_SUBS) && !this.f4214k.f3959e.minirigAudioModef4463c.equals(minirigMainClass.minirigModeEnum.STEREO_ONE_SUB)) {
+        if (!this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.MONO_SUB) && !this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.STEREO_TWO_SUBS) && !this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.STEREO_ONE_SUB)) {
             return false;
         }
         return true;
@@ -4334,7 +4334,7 @@ public class MainActivity extends C0670c {
     }
 
     public void clickedEqLock(View view) {
-        if (this.f4214k.f3959e.mo5506i()) {
+        if (this.f4214k.minirigf3.mo5506i()) {
             if (mo5284r()) {
                 sendCommand(this.f4214k.f3958d.mo5467a("06", 0), this.f4214k.f3958d.f4394a);
             } else {
@@ -4354,7 +4354,7 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: k */
     public void m5935k(String str) {
-        this.f4214k.f3959e.mo5522q(str);
+        this.f4214k.minirigf3.mo5522q(str);
     }
 
     /* renamed from: l */
@@ -4426,7 +4426,7 @@ public class MainActivity extends C0670c {
     private void m5886bi() {
         runOnUiThread(new Runnable() {
             public void run() {
-                if (MainActivity.this.f4214k.f3959e.mo5506i()) {
+                if (MainActivity.this.f4214k.minirigf3.mo5506i()) {
                     MainActivity.this.f4170dN.setActivated(true);
                     MainActivity.this.f4170dN.setImageResource(R.drawable.eq_lock_on);
                     ImageButton ao = MainActivity.this.f4170dN;
@@ -4494,7 +4494,7 @@ public class MainActivity extends C0670c {
     }
 
     public void clickedDefinedEqLock(View view) {
-        if (this.f4214k.f3959e.mo5506i()) {
+        if (this.f4214k.minirigf3.mo5506i()) {
             sendCommand("q5", "DEFINED_EQ_LOCK_ON");
         } else {
             sendCommand("q6", "DEFINED_EQ_LOCK_OFF");
@@ -4504,7 +4504,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: m */
     private void m5939m(String str) {
-        this.f4214k.f3959e.mo5522q(str);
+        this.f4214k.minirigf3.mo5522q(str);
     }
 
     /* renamed from: n */
@@ -4523,10 +4523,10 @@ public class MainActivity extends C0670c {
     private void m5888bk() {
         this.f4098bt = false;
         if (this.f4214k.f3966l != null) {
-            if (this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG3) {
+            if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
                 this.f4098bt = true;
             }
-            if (this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI2) {
+            if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2) {
                 try {
                     if (Integer.parseInt(this.f4214k.f3966l.f4407i.trim()) >= 9) {
                         this.f4098bt = true;
@@ -4539,7 +4539,7 @@ public class MainActivity extends C0670c {
         }
         this.f4099bu.clear();
         int i = 3;
-        if (this.f4214k.f3966l == null || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI2) {
+        if (this.f4214k.f3966l == null || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2) {
             this.f4099bu.put(0, C1266b.C1270b.HELP_MODE);
             this.f4099bu.put(1, C1266b.C1270b.POWER_SAVING);
             if (this.f4098bt) {
@@ -4569,7 +4569,7 @@ public class MainActivity extends C0670c {
             int i11 = i10 + 1;
             this.f4099bu.put(Integer.valueOf(i11), C1266b.C1270b.RESET);
             this.f4099bu.put(Integer.valueOf(i11 + 1), C1266b.C1270b.DEBUG);
-        } else if (this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG3) {
+        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
             this.f4099bu.put(0, C1266b.C1270b.HELP_MODE);
             this.f4099bu.put(1, C1266b.C1270b.POWER_SAVING);
             if (this.f4098bt) {
@@ -4647,25 +4647,25 @@ public class MainActivity extends C0670c {
         this.f4096br.clear();
         m5757a("Help mode", "Helpful information will be displayed when you click on buttons.\n", this.f4215l.mo5544a());
         if (this.f4214k.f3966l == null) {
-            m5757a("Power saving mode", "Reduces bass and maximum volume. Use this to extend battery life or to reduce bass at lower volumes.\n", this.f4214k.f3959e.mo5533w());
-        } else if (this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI2 || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG3) {
-            m5757a("Power saving mode", "Reduces bass and maximum volume. Use this to extend battery life or to reduce bass at lower volumes.\n", this.f4214k.f3959e.mo5533w());
+            m5757a("Power saving mode", "Reduces bass and maximum volume. Use this to extend battery life or to reduce bass at lower volumes.\n", this.f4214k.minirigf3.getHasBLE_StandByEnabledCode());
+        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2 || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
+            m5757a("Power saving mode", "Reduces bass and maximum volume. Use this to extend battery life or to reduce bass at lower volumes.\n", this.f4214k.minirigf3.getHasBLE_StandByEnabledCode());
         }
         if (this.f4098bt) {
-            m5757a("REMEMBER GAIN", "The Minirig will not always start in high gain and instead, recall the gain setting from when it was last turned off.\n", this.f4214k.f3959e.mo5510k());
+            m5757a("REMEMBER GAIN", "The Minirig will not always start in high gain and instead, recall the gain setting from when it was last turned off.\n", this.f4214k.minirigf3.mo5510k());
         }
-        m5757a("Wireless stereo lock", "Lock these two devices together so they automatically connect in wireless stereo when powered on.", this.f4214k.f3959e.mo5512l());
-        m5757a("Pause/Play", "If enabled, a single button press will play or pause the track. You must use the app to change gain.", this.f4214k.f3959e.mo5529u());
-        m5757a("Skip track", "If enabled, a double button press will skip to the next track. You must use the app for TWS pairing.", this.f4214k.f3959e.mo5531v());
-        m5757a("Turn off automatically", "If enabled, the Minirig will turn off after half an hour when no music is playing.", this.f4214k.f3959e.mo5514m());
-        if (this.f4214k.f3966l != null && (this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI2 || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG3)) {
-            m5757a("Stand by mode", "If enabled, the Minirig will go into stand by when turned off. You can then remotely switch it on using this app.\n", this.f4214k.f3959e.mo5533w());
+        m5757a("Wireless stereo lock", "Lock these two devices together so they automatically connect in wireless stereo when powered on.", this.f4214k.minirigf3.getIsInLockedMode());
+        m5757a("Pause/Play", "If enabled, a single button press will play or pause the track. You must use the app to change gain.", this.f4214k.minirigf3.getIsSingleButtonPressMediaControl());
+        m5757a("Skip track", "If enabled, a double button press will skip to the next track. You must use the app for TWS pairing.", this.f4214k.minirigf3.getIsDoubleButtonPressMediaControlCode());
+        m5757a("Turn off automatically", "If enabled, the Minirig will turn off after half an hour when no music is playing.", this.f4214k.minirigf3.getInactivitySwitchOff());
+        if (this.f4214k.f3966l != null && (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2 || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3)) {
+            m5757a("Stand by mode", "If enabled, the Minirig will go into stand by when turned off. You can then remotely switch it on using this app.\n", this.f4214k.minirigf3.getHasBLE_StandByEnabledCode());
         }
-        m5757a("AUX mode power saving", "If enabled, the Minirig will automatically turn off the amplifier and save power if no signal is detected.", this.f4214k.f3959e.mo5535x());
-        m5757a("Dim LED", "Just dims the LED a bit as it can be a little distracting sometimes in the dark.", this.f4214k.f3959e.mo5517o());
-        m5757a("VU LED", "The LED will beat in time with the music, just for fun.", this.f4214k.f3959e.f4470j);
-        m5757a("Tones", "Disables or enables all tones.", this.f4214k.f3959e.mo5515n());
-        if (this.f4214k.f3966l != null && this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG3) {
+        m5757a("AUX mode power saving", "If enabled, the Minirig will automatically turn off the amplifier and save power if no signal is detected.", this.f4214k.minirigf3.getAuxPowerSavingEnabled());
+        m5757a("Dim LED", "Just dims the LED a bit as it can be a little distracting sometimes in the dark.", this.f4214k.minirigf3.getHasNightmode());
+        m5757a("VU LED", "The LED will beat in time with the music, just for fun.", this.f4214k.minirigf3.f4470j);
+        m5757a("Tones", "Disables or enables all tones.", this.f4214k.minirigf3.getIsTonesEnabled());
+        if (this.f4214k.f3966l != null && this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
             m5757a("Enable power out", getApplicationContext().getString(R.string.enablePowerOutDescription) + "\n", true);
         }
         m5757a("Clear paired devices", getApplicationContext().getString(R.string.clearPairedDescription) + "\n", true);
@@ -4691,23 +4691,23 @@ public class MainActivity extends C0670c {
         }
         if (this.f4214k.f3966l != null) {
             this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.HELP_MODE), Boolean.valueOf(this.f4215l.mo5544a()));
-            if (this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI2 || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG3) {
-                this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.POWER_SAVING), Boolean.valueOf(this.f4214k.f3959e.mo5504h()));
+            if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2 || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
+                this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.POWER_SAVING), Boolean.valueOf(this.f4214k.minirigf3.mo5504h()));
             }
             if (this.f4098bt) {
-                this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.GAIN_REMEMBERING), Boolean.valueOf(this.f4214k.f3959e.mo5510k()));
+                this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.GAIN_REMEMBERING), Boolean.valueOf(this.f4214k.minirigf3.mo5510k()));
             }
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.WIRELESS_STEREO), Boolean.valueOf(this.f4214k.f3959e.mo5512l()));
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.PAUSE_PLAY), Boolean.valueOf(this.f4214k.f3959e.mo5529u()));
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.SKIP_TRACK), Boolean.valueOf(this.f4214k.f3959e.mo5531v()));
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.AUTO_OFF), Boolean.valueOf(this.f4214k.f3959e.mo5514m()));
-            if (this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI2 || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG3) {
-                this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.STAND_BY), Boolean.valueOf(this.f4214k.f3959e.mo5533w()));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.WIRELESS_STEREO), Boolean.valueOf(this.f4214k.minirigf3.getIsInLockedMode()));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.PAUSE_PLAY), Boolean.valueOf(this.f4214k.minirigf3.getIsSingleButtonPressMediaControl()));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.SKIP_TRACK), Boolean.valueOf(this.f4214k.minirigf3.getIsDoubleButtonPressMediaControlCode()));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.AUTO_OFF), Boolean.valueOf(this.f4214k.minirigf3.getInactivitySwitchOff()));
+            if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2 || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
+                this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.STAND_BY), Boolean.valueOf(this.f4214k.minirigf3.getHasBLE_StandByEnabledCode()));
             }
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.AUX_POWER_SAVING), Boolean.valueOf(this.f4214k.f3959e.mo5535x()));
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.DIM_LED), Boolean.valueOf(this.f4214k.f3959e.mo5517o()));
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.VU_LED), Boolean.valueOf(this.f4214k.f3959e.f4470j));
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.TONES), Boolean.valueOf(this.f4214k.f3959e.mo5515n()));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.AUX_POWER_SAVING), Boolean.valueOf(this.f4214k.minirigf3.getAuxPowerSavingEnabled()));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.DIM_LED), Boolean.valueOf(this.f4214k.minirigf3.getHasNightmode()));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.VU_LED), Boolean.valueOf(this.f4214k.minirigf3.f4470j));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.TONES), Boolean.valueOf(this.f4214k.minirigf3.getIsTonesEnabled()));
             runOnUiThread(new Runnable() {
                 public void run() {
                     MainActivity.this.f4093bo.notifyDataSetChanged();
@@ -4733,7 +4733,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: w */
     public void mo5295w() {
-        if (this.f4214k.f3959e.powerStatef4468h == minirigMainClass.powerStateEnum.POWER_OUT) {
+        if (this.f4214k.minirigf3.powerStatef4468h == minirigStatusClass.powerStateEnum.POWER_OUT) {
             mo5246b("Notice", "Already charging out. ");
         } else {
             new AlertDialog.Builder(this).setTitle("Enable power out?").setMessage(R.string.enablePowerOutDescription).setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -4858,11 +4858,11 @@ public class MainActivity extends C0670c {
     public void mo5233B() {
         if (this.f4214k.f3966l == null) {
             mo5245b("https://files.minirigs.co.uk/bluetooth-portable-speaker/Minirig-Users-Guide-MRBT2.pdf");
-        } else if (this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG2 || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG1) {
+        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2 || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG1) {
             mo5245b("https://files.minirigs.co.uk/bluetooth-portable-speaker/Minirig-Users-Guide-MRBT2.pdf");
-        } else if (this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIMINI2) {
+        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2) {
             mo5245b("https://files.minirigs.co.uk/minirig-mini/MRM-user-guide.pdf");
-        } else if (this.f4214k.f3966l.minirigType == minirigMainClass.modelTypeEnum.MINIRIG3) {
+        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
             mo5245b("https://files.minirigs.co.uk/bluetooth-portable-speaker/Minirig-User-Guide-MRBT3.pdf");
         }
     }
@@ -4907,7 +4907,7 @@ public class MainActivity extends C0670c {
             }
             final String str3 = (str + "<b>Software version:</b> " + this.f4214k.f3966l.f4407i + "<br />") + "<b>Total playtime:</b> " + C1229d.m6011c(this.f4214k.f3960f.f4434f + this.f4214k.f3960f.f4436h + this.f4214k.f3960f.f4440l + this.f4214k.f3960f.f4438j) + "<br />";
             if (this.f4214k.f3956b) {
-                str3 = (((((((((((((((((((((((((((((((str3 + "<br />") + "<b>Colour:</b> " + this.f4214k.f3966l.f4411m + "<br />") + "<b>Product type:</b> " + this.f4214k.f3966l.f4406h + "<br />") + "<b>Hardware version:</b> " + this.f4214k.f3966l.f4414p + "<br />") + "<b>Bluetooth version:</b> " + this.f4214k.f3966l.f4416r + "<br />") + "<b>Bootloader version:</b> " + this.f4214k.f3966l.f4417s + "<br />") + "<b>Manufacture date:</b> " + this.f4214k.f3966l.f4418t) + "<br /><br />") + "<b>Time since last charge:</b> " + this.f4214k.f3961g.mo5472a(this.f4214k.f3960f.f4431c) + "<br />") + "<b>Time in standby since last charge:</b> " + this.f4214k.f3961g.mo5472a(this.f4214k.f3960f.f4432d) + "<br />") + "<b>Time in standalone:</b> " + this.f4214k.f3960f.f4433e + "<br />") + "<b>Time in standalone with sub:</b> " + this.f4214k.f3960f.f4435g + "<br />") + "<b>Time in TWS:</b> " + this.f4214k.f3960f.f4437i + "<br />") + "<b>Time in AUX:</b> " + this.f4214k.f3960f.f4439k + "<br />") + "<b>Time on standby:</b> " + this.f4214k.f3960f.f4441m + "<br />") + "<b>Time on charge:</b> " + this.f4214k.f3960f.f4443o + "<br />") + "<b>Discharge cycles:</b> " + this.f4214k.f3960f.f4445q + "<br />") + "<b>Discharge minutes:</b> " + this.f4214k.f3960f.f4446r + "<br />") + "<b>Long button presses:</b> " + this.f4214k.f3960f.f4447s + "<br />") + "<b>Gain changes:</b> " + this.f4214k.f3960f.f4448t + "<br />") + "<b>TWS starts:</b> " + this.f4214k.f3960f.f4449u + "<br />") + "<b>Power out used:</b> " + this.f4214k.f3960f.f4451w + "<br />") + "<b>Media controls used:</b> " + this.f4214k.f3960f.f4450v + "<br />") + "<b>Jacks inserted:</b> " + this.f4214k.f3960f.f4452x + "<br />") + "<b>Charge cables inserted:</b> " + this.f4214k.f3960f.f4453y + "<br />") + "<b>Resets:</b> " + this.f4214k.f3960f.f4454z + "<br />") + "<b>Power outs used (new):</b> " + this.f4214k.f3960f.f4420A + "<br />") + "<b>Linkup receiver starts:</b> " + this.f4214k.f3960f.f4421B + "<br />") + "<b>Linkup transmitter starts:</b> " + this.f4214k.f3960f.f4422C + "<br />") + "<b>Time in power out:</b> " + this.f4214k.f3960f.f4424E + "<br />") + "<b>Time as receiver:</b> " + this.f4214k.f3960f.f4426G + "<br />") + "<b>Time as transmitter:</b> " + this.f4214k.f3960f.f4428I + "<br />";
+                str3 = (((((((((((((((((((((((((((((((str3 + "<br />") + "<b>Colour:</b> " + this.f4214k.f3966l.ledColorStr + "<br />") + "<b>Product type:</b> " + this.f4214k.f3966l.f4406h + "<br />") + "<b>Hardware version:</b> " + this.f4214k.f3966l.f4414p + "<br />") + "<b>Bluetooth version:</b> " + this.f4214k.f3966l.f4416r + "<br />") + "<b>Bootloader version:</b> " + this.f4214k.f3966l.f4417s + "<br />") + "<b>Manufacture date:</b> " + this.f4214k.f3966l.f4418t) + "<br /><br />") + "<b>Time since last charge:</b> " + this.f4214k.f3961g.mo5472a(this.f4214k.f3960f.f4431c) + "<br />") + "<b>Time in standby since last charge:</b> " + this.f4214k.f3961g.mo5472a(this.f4214k.f3960f.f4432d) + "<br />") + "<b>Time in standalone:</b> " + this.f4214k.f3960f.f4433e + "<br />") + "<b>Time in standalone with sub:</b> " + this.f4214k.f3960f.f4435g + "<br />") + "<b>Time in TWS:</b> " + this.f4214k.f3960f.f4437i + "<br />") + "<b>Time in AUX:</b> " + this.f4214k.f3960f.f4439k + "<br />") + "<b>Time on standby:</b> " + this.f4214k.f3960f.f4441m + "<br />") + "<b>Time on charge:</b> " + this.f4214k.f3960f.f4443o + "<br />") + "<b>Discharge cycles:</b> " + this.f4214k.f3960f.f4445q + "<br />") + "<b>Discharge minutes:</b> " + this.f4214k.f3960f.f4446r + "<br />") + "<b>Long button presses:</b> " + this.f4214k.f3960f.f4447s + "<br />") + "<b>Gain changes:</b> " + this.f4214k.f3960f.f4448t + "<br />") + "<b>TWS starts:</b> " + this.f4214k.f3960f.f4449u + "<br />") + "<b>Power out used:</b> " + this.f4214k.f3960f.f4451w + "<br />") + "<b>Media controls used:</b> " + this.f4214k.f3960f.f4450v + "<br />") + "<b>Jacks inserted:</b> " + this.f4214k.f3960f.f4452x + "<br />") + "<b>Charge cables inserted:</b> " + this.f4214k.f3960f.f4453y + "<br />") + "<b>Resets:</b> " + this.f4214k.f3960f.f4454z + "<br />") + "<b>Power outs used (new):</b> " + this.f4214k.f3960f.f4420A + "<br />") + "<b>Linkup receiver starts:</b> " + this.f4214k.f3960f.f4421B + "<br />") + "<b>Linkup transmitter starts:</b> " + this.f4214k.f3960f.f4422C + "<br />") + "<b>Time in power out:</b> " + this.f4214k.f3960f.f4424E + "<br />") + "<b>Time as receiver:</b> " + this.f4214k.f3960f.f4426G + "<br />") + "<b>Time as transmitter:</b> " + this.f4214k.f3960f.f4428I + "<br />";
             }
             runOnUiThread(new Runnable() {
                 public void run() {
@@ -4948,12 +4948,12 @@ public class MainActivity extends C0670c {
             if (view == this.f4050ax) {
                 View view3 = this.f4066bN;
                 if (view3 == this.f4001aA || view3 == this.f4002aB) {
-                    if (this.f4214k.f3959e.mo5494c() || this.f4214k.f3959e.mo5500f() || this.f4214k.f3959e.mo5498e()) {
+                    if (this.f4214k.minirigf3.mo5494c() || this.f4214k.minirigf3.mo5500f() || this.f4214k.minirigf3.mo5498e()) {
                         view = this.f4046at;
                     }
-                } else if (this.f4214k.f3959e.mo5494c()) {
+                } else if (this.f4214k.minirigf3.mo5494c()) {
                     view = this.f4001aA;
-                } else if (this.f4214k.f3959e.mo5500f() || this.f4214k.f3959e.mo5498e()) {
+                } else if (this.f4214k.minirigf3.mo5500f() || this.f4214k.minirigf3.mo5498e()) {
                     view = this.f4002aB;
                 }
             }
@@ -5103,7 +5103,7 @@ public class MainActivity extends C0670c {
                 m5747a(this.f4002aB, layoutParams2);
                 mo5289t();
                 m5897bt();
-                if (this.f4214k.f3966l != null && this.f4214k.f3959e.isTwsConnected()) {
+                if (this.f4214k.f3966l != null && this.f4214k.minirigf3.isTwsConnected()) {
                     m5794aP();
                 }
             } else if (view == this.f4018aR) {
@@ -5169,7 +5169,7 @@ public class MainActivity extends C0670c {
                 m5747a(this.f4001aA, layoutParams2);
                 m5747a(this.f4002aB, layoutParams2);
                 m5896bs();
-                if (this.f4214k.f3966l != null && this.f4214k.f3959e.isTwsConnected()) {
+                if (this.f4214k.f3966l != null && this.f4214k.minirigf3.isTwsConnected()) {
                     m5794aP();
                 }
             } else if (view == this.f4103by) {
@@ -5836,7 +5836,7 @@ public class MainActivity extends C0670c {
                                     MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Setup connected device");
                                     C1230e eVar = new C1230e(MainActivity.this.f4214k, MainActivity.this.f4074bV.getRemoteDevice(), a);
                                     if (!MainActivity.this.f4214k.f3956b) {
-                                        if (eVar.minirigType == minirigMainClass.modelTypeEnum.NO_MODEL) {
+                                        if (eVar.minirigType == minirigStatusClass.modelTypeEnum.NO_MODEL) {
                                             MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Failed beginListenForData() so closing SPP connection");
                                             MainActivity.this.mo5237F();
                                             MainActivity.this.runOnUiThread(new Runnable() {
@@ -6088,13 +6088,13 @@ public class MainActivity extends C0670c {
                     }
                     boolean e = MainActivity.this.m5913d(b.f4405g);
                     boolean unused = MainActivity.this.m5913d(b.f4405g);
-                    if (b.f4408j.equals("POWER_OFF")) {
+                    if (b.audioConnectionState.equals("POWER_OFF")) {
                         MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Was OFF turn it on");
                         MainActivity.this.f4226x = true;
                     }
                     if (MainActivity.this.f4226x) {
                         MainActivity.this.m5745a(a, b);
-                    } else if (b.f4408j.equals("AUX")) {
+                    } else if (b.audioConnectionState.equals("AUX")) {
                         MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Selected connect in AUX mode");
                         MainActivity.this.f4216n = C1218b.BLE;
                         MainActivity.this.m5745a(a, b);
@@ -6307,7 +6307,7 @@ public class MainActivity extends C0670c {
                     globalApplication5.mo5229a(str5, "                      advert data: " + a);
                     MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
                     boolean z3 = false;
-                    if (eVar.f4401c && eVar.f4409k != minirigMainClass.audioConnectionStateEnum.POWER_OFF) {
+                    if (eVar.f4401c && eVar.audioConnectionState2 != minirigStatusClass.audioConnectionStateEnum.POWER_OFF) {
                         if (MainActivity.this.f4225w && eVar.f4405g.equals(MainActivity.this.f4214k.f3967m)) {
                             MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
                             MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "           FOUND DEVICE FOR AUTO CONNECT ");
@@ -6320,18 +6320,18 @@ public class MainActivity extends C0670c {
                         }
                         z2 = true;
                         z = true;
-                    } else if (eVar.f4401c && eVar.f4409k == minirigMainClass.audioConnectionStateEnum.POWER_OFF) {
+                    } else if (eVar.f4401c && eVar.audioConnectionState2 == minirigStatusClass.audioConnectionStateEnum.POWER_OFF) {
                         z2 = true;
                         z = true;
                     } else if (C1230e.m6014a(device.getAddress())) {
                         MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Minirig with no advertisment data, probably an MRBT1 or MRBT2");
                         eVar.f4405g = device.getAddress();
-                        eVar.minirigType = minirigMainClass.modelTypeEnum.MINIRIG2;
+                        eVar.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
                         eVar.f4406h = "10";
                         eVar.f4406h = MainActivity.this.f4214k.f3965k.get(eVar.f4406h);
                         if (eVar.f4405g != null && eVar.f4405g.length() >= 8 && (eVar.f4405g.substring(0, 8).equals("00:12:6F") || eVar.f4405g.substring(0, 8).equals("54:B7:E5"))) {
                             MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "MRBT1 MRBT1 MRBT1 MRBT1 MRBT1");
-                            eVar.minirigType = minirigMainClass.modelTypeEnum.MINIRIG1;
+                            eVar.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG1;
                             eVar.f4406h = "1";
                             eVar.f4406h = MainActivity.this.f4214k.f3965k.get(eVar.f4406h);
                         }
@@ -6344,13 +6344,13 @@ public class MainActivity extends C0670c {
                         z2 = false;
                         z = false;
                     }
-                    if (eVar.minirigType != minirigMainClass.modelTypeEnum.NO_MODEL) {
+                    if (eVar.minirigType != minirigStatusClass.modelTypeEnum.NO_MODEL) {
                         z2 = true;
                     }
                     GlobalApplication globalApplication7 = MainActivity.this.f4214k;
                     String str7 = MainActivity.f3974m;
                     globalApplication7.mo5229a(str7, "broadcastScan: " + MainActivity.this.f4045as);
-                    if (!MainActivity.this.f4045as || eVar.minirigType == minirigMainClass.modelTypeEnum.MINIRIG3) {
+                    if (!MainActivity.this.f4045as || eVar.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
                         z3 = z2;
                     } else if (MainActivity.this.f4214k.f3966l != null && eVar.f4405g == MainActivity.this.f4214k.f3966l.f4405g) {
                         MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Already connected to this device");
@@ -6437,9 +6437,9 @@ public class MainActivity extends C0670c {
             String str2 = f3974m;
             globalApplication.mo5229a(str2, "DEVICE CONTROLS ACTIVITY Handle data received: " + str);
             if (substring.equals("x")) {
-                boolean z = this.f4214k.f3959e.mo5525s() || this.f4214k.f3959e.mo5527t();
-                this.f4214k.f3959e.handleStatusStr(str);
-                if (!z && (this.f4214k.f3959e.mo5525s() || this.f4214k.f3959e.mo5527t())) {
+                boolean z = this.f4214k.minirigf3.getHasJackInsertedTop() || this.f4214k.minirigf3.getHasJackInsertedBottom();
+                this.f4214k.minirigf3.handleStatusStr(str);
+                if (!z && (this.f4214k.minirigf3.getHasJackInsertedTop() || this.f4214k.minirigf3.getHasJackInsertedBottom())) {
                     mo5241J();
                 }
                 if (!this.f4097bs) {
@@ -6527,22 +6527,22 @@ public class MainActivity extends C0670c {
 
     /* renamed from: p */
     private void m5945p(String str) {
-        if (str.contains("MRBT2") && this.f4214k.f3966l != null && this.f4214k.f3966l.minirigType.equals(minirigMainClass.modelTypeEnum.MINIRIG1)) {
-            this.f4214k.f3966l.minirigType = minirigMainClass.modelTypeEnum.MINIRIG2;
-            this.f4214k.f3959e.minirigType = minirigMainClass.modelTypeEnum.MINIRIG2;
+        if (str.contains("MRBT2") && this.f4214k.f3966l != null && this.f4214k.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIRIG1)) {
+            this.f4214k.f3966l.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
+            this.f4214k.minirigf3.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
             this.f4214k.f3966l.f4406h = "10";
             this.f4097bs = false;
             m5890bm();
             m5722V();
         } else if (this.f4214k.f3966l != null) {
-            if (str.contains("MRBT2") && !this.f4214k.f3966l.minirigType.equals(minirigMainClass.modelTypeEnum.MINIRIG2)) {
-                m5755a(minirigMainClass.modelTypeEnum.MINIRIG2);
-            } else if (str.contains("MRBT3") && !this.f4214k.f3966l.minirigType.equals(minirigMainClass.modelTypeEnum.MINIRIG3)) {
-                m5755a(minirigMainClass.modelTypeEnum.MINIRIG3);
-            } else if (str.contains("MRM2") && !this.f4214k.f3966l.minirigType.equals(minirigMainClass.modelTypeEnum.MINIMINI2)) {
-                m5755a(minirigMainClass.modelTypeEnum.MINIMINI2);
-            } else if (str.contains("MRM") && !this.f4214k.f3966l.minirigType.equals(minirigMainClass.modelTypeEnum.MINIMINI) && !this.f4214k.f3966l.minirigType.equals(minirigMainClass.modelTypeEnum.MINIMINI2)) {
-                m5755a(minirigMainClass.modelTypeEnum.MINIMINI);
+            if (str.contains("MRBT2") && !this.f4214k.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIRIG2)) {
+                m5755a(minirigStatusClass.modelTypeEnum.MINIRIG2);
+            } else if (str.contains("MRBT3") && !this.f4214k.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIRIG3)) {
+                m5755a(minirigStatusClass.modelTypeEnum.MINIRIG3);
+            } else if (str.contains("MRM2") && !this.f4214k.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIMINI2)) {
+                m5755a(minirigStatusClass.modelTypeEnum.MINIMINI2);
+            } else if (str.contains("MRM") && !this.f4214k.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIMINI) && !this.f4214k.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIMINI2)) {
+                m5755a(minirigStatusClass.modelTypeEnum.MINIMINI);
             }
         }
         m5877bI();
@@ -6550,22 +6550,22 @@ public class MainActivity extends C0670c {
     }
 
     /* renamed from: a */
-    private void m5755a(minirigMainClass.modelTypeEnum eVar) {
-        if (eVar.equals(minirigMainClass.modelTypeEnum.MINIRIG2)) {
-            this.f4214k.f3966l.minirigType = minirigMainClass.modelTypeEnum.MINIRIG2;
-            this.f4214k.f3959e.minirigType = minirigMainClass.modelTypeEnum.MINIRIG2;
+    private void m5755a(minirigStatusClass.modelTypeEnum eVar) {
+        if (eVar.equals(minirigStatusClass.modelTypeEnum.MINIRIG2)) {
+            this.f4214k.f3966l.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
+            this.f4214k.minirigf3.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
             this.f4214k.f3966l.f4406h = "10";
-        } else if (eVar.equals(minirigMainClass.modelTypeEnum.MINIMINI)) {
-            this.f4214k.f3966l.minirigType = minirigMainClass.modelTypeEnum.MINIMINI;
-            this.f4214k.f3959e.minirigType = minirigMainClass.modelTypeEnum.MINIMINI;
+        } else if (eVar.equals(minirigStatusClass.modelTypeEnum.MINIMINI)) {
+            this.f4214k.f3966l.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI;
+            this.f4214k.minirigf3.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI;
             this.f4214k.f3966l.f4406h = "20";
-        } else if (eVar.equals(minirigMainClass.modelTypeEnum.MINIMINI2)) {
-            this.f4214k.f3966l.minirigType = minirigMainClass.modelTypeEnum.MINIMINI2;
-            this.f4214k.f3959e.minirigType = minirigMainClass.modelTypeEnum.MINIMINI2;
+        } else if (eVar.equals(minirigStatusClass.modelTypeEnum.MINIMINI2)) {
+            this.f4214k.f3966l.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI2;
+            this.f4214k.minirigf3.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI2;
             this.f4214k.f3966l.f4406h = "21";
-        } else if (eVar.equals(minirigMainClass.modelTypeEnum.MINIRIG3)) {
-            this.f4214k.f3966l.minirigType = minirigMainClass.modelTypeEnum.MINIRIG3;
-            this.f4214k.f3959e.minirigType = minirigMainClass.modelTypeEnum.MINIRIG3;
+        } else if (eVar.equals(minirigStatusClass.modelTypeEnum.MINIRIG3)) {
+            this.f4214k.f3966l.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG3;
+            this.f4214k.minirigf3.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG3;
             this.f4214k.f3966l.f4406h = "30";
         }
         this.f4097bs = false;
@@ -6781,7 +6781,7 @@ public class MainActivity extends C0670c {
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
                 com.minirig.android.GlobalApplication r4 = r4.f4214k
                 com.minirig.android.a.e r4 = r4.f3966l
-                java.lang.String r4 = r4.f4408j
+                java.lang.String r4 = r4.audioConnectionState
                 java.lang.String r0 = "POWER_OFF"
                 boolean r4 = r4.equals(r0)
                 if (r4 == 0) goto L_0x00dc

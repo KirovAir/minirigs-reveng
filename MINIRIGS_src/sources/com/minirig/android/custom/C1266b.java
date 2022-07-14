@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.minirig.android.MainActivity;
 import com.minirig.android.R;
-import com.minirig.android.p048a.minirigMainClass;
+import com.minirig.android.p048a.minirigStatusClass;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -139,7 +139,7 @@ public class C1266b extends BaseAdapter {
             aVar.f4652c.setContentDescription("Currently off");
         }
         if (i == mo5580a(C1270b.WIRELESS_STEREO)) {
-            if (this.f4640a.f4214k.f3959e.mo5512l() || this.f4640a.f4214k.f3959e.twsConnectionStatef4466f != minirigMainClass.twsConnectionStateEnum.NO_TWS) {
+            if (this.f4640a.f4214k.minirigf3.getIsInLockedMode() || this.f4640a.f4214k.minirigf3.twsConnectionStatef4466f != minirigStatusClass.twsConnectionStateEnum.NO_TWS) {
                 inflate.setEnabled(true);
                 aVar.f4650a.setTextColor(C0391a.m1623c(this.f4645f, R.color.minirig_grey));
                 aVar.f4651b.setTextColor(C0391a.m1623c(this.f4645f, R.color.minirig_grey));
@@ -151,7 +151,7 @@ public class C1266b extends BaseAdapter {
                 aVar.f4652c.setVisibility(8);
             }
         }
-        if (!(this.f4640a.f4214k.f3966l == null || this.f4640a.f4214k.f3966l.minirigType == null || this.f4640a.f4214k.f3966l.minirigType != minirigMainClass.modelTypeEnum.MINIRIG1)) {
+        if (!(this.f4640a.f4214k.f3966l == null || this.f4640a.f4214k.f3966l.minirigType == null || this.f4640a.f4214k.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1)) {
             if (i == mo5580a(C1270b.PAUSE_PLAY)) {
                 aVar.f4650a.setTextColor(-3355444);
                 aVar.f4651b.setTextColor(-3355444);
@@ -182,8 +182,8 @@ public class C1266b extends BaseAdapter {
                 if (a == C1270b.HELP_MODE) {
                     C1266b.this.f4640a.f4215l.mo5547d();
                 } else if (a == C1270b.POWER_SAVING) {
-                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigMainClass.modelTypeEnum.MINIRIG1) {
-                        if (!C1266b.this.f4640a.f4214k.f3959e.mo5504h()) {
+                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
+                        if (!C1266b.this.f4640a.f4214k.minirigf3.mo5504h()) {
                             C1266b.this.f4640a.sendCommand("q b 06 99", "POWERSAVING_ENABLE");
                         } else {
                             C1266b.this.f4640a.sendCommand("q b 00 00", "POWERSAVING_DISABLE");
@@ -196,8 +196,8 @@ public class C1266b extends BaseAdapter {
                         return;
                     }
                 } else if (a == C1270b.GAIN_REMEMBERING) {
-                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigMainClass.modelTypeEnum.MINIRIG1) {
-                        if (C1266b.this.f4640a.f4214k.f3959e.mo5510k()) {
+                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
+                        if (C1266b.this.f4640a.f4214k.minirigf3.mo5510k()) {
                             C1266b.this.f4640a.sendCommand("K", "SET_GAIN_FORGET");
                         } else {
                             C1266b.this.f4640a.sendCommand("G", "SET_GAIN_REMEMBERED");
@@ -215,8 +215,8 @@ public class C1266b extends BaseAdapter {
                         C1266b.this.f4640a.f4214k.f3964j.f4685f.f4744s++;
                     }
                 } else if (a == C1270b.PAUSE_PLAY) {
-                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigMainClass.modelTypeEnum.MINIRIG1) {
-                        if (!C1266b.this.f4640a.f4214k.f3959e.mo5529u()) {
+                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
+                        if (!C1266b.this.f4640a.f4214k.minirigf3.getIsSingleButtonPressMediaControl()) {
                             C1266b.this.f4640a.sendCommand("}", "PAUSEPLAY_ENABLE");
                         } else {
                             C1266b.this.f4640a.sendCommand("{", "PAUSEPLAY_DISABLE");
@@ -229,8 +229,8 @@ public class C1266b extends BaseAdapter {
                         return;
                     }
                 } else if (a == C1270b.SKIP_TRACK) {
-                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigMainClass.modelTypeEnum.MINIRIG1) {
-                        if (!C1266b.this.f4640a.f4214k.f3959e.mo5531v()) {
+                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
+                        if (!C1266b.this.f4640a.f4214k.minirigf3.getIsDoubleButtonPressMediaControlCode()) {
                             C1266b.this.f4640a.sendCommand(")", "SKIPTRACK_ENABLE");
                         } else {
                             C1266b.this.f4640a.sendCommand("(", "SKIPTRACK_DISABLE");
@@ -243,7 +243,7 @@ public class C1266b extends BaseAdapter {
                         return;
                     }
                 } else if (a == C1270b.AUTO_OFF) {
-                    if (C1266b.this.f4640a.f4214k.f3959e.mo5514m()) {
+                    if (C1266b.this.f4640a.f4214k.minirigf3.getInactivitySwitchOff()) {
                         C1266b.this.f4640a.sendCommand("h", "AUTO_OFF_ENABLE");
                     } else {
                         C1266b.this.f4640a.sendCommand("j", "AUTO_OFF_DISABLE");
@@ -252,8 +252,8 @@ public class C1266b extends BaseAdapter {
                         C1266b.this.f4640a.f4214k.f3964j.f4685f.f4747v++;
                     }
                 } else if (a == C1270b.STAND_BY) {
-                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigMainClass.modelTypeEnum.MINIRIG1) {
-                        if (C1266b.this.f4640a.f4214k.f3959e.mo5533w()) {
+                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
+                        if (C1266b.this.f4640a.f4214k.minirigf3.getHasBLE_StandByEnabledCode()) {
                             C1266b.this.f4640a.sendCommand("[", "BLE_STANDBY_DISABLE");
                         } else {
                             C1266b.this.f4640a.sendCommand("]", "BLE_STANDBY_ENABLE");
@@ -266,8 +266,8 @@ public class C1266b extends BaseAdapter {
                         return;
                     }
                 } else if (a == C1270b.AUX_POWER_SAVING) {
-                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigMainClass.modelTypeEnum.MINIRIG1) {
-                        if (!C1266b.this.f4640a.f4214k.f3959e.mo5535x()) {
+                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
+                        if (!C1266b.this.f4640a.f4214k.minirigf3.getAuxPowerSavingEnabled()) {
                             C1266b.this.f4640a.sendCommand("Y", "POWERSAVING_ENABLE");
                         } else {
                             C1266b.this.f4640a.sendCommand("Z", "POWERSAVING_DISABLE");
@@ -280,7 +280,7 @@ public class C1266b extends BaseAdapter {
                         return;
                     }
                 } else if (a == C1270b.DIM_LED) {
-                    if (!C1266b.this.f4640a.f4214k.f3959e.mo5517o()) {
+                    if (!C1266b.this.f4640a.f4214k.minirigf3.getHasNightmode()) {
                         C1266b.this.f4640a.sendCommand("z", "NIGHT_MODE_ENABLE");
                     } else {
                         C1266b.this.f4640a.sendCommand("E", "NIGHT_MODE_DISABLE");
@@ -289,7 +289,7 @@ public class C1266b extends BaseAdapter {
                         C1266b.this.f4640a.f4214k.f3964j.f4685f.f4750y++;
                     }
                 } else if (a == C1270b.VU_LED) {
-                    if (!C1266b.this.f4640a.f4214k.f3959e.f4470j) {
+                    if (!C1266b.this.f4640a.f4214k.minirigf3.f4470j) {
                         C1266b.this.f4640a.sendCommand("D", "DISCO_LED_ENABLE");
                     } else {
                         C1266b.this.f4640a.sendCommand("E", "DISCO_LED_DISABLE");
@@ -298,7 +298,7 @@ public class C1266b extends BaseAdapter {
                         C1266b.this.f4640a.f4214k.f3964j.f4685f.f4751z++;
                     }
                 } else if (a == C1270b.TONES) {
-                    if (!C1266b.this.f4640a.f4214k.f3959e.mo5515n()) {
+                    if (!C1266b.this.f4640a.f4214k.minirigf3.getIsTonesEnabled()) {
                         C1266b.this.f4640a.sendCommand("y", "TONE_ENABLE");
                     } else {
                         C1266b.this.f4640a.sendCommand("n", "TONE_DISABLE");

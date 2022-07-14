@@ -2,7 +2,7 @@ package com.minirig.android.p048a;
 
 import android.bluetooth.BluetoothDevice;
 import com.minirig.android.GlobalApplication;
-import com.minirig.android.p048a.minirigMainClass;
+import com.minirig.android.p048a.minirigStatusClass;
 
 /* renamed from: com.minirig.android.a.e */
 public class C1230e {
@@ -26,7 +26,7 @@ public class C1230e {
     public String f4403e = "Unknown";
 
     /* renamed from: f */
-    public minirigMainClass.modelTypeEnum minirigType = minirigMainClass.modelTypeEnum.NO_MODEL;
+    public minirigStatusClass.modelTypeEnum minirigType = minirigStatusClass.modelTypeEnum.NO_MODEL;
 
     /* renamed from: g */
     public String f4405g = "Unknown";
@@ -38,19 +38,19 @@ public class C1230e {
     public String f4407i = "0";
 
     /* renamed from: j */
-    public String f4408j = "Unknown";
+    public String audioConnectionState = "Unknown";
 
     /* renamed from: k */
-    public minirigMainClass.audioConnectionStateEnum f4409k = minirigMainClass.audioConnectionStateEnum.NO_CONNECTION_STATE;
+    public minirigStatusClass.audioConnectionStateEnum audioConnectionState2 = minirigStatusClass.audioConnectionStateEnum.NO_CONNECTION_STATE;
 
     /* renamed from: l */
-    public String f4410l = "Unknown";
+    public String twsConnectionState = "Unknown";
 
     /* renamed from: m */
-    public String f4411m = "NO_DEVICE_COLOUR";
+    public String ledColorStr = "NO_DEVICE_COLOUR";
 
     /* renamed from: n */
-    public minirigMainClass.ledColorEnum f4412n = minirigMainClass.ledColorEnum.NO_DEVICE_COLOUR;
+    public minirigStatusClass.ledColorEnum ledColor = minirigStatusClass.ledColorEnum.NO_DEVICE_COLOUR;
 
     /* renamed from: o */
     public String f4413o = "Unknown";
@@ -78,7 +78,7 @@ public class C1230e {
             return;
         }
         globalApplication.mo5229a(f4398u, "advertisment data was NULL");
-        this.minirigType = minirigMainClass.modelTypeEnum.MINIRIG1;
+        this.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG1;
         this.f4406h = "1";
         this.f4406h = globalApplication.f3965k.get(this.f4406h);
     }
@@ -95,11 +95,11 @@ public class C1230e {
     }
 
     /* renamed from: a */
-    public void mo5474a() {
+    public void setModel() {
         GlobalApplication globalApplication = this.f4399a;
         String str = f4398u;
         globalApplication.mo5229a(str, "setModel() productType: " + this.f4406h);
-        this.minirigType = this.f4399a.f3959e.parseModelType(this.f4406h);
+        this.minirigType = this.f4399a.minirigf3.parseModelType(this.f4406h);
     }
 
     /* renamed from: a */
@@ -134,11 +134,11 @@ public class C1230e {
                 m6015b();
             }
             this.f4407i = this.f4399a.f3961g.mo5473a(split[7]);
-            this.f4408j = this.f4399a.f3959e.parseAudioConnectionState(this.f4399a.f3961g.mo5473a(split[8])).toString();
-            this.f4409k = this.f4399a.f3959e.parseAudioConnectionState(this.f4399a.f3961g.mo5473a(split[8]));
-            this.f4410l = this.f4399a.f3959e.parseTwsConnectionState(this.f4399a.f3961g.mo5473a(split[9])).toString();
-            this.f4412n = this.f4399a.f3959e.parseLedColor(this.f4399a.f3961g.mo5473a(split[10]));
-            this.f4411m = this.f4412n.toString();
+            this.audioConnectionState = this.f4399a.minirigf3.parseAudioConnectionState(this.f4399a.f3961g.mo5473a(split[8])).toString();
+            this.audioConnectionState2 = this.f4399a.minirigf3.parseAudioConnectionState(this.f4399a.f3961g.mo5473a(split[8]));
+            this.twsConnectionState = this.f4399a.minirigf3.parseTwsConnectionState(this.f4399a.f3961g.mo5473a(split[9])).toString();
+            this.ledColor = this.f4399a.minirigf3.parseLedColor(this.f4399a.f3961g.mo5473a(split[10]));
+            this.ledColorStr = this.ledColor.toString();
             return "null";
         }
         this.f4401c = false;
@@ -171,8 +171,8 @@ public class C1230e {
             return "";
         }
         this.f4407i = split2[0];
-        this.f4412n = this.f4399a.f3959e.parseLedColor("0");
-        this.f4411m = this.f4412n.toString();
+        this.ledColor = this.f4399a.minirigf3.parseLedColor("0");
+        this.ledColorStr = this.ledColor.toString();
         return "";
     }
 
@@ -192,17 +192,17 @@ public class C1230e {
                 return false;
             }
             if (split2.length < 1) {
-                this.minirigType = minirigMainClass.modelTypeEnum.NO_MODEL;
+                this.minirigType = minirigStatusClass.modelTypeEnum.NO_MODEL;
             } else if (split2[0].equalsIgnoreCase("minirigM2")) {
-                this.minirigType = minirigMainClass.modelTypeEnum.MINIMINI2;
+                this.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI2;
             } else if (split2[0].equalsIgnoreCase("minirigM")) {
-                this.minirigType = minirigMainClass.modelTypeEnum.MINIMINI;
+                this.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI;
             } else if (split2[0].equalsIgnoreCase("minirig") || split2[0].equalsIgnoreCase("minirig1")) {
-                this.minirigType = minirigMainClass.modelTypeEnum.MINIRIG1;
+                this.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG1;
             } else if (split2[0].equalsIgnoreCase("minirig2")) {
-                this.minirigType = minirigMainClass.modelTypeEnum.MINIRIG2;
+                this.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
             } else if (split2[0].equalsIgnoreCase("minirig3")) {
-                this.minirigType = minirigMainClass.modelTypeEnum.MINIRIG3;
+                this.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG3;
             }
             if (split2.length >= 4) {
                 String[] split3 = split2[3].split("_");
@@ -291,7 +291,7 @@ public class C1230e {
             return true;
         }
         this.f4399a.mo5229a(f4398u, "Was a minirig 1");
-        this.minirigType = minirigMainClass.modelTypeEnum.MINIRIG1;
+        this.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG1;
         this.f4413o = "Unknown";
         this.f4414p = "Unknown";
         this.f4416r = "Unknown";
@@ -310,15 +310,15 @@ public class C1230e {
             return;
         }
         if (str.equalsIgnoreCase("MRBT3")) {
-            this.minirigType = minirigMainClass.modelTypeEnum.MINIRIG3;
+            this.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG3;
         } else if (this.f4406h.equalsIgnoreCase("MRM")) {
-            this.minirigType = minirigMainClass.modelTypeEnum.MINIMINI;
+            this.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI;
         } else if (this.f4406h.equalsIgnoreCase("MRM2")) {
-            this.minirigType = minirigMainClass.modelTypeEnum.MINIMINI2;
+            this.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI2;
         } else if (this.f4406h.equalsIgnoreCase("MRBT2")) {
-            this.minirigType = minirigMainClass.modelTypeEnum.MINIRIG2;
+            this.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
         } else {
-            this.minirigType = minirigMainClass.modelTypeEnum.NO_MODEL;
+            this.minirigType = minirigStatusClass.modelTypeEnum.NO_MODEL;
         }
     }
 }

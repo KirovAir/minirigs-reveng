@@ -80,7 +80,7 @@ public class C1272a {
                 jSONObject.put("btAddress", this.f4676b.f3966l.f4405g);
                 jSONObject.put("name", this.f4676b.f3966l.f4403e);
                 jSONObject.put("model", this.f4676b.f3966l.minirigType);
-                jSONObject.put("colour", this.f4676b.f3966l.f4411m);
+                jSONObject.put("colour", this.f4676b.f3966l.ledColorStr);
                 jSONObject.put("softwareVersion", this.f4676b.f3966l.f4407i);
                 jSONObject.put("hardwareVersion", this.f4676b.f3966l.f4414p);
                 jSONObject.put("bluetoothVersion", this.f4676b.f3966l.f4416r);
