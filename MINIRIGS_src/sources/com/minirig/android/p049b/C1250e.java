@@ -115,39 +115,39 @@ public class C1250e {
     public void mo5553a(String str, HashMap<String, String> hashMap, final C1256a aVar) {
         GlobalApplication globalApplication = this.f4580a;
         String str2 = f4579h;
-        globalApplication.mo5229a(str2, "Post Request: " + str);
+        globalApplication.addLog(str2, "Post Request: " + str);
         GlobalApplication globalApplication2 = this.f4580a;
         String str3 = f4579h;
-        globalApplication2.mo5229a(str3, " Post Params: " + hashMap.toString());
+        globalApplication2.addLog(str3, " Post Params: " + hashMap.toString());
         C1242a.m6085a(this.f4580a.getApplicationContext()).mo5541a(new C1245c(1, str, hashMap, new C1095p.C1097b<JSONObject>() {
             /* renamed from: a */
             public void mo5128a(JSONObject jSONObject) {
                 try {
                     GlobalApplication globalApplication = C1250e.this.f4580a;
                     String c = C1250e.f4579h;
-                    globalApplication.mo5229a(c, "Post Response: " + jSONObject);
+                    globalApplication.addLog(c, "Post Response: " + jSONObject);
                     if (jSONObject.isNull("success") || !jSONObject.getBoolean("success")) {
                         GlobalApplication globalApplication2 = C1250e.this.f4580a;
                         String c2 = C1250e.f4579h;
-                        globalApplication2.mo5229a(c2, "The request failed: " + jSONObject.getString("message"));
+                        globalApplication2.addLog(c2, "The request failed: " + jSONObject.getString("message"));
                     } else if (aVar == C1256a.SYNC_USER) {
                         if (!jSONObject.isNull("user_id")) {
                             C1250e.this.f4580a.f3964j.f4685f = C1250e.this.f4580a.f3964j.mo5591a(jSONObject.getString("user_id"));
                             C1250e.this.f4580a.f3964j.mo5592a();
                             return;
                         }
-                        C1250e.this.f4580a.mo5229a(C1250e.f4579h, "Data collection user could not be set up because no user_id was returned");
+                        C1250e.this.f4580a.addLog(C1250e.f4579h, "Data collection user could not be set up because no user_id was returned");
                     } else if (aVar == C1256a.SYNC_DEVICE) {
                         if (!jSONObject.isNull("user_id")) {
                             C1250e.this.f4580a.f3964j.f4685f = C1250e.this.f4580a.f3964j.mo5591a(jSONObject.getString("user_id"));
                             C1250e.this.f4580a.f3964j.mo5592a();
                         } else {
-                            C1250e.this.f4580a.mo5229a(C1250e.f4579h, "Data collection user could not be set up because no user_id was returned");
+                            C1250e.this.f4580a.addLog(C1250e.f4579h, "Data collection user could not be set up because no user_id was returned");
                         }
                         C1250e.this.f4580a.f3964j.f4683c.f4678d = true;
-                        C1250e.this.f4580a.mo5229a(C1250e.f4579h, "sync device successfull");
+                        C1250e.this.f4580a.addLog(C1250e.f4579h, "sync device successfull");
                     } else {
-                        C1250e.this.f4580a.mo5229a(C1250e.f4579h, "No function setup to handle response");
+                        C1250e.this.f4580a.addLog(C1250e.f4579h, "No function setup to handle response");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -159,7 +159,7 @@ public class C1250e {
                 C1103v.m5679c(aVar.name() + " Error: ", uVar);
                 GlobalApplication globalApplication = C1250e.this.f4580a;
                 String c = C1250e.f4579h;
-                globalApplication.mo5229a(c, "     Post Error: " + uVar.getMessage());
+                globalApplication.addLog(c, "     Post Error: " + uVar.getMessage());
             }
         }), f4579h);
     }
@@ -168,7 +168,7 @@ public class C1250e {
     public void mo5552a(final String str, final C1256a aVar) {
         GlobalApplication globalApplication = this.f4580a;
         String str2 = f4579h;
-        globalApplication.mo5229a(str2, "simpleRequest URL: " + str);
+        globalApplication.addLog(str2, "simpleRequest URL: " + str);
         C1242a.m6085a(this.f4580a.getApplicationContext()).mo5541a(new C1070o(str, new C1095p.C1097b<String>() {
             /* renamed from: a */
             public void mo5128a(String str) {
@@ -189,35 +189,35 @@ public class C1250e {
                             eVar.mo5552a("https://settings.minirigs.co.uk/" + str2 + "/files/" + C1250e.this.f4581b, C1256a.UPDATE_FILE_DOWNLOAD);
                         }
                     } else if (aVar == C1256a.UPDATE_FILE_DOWNLOAD) {
-                        C1250e.this.f4580a.mo5229a(C1250e.f4579h, "        UPDATE_FILE_DOWNLOAD");
+                        C1250e.this.f4580a.addLog(C1250e.f4579h, "        UPDATE_FILE_DOWNLOAD");
                     } else if (aVar == C1256a.GET_LATEST_VERSIONS) {
-                        C1250e.this.f4580a.mo5229a(C1250e.f4579h, "        GET_LATEST_VERSIONS");
+                        C1250e.this.f4580a.addLog(C1250e.f4579h, "        GET_LATEST_VERSIONS");
                         JSONObject jSONObject2 = new JSONObject(str);
                         if (!jSONObject2.isNull("success")) {
                             GlobalApplication globalApplication = C1250e.this.f4580a;
                             String c = C1250e.f4579h;
-                            globalApplication.mo5229a(c, "MRM " + jSONObject2.getJSONObject("latestUpdates").getString("MRM"));
+                            globalApplication.addLog(c, "MRM " + jSONObject2.getJSONObject("latestUpdates").getString("MRM"));
                             GlobalApplication globalApplication2 = C1250e.this.f4580a;
                             String c2 = C1250e.f4579h;
-                            globalApplication2.mo5229a(c2, "MRBT2 " + jSONObject2.getJSONObject("latestUpdates").getString("MRBT2"));
+                            globalApplication2.addLog(c2, "MRBT2 " + jSONObject2.getJSONObject("latestUpdates").getString("MRBT2"));
                             GlobalApplication globalApplication3 = C1250e.this.f4580a;
                             String c3 = C1250e.f4579h;
-                            globalApplication3.mo5229a(c3, "MRBT3 " + jSONObject2.getJSONObject("latestUpdates").getString("MRBT3"));
+                            globalApplication3.addLog(c3, "MRBT3 " + jSONObject2.getJSONObject("latestUpdates").getString("MRBT3"));
                             C1250e.this.f4584e.put("MRM", Integer.valueOf(jSONObject2.getJSONObject("latestUpdates").getInt("MRM")));
                             C1250e.this.f4584e.put("MRBT2", Integer.valueOf(jSONObject2.getJSONObject("latestUpdates").getInt("MRBT2")));
                             C1250e.this.f4584e.put("MRBT3", Integer.valueOf(jSONObject2.getJSONObject("latestUpdates").getInt("MRBT3")));
                         }
                     } else if (aVar == C1256a.GET_BROADCASTS) {
-                        C1250e.this.f4580a.mo5229a(C1250e.f4579h, "        GET_BROADCASTS");
+                        C1250e.this.f4580a.addLog(C1250e.f4579h, "        GET_BROADCASTS");
                         JSONObject jSONObject3 = new JSONObject(str);
                         if (!jSONObject3.isNull("success")) {
                             C1250e.this.f4580a.mo5230a(jSONObject3.getJSONArray("results"));
                             GlobalApplication globalApplication4 = C1250e.this.f4580a;
                             String c4 = C1250e.f4579h;
-                            globalApplication4.mo5229a(c4, "broadcasts: " + C1250e.this.f4580a.f3968n);
+                            globalApplication4.addLog(c4, "broadcasts: " + C1250e.this.f4580a.f3968n);
                             GlobalApplication globalApplication5 = C1250e.this.f4580a;
                             String c5 = C1250e.f4579h;
-                            globalApplication5.mo5229a(c5, "broadcastID: " + C1250e.this.f4580a.f3968n.getJSONObject(0).getInt("broadcastID"));
+                            globalApplication5.addLog(c5, "broadcastID: " + C1250e.this.f4580a.f3968n.getJSONObject(0).getInt("broadcastID"));
                         }
                     }
                 } catch (JSONException e) {

@@ -7,7 +7,7 @@ import com.android.p046a.p047a.C1056k;
 import com.android.p046a.p047a.C1066m;
 import com.minirig.android.data.C1273b;
 import com.minirig.android.p048a.C1227b;
-import com.minirig.android.p048a.C1228c;
+import com.minirig.android.p048a.MinirigCommandGenerator;
 import com.minirig.android.p048a.C1229d;
 import com.minirig.android.p048a.C1230e;
 import com.minirig.android.p048a.C1231f;
@@ -30,7 +30,7 @@ public class GlobalApplication extends Application {
     public SharedPreferences f3957c;
 
     /* renamed from: d */
-    public C1228c f3958d = new C1228c();
+    public MinirigCommandGenerator mrCommandGenerator = new MinirigCommandGenerator();
 
     /* renamed from: e */
     public minirigStatusClass minirigf3 = new minirigStatusClass();
@@ -78,7 +78,7 @@ public class GlobalApplication extends Application {
     private C1056k f3973s;
 
     /* renamed from: a */
-    public void mo5229a(String str, String str2) {
+    public void addLog(String str, String str2) {
     }
 
     public void onCreate() {

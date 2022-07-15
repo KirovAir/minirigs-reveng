@@ -39,17 +39,17 @@ public class C1273b {
             this.f4683c.mo5589a();
         }
         String str = f4680a;
-        globalApplication.mo5229a(str, "Build.MODEL: " + Build.MODEL);
+        globalApplication.addLog(str, "Build.MODEL: " + Build.MODEL);
     }
 
     /* renamed from: a */
     public C1274c mo5591a(String str) {
         if (this.f4684e.mo5588j().mo5593a().size() == 0) {
-            this.f4682b.mo5229a(f4680a, "There were no users, create one... ");
+            this.f4682b.addLog(f4680a, "There were no users, create one... ");
             String str2 = Build.MODEL;
             this.f4684e.mo5588j().mo5594a(new C1274c(str, Build.MANUFACTURER, str2));
         } else {
-            this.f4682b.mo5229a(f4680a, "Persistent user was found ");
+            this.f4682b.addLog(f4680a, "Persistent user was found ");
         }
         return this.f4684e.mo5588j().mo5593a().get(0);
     }

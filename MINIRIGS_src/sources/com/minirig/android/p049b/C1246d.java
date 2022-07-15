@@ -108,9 +108,9 @@ public class C1246d {
             builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialogInterface, int i) {
                     if (checkBox.isChecked()) {
-                        C1246d.this.f4569a.mo5229a("HELP", "helpKeys: " + C1246d.this.f4569a.f3957c.getString("helpKeys", ""));
+                        C1246d.this.f4569a.addLog("HELP", "helpKeys: " + C1246d.this.f4569a.f3957c.getString("helpKeys", ""));
                         for (String str : C1246d.this.f4569a.f3957c.getString("helpKeys", "").split(",")) {
-                            C1246d.this.f4569a.mo5229a("HELP", "helpKey: " + str);
+                            C1246d.this.f4569a.addLog("HELP", "helpKey: " + str);
                             C1246d.this.f4569a.f3957c.edit().putBoolean(str, true).apply();
                         }
                     }

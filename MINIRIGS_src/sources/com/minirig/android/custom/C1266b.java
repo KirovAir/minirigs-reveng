@@ -139,7 +139,7 @@ public class C1266b extends BaseAdapter {
             aVar.f4652c.setContentDescription("Currently off");
         }
         if (i == mo5580a(C1270b.WIRELESS_STEREO)) {
-            if (this.f4640a.f4214k.minirigf3.getIsInLockedMode() || this.f4640a.f4214k.minirigf3.twsConnectionStatef4466f != minirigStatusClass.twsConnectionStateEnum.NO_TWS) {
+            if (this.f4640a.globalApplication.minirigf3.getIsInLockedMode() || this.f4640a.globalApplication.minirigf3.twsConnectionStatef4466f != minirigStatusClass.twsConnectionStateEnum.NO_TWS) {
                 inflate.setEnabled(true);
                 aVar.f4650a.setTextColor(C0391a.m1623c(this.f4645f, R.color.minirig_grey));
                 aVar.f4651b.setTextColor(C0391a.m1623c(this.f4645f, R.color.minirig_grey));
@@ -151,7 +151,7 @@ public class C1266b extends BaseAdapter {
                 aVar.f4652c.setVisibility(8);
             }
         }
-        if (!(this.f4640a.f4214k.f3966l == null || this.f4640a.f4214k.f3966l.minirigType == null || this.f4640a.f4214k.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1)) {
+        if (!(this.f4640a.globalApplication.f3966l == null || this.f4640a.globalApplication.f3966l.minirigType == null || this.f4640a.globalApplication.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1)) {
             if (i == mo5580a(C1270b.PAUSE_PLAY)) {
                 aVar.f4650a.setTextColor(-3355444);
                 aVar.f4651b.setTextColor(-3355444);
@@ -182,28 +182,28 @@ public class C1266b extends BaseAdapter {
                 if (a == C1270b.HELP_MODE) {
                     C1266b.this.f4640a.f4215l.mo5547d();
                 } else if (a == C1270b.POWER_SAVING) {
-                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
-                        if (!C1266b.this.f4640a.f4214k.minirigf3.mo5504h()) {
+                    if (C1266b.this.f4640a.globalApplication.f3966l.minirigType == null || C1266b.this.f4640a.globalApplication.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
+                        if (!C1266b.this.f4640a.globalApplication.minirigf3.mo5504h()) {
                             C1266b.this.f4640a.sendCommand("q b 06 99", "POWERSAVING_ENABLE");
                         } else {
                             C1266b.this.f4640a.sendCommand("q b 00 00", "POWERSAVING_DISABLE");
                         }
-                        if (C1266b.this.f4640a.f4214k.f3964j.f4685f != null) {
-                            C1266b.this.f4640a.f4214k.f3964j.f4685f.f4742q++;
+                        if (C1266b.this.f4640a.globalApplication.f3964j.f4685f != null) {
+                            C1266b.this.f4640a.globalApplication.f3964j.f4685f.f4742q++;
                         }
                     } else {
                         C1266b.this.f4640a.mo5246b("Feature unavailable", C1266b.this.f4640a.getResources().getString(R.string.feature_unavailable));
                         return;
                     }
                 } else if (a == C1270b.GAIN_REMEMBERING) {
-                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
-                        if (C1266b.this.f4640a.f4214k.minirigf3.mo5510k()) {
+                    if (C1266b.this.f4640a.globalApplication.f3966l.minirigType == null || C1266b.this.f4640a.globalApplication.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
+                        if (C1266b.this.f4640a.globalApplication.minirigf3.mo5510k()) {
                             C1266b.this.f4640a.sendCommand("K", "SET_GAIN_FORGET");
                         } else {
                             C1266b.this.f4640a.sendCommand("G", "SET_GAIN_REMEMBERED");
                         }
-                        if (C1266b.this.f4640a.f4214k.f3964j.f4685f != null) {
-                            C1266b.this.f4640a.f4214k.f3964j.f4685f.f4743r++;
+                        if (C1266b.this.f4640a.globalApplication.f3964j.f4685f != null) {
+                            C1266b.this.f4640a.globalApplication.f3964j.f4685f.f4743r++;
                         }
                     } else {
                         C1266b.this.f4640a.mo5246b("Feature unavailable", C1266b.this.f4640a.getResources().getString(R.string.feature_unavailable));
@@ -211,100 +211,100 @@ public class C1266b extends BaseAdapter {
                     }
                 } else if (a == C1270b.WIRELESS_STEREO) {
                     C1266b.this.f4640a.sendCommand("l", "TWS_LOCK_TOGGLE");
-                    if (C1266b.this.f4640a.f4214k.f3964j.f4685f != null) {
-                        C1266b.this.f4640a.f4214k.f3964j.f4685f.f4744s++;
+                    if (C1266b.this.f4640a.globalApplication.f3964j.f4685f != null) {
+                        C1266b.this.f4640a.globalApplication.f3964j.f4685f.f4744s++;
                     }
                 } else if (a == C1270b.PAUSE_PLAY) {
-                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
-                        if (!C1266b.this.f4640a.f4214k.minirigf3.getIsSingleButtonPressMediaControl()) {
+                    if (C1266b.this.f4640a.globalApplication.f3966l.minirigType == null || C1266b.this.f4640a.globalApplication.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
+                        if (!C1266b.this.f4640a.globalApplication.minirigf3.getIsSingleButtonPressMediaControl()) {
                             C1266b.this.f4640a.sendCommand("}", "PAUSEPLAY_ENABLE");
                         } else {
                             C1266b.this.f4640a.sendCommand("{", "PAUSEPLAY_DISABLE");
                         }
-                        if (C1266b.this.f4640a.f4214k.f3964j.f4685f != null) {
-                            C1266b.this.f4640a.f4214k.f3964j.f4685f.f4745t++;
+                        if (C1266b.this.f4640a.globalApplication.f3964j.f4685f != null) {
+                            C1266b.this.f4640a.globalApplication.f3964j.f4685f.f4745t++;
                         }
                     } else {
                         C1266b.this.f4640a.mo5246b("Feature unavailable", C1266b.this.f4640a.getResources().getString(R.string.feature_unavailable));
                         return;
                     }
                 } else if (a == C1270b.SKIP_TRACK) {
-                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
-                        if (!C1266b.this.f4640a.f4214k.minirigf3.getIsDoubleButtonPressMediaControlCode()) {
+                    if (C1266b.this.f4640a.globalApplication.f3966l.minirigType == null || C1266b.this.f4640a.globalApplication.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
+                        if (!C1266b.this.f4640a.globalApplication.minirigf3.getIsDoubleButtonPressMediaControlCode()) {
                             C1266b.this.f4640a.sendCommand(")", "SKIPTRACK_ENABLE");
                         } else {
                             C1266b.this.f4640a.sendCommand("(", "SKIPTRACK_DISABLE");
                         }
-                        if (C1266b.this.f4640a.f4214k.f3964j.f4685f != null) {
-                            C1266b.this.f4640a.f4214k.f3964j.f4685f.f4746u++;
+                        if (C1266b.this.f4640a.globalApplication.f3964j.f4685f != null) {
+                            C1266b.this.f4640a.globalApplication.f3964j.f4685f.f4746u++;
                         }
                     } else {
                         C1266b.this.f4640a.mo5246b("Feature unavailable", C1266b.this.f4640a.getResources().getString(R.string.feature_unavailable));
                         return;
                     }
                 } else if (a == C1270b.AUTO_OFF) {
-                    if (C1266b.this.f4640a.f4214k.minirigf3.getInactivitySwitchOff()) {
+                    if (C1266b.this.f4640a.globalApplication.minirigf3.getInactivitySwitchOff()) {
                         C1266b.this.f4640a.sendCommand("h", "AUTO_OFF_ENABLE");
                     } else {
                         C1266b.this.f4640a.sendCommand("j", "AUTO_OFF_DISABLE");
                     }
-                    if (C1266b.this.f4640a.f4214k.f3964j.f4685f != null) {
-                        C1266b.this.f4640a.f4214k.f3964j.f4685f.f4747v++;
+                    if (C1266b.this.f4640a.globalApplication.f3964j.f4685f != null) {
+                        C1266b.this.f4640a.globalApplication.f3964j.f4685f.f4747v++;
                     }
                 } else if (a == C1270b.STAND_BY) {
-                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
-                        if (C1266b.this.f4640a.f4214k.minirigf3.getHasBLE_StandByEnabledCode()) {
+                    if (C1266b.this.f4640a.globalApplication.f3966l.minirigType == null || C1266b.this.f4640a.globalApplication.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
+                        if (C1266b.this.f4640a.globalApplication.minirigf3.getHasBLE_StandByEnabledCode()) {
                             C1266b.this.f4640a.sendCommand("[", "BLE_STANDBY_DISABLE");
                         } else {
                             C1266b.this.f4640a.sendCommand("]", "BLE_STANDBY_ENABLE");
                         }
-                        if (C1266b.this.f4640a.f4214k.f3964j.f4685f != null) {
-                            C1266b.this.f4640a.f4214k.f3964j.f4685f.f4748w++;
+                        if (C1266b.this.f4640a.globalApplication.f3964j.f4685f != null) {
+                            C1266b.this.f4640a.globalApplication.f3964j.f4685f.f4748w++;
                         }
                     } else {
                         C1266b.this.f4640a.mo5246b("Feature unavailable", C1266b.this.f4640a.getResources().getString(R.string.feature_unavailable));
                         return;
                     }
                 } else if (a == C1270b.AUX_POWER_SAVING) {
-                    if (C1266b.this.f4640a.f4214k.f3966l.minirigType == null || C1266b.this.f4640a.f4214k.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
-                        if (!C1266b.this.f4640a.f4214k.minirigf3.getAuxPowerSavingEnabled()) {
+                    if (C1266b.this.f4640a.globalApplication.f3966l.minirigType == null || C1266b.this.f4640a.globalApplication.f3966l.minirigType != minirigStatusClass.modelTypeEnum.MINIRIG1) {
+                        if (!C1266b.this.f4640a.globalApplication.minirigf3.getAuxPowerSavingEnabled()) {
                             C1266b.this.f4640a.sendCommand("Y", "POWERSAVING_ENABLE");
                         } else {
                             C1266b.this.f4640a.sendCommand("Z", "POWERSAVING_DISABLE");
                         }
-                        if (C1266b.this.f4640a.f4214k.f3964j.f4685f != null) {
-                            C1266b.this.f4640a.f4214k.f3964j.f4685f.f4749x++;
+                        if (C1266b.this.f4640a.globalApplication.f3964j.f4685f != null) {
+                            C1266b.this.f4640a.globalApplication.f3964j.f4685f.f4749x++;
                         }
                     } else {
                         C1266b.this.f4640a.mo5246b("Feature unavailable", C1266b.this.f4640a.getResources().getString(R.string.feature_unavailable));
                         return;
                     }
                 } else if (a == C1270b.DIM_LED) {
-                    if (!C1266b.this.f4640a.f4214k.minirigf3.getHasNightmode()) {
+                    if (!C1266b.this.f4640a.globalApplication.minirigf3.getHasNightmode()) {
                         C1266b.this.f4640a.sendCommand("z", "NIGHT_MODE_ENABLE");
                     } else {
                         C1266b.this.f4640a.sendCommand("E", "NIGHT_MODE_DISABLE");
                     }
-                    if (C1266b.this.f4640a.f4214k.f3964j.f4685f != null) {
-                        C1266b.this.f4640a.f4214k.f3964j.f4685f.f4750y++;
+                    if (C1266b.this.f4640a.globalApplication.f3964j.f4685f != null) {
+                        C1266b.this.f4640a.globalApplication.f3964j.f4685f.f4750y++;
                     }
                 } else if (a == C1270b.VU_LED) {
-                    if (!C1266b.this.f4640a.f4214k.minirigf3.f4470j) {
+                    if (!C1266b.this.f4640a.globalApplication.minirigf3.f4470j) {
                         C1266b.this.f4640a.sendCommand("D", "DISCO_LED_ENABLE");
                     } else {
                         C1266b.this.f4640a.sendCommand("E", "DISCO_LED_DISABLE");
                     }
-                    if (C1266b.this.f4640a.f4214k.f3964j.f4685f != null) {
-                        C1266b.this.f4640a.f4214k.f3964j.f4685f.f4751z++;
+                    if (C1266b.this.f4640a.globalApplication.f3964j.f4685f != null) {
+                        C1266b.this.f4640a.globalApplication.f3964j.f4685f.f4751z++;
                     }
                 } else if (a == C1270b.TONES) {
-                    if (!C1266b.this.f4640a.f4214k.minirigf3.getIsTonesEnabled()) {
+                    if (!C1266b.this.f4640a.globalApplication.minirigf3.getIsTonesEnabled()) {
                         C1266b.this.f4640a.sendCommand("y", "TONE_ENABLE");
                     } else {
                         C1266b.this.f4640a.sendCommand("n", "TONE_DISABLE");
                     }
-                    if (C1266b.this.f4640a.f4214k.f3964j.f4685f != null) {
-                        C1266b.this.f4640a.f4214k.f3964j.f4685f.f4687A++;
+                    if (C1266b.this.f4640a.globalApplication.f3964j.f4685f != null) {
+                        C1266b.this.f4640a.globalApplication.f3964j.f4685f.f4687A++;
                     }
                 } else if (a == C1270b.ENABLE_POWER_OUT) {
                     C1266b.this.f4640a.mo5295w();

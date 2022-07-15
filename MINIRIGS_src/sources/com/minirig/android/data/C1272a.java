@@ -28,14 +28,14 @@ public class C1272a {
     public C1272a(GlobalApplication globalApplication, C1273b bVar) {
         this.f4676b = globalApplication;
         this.f4677c = bVar;
-        globalApplication.mo5229a(f4675a, "- - - - - - - - - - - - - - - - - ");
-        globalApplication.mo5229a(f4675a, "     Data sync");
-        globalApplication.mo5229a(f4675a, "- - - - - - - - - - - - - - - - - ");
+        globalApplication.addLog(f4675a, "- - - - - - - - - - - - - - - - - ");
+        globalApplication.addLog(f4675a, "     Data sync");
+        globalApplication.addLog(f4675a, "- - - - - - - - - - - - - - - - - ");
     }
 
     /* renamed from: a */
     public boolean mo5589a() {
-        this.f4676b.mo5229a(f4675a, "     syncUser()");
+        this.f4676b.addLog(f4675a, "     syncUser()");
         HashMap hashMap = new HashMap();
         hashMap.put("class", "Users");
         hashMap.put("function", "saveUser");
@@ -48,7 +48,7 @@ public class C1272a {
             e.printStackTrace();
             GlobalApplication globalApplication = this.f4676b;
             String str = f4675a;
-            globalApplication.mo5229a(str, "Error parsing JSON: " + e.getMessage());
+            globalApplication.addLog(str, "Error parsing JSON: " + e.getMessage());
         }
         hashMap.put("user", jSONObject.toString());
         this.f4676b.f3963i.mo5553a("https://dreambaked.com/minirig_data_collection/controller/API.php", hashMap, C1250e.C1256a.SYNC_USER);
@@ -57,18 +57,18 @@ public class C1272a {
 
     /* renamed from: b */
     public boolean mo5590b() {
-        this.f4676b.mo5229a(f4675a, "     syncDevice()");
+        this.f4676b.addLog(f4675a, "     syncDevice()");
         if (this.f4678d) {
-            this.f4676b.mo5229a(f4675a, "     data already synced");
+            this.f4676b.addLog(f4675a, "     data already synced");
             return false;
         } else if (!this.f4676b.f3960f.f4430b) {
-            this.f4676b.mo5229a(f4675a, "     need to retrieve runtime data first");
+            this.f4676b.addLog(f4675a, "     need to retrieve runtime data first");
             return false;
         } else if (this.f4676b.f3966l == null) {
-            this.f4676b.mo5229a(f4675a, "     no connected device for data sync");
+            this.f4676b.addLog(f4675a, "     no connected device for data sync");
             return false;
         } else if (this.f4677c.f4685f == null) {
-            this.f4676b.mo5229a(f4675a, "     no data tracking user, use syncUser() to setup");
+            this.f4676b.addLog(f4675a, "     no data tracking user, use syncUser() to setup");
             return false;
         } else {
             HashMap hashMap = new HashMap();
@@ -114,7 +114,7 @@ public class C1272a {
                 e.printStackTrace();
                 GlobalApplication globalApplication = this.f4676b;
                 String str = f4675a;
-                globalApplication.mo5229a(str, "Error parsing JSON: " + e.getMessage());
+                globalApplication.addLog(str, "Error parsing JSON: " + e.getMessage());
             }
             JSONObject jSONObject2 = new JSONObject();
             try {
@@ -188,7 +188,7 @@ public class C1272a {
                 e2.printStackTrace();
                 GlobalApplication globalApplication2 = this.f4676b;
                 String str2 = f4675a;
-                globalApplication2.mo5229a(str2, "Error parsing JSON: " + e2.getMessage());
+                globalApplication2.addLog(str2, "Error parsing JSON: " + e2.getMessage());
             }
             hashMap.put("device", jSONObject.toString());
             hashMap.put("user", jSONObject2.toString());

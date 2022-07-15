@@ -77,7 +77,7 @@ public class C1230e {
             mo5475b(str2);
             return;
         }
-        globalApplication.mo5229a(f4398u, "advertisment data was NULL");
+        globalApplication.addLog(f4398u, "advertisment data was NULL");
         this.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG1;
         this.f4406h = "1";
         this.f4406h = globalApplication.f3965k.get(this.f4406h);
@@ -98,7 +98,7 @@ public class C1230e {
     public void setModel() {
         GlobalApplication globalApplication = this.f4399a;
         String str = f4398u;
-        globalApplication.mo5229a(str, "setModel() productType: " + this.f4406h);
+        globalApplication.addLog(str, "setModel() productType: " + this.f4406h);
         this.minirigType = this.f4399a.minirigf3.parseModelType(this.f4406h);
     }
 
@@ -154,7 +154,7 @@ public class C1230e {
         String[] split = str.split(" ");
         GlobalApplication globalApplication = this.f4399a;
         String str2 = f4398u;
-        globalApplication.mo5229a(str2, "parseStatusReply: " + str);
+        globalApplication.addLog(str2, "parseStatusReply: " + str);
         if (split.length < 4) {
             return "";
         }
@@ -182,7 +182,7 @@ public class C1230e {
         if (str == null || str.length() < 3) {
             return false;
         }
-        this.f4399a.mo5229a(f4398u, "parseProductInfo: " + str);
+        this.f4399a.addLog(f4398u, "parseProductInfo: " + str);
         if (str.length() <= 7 || !str.substring(0, 8).equalsIgnoreCase("minirig ")) {
             if (str.substring(0, 2).equalsIgnoreCase("i ")) {
                 str = str.substring(2);
@@ -290,7 +290,7 @@ public class C1230e {
             }
             return true;
         }
-        this.f4399a.mo5229a(f4398u, "Was a minirig 1");
+        this.f4399a.addLog(f4398u, "Was a minirig 1");
         this.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG1;
         this.f4413o = "Unknown";
         this.f4414p = "Unknown";

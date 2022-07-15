@@ -192,8 +192,8 @@ class C1258c extends BaseAdapter {
         } else {
             bVar.f4622c.setText(eVar.f4406h);
         }
-        this.f4611a.mo5229a(f4610b, "ga.connectedAudioBluetoothAddress: " + this.f4611a.f3967m);
-        this.f4611a.mo5229a(f4610b, "              device.getAddress(): " + eVar.f4405g);
+        this.f4611a.addLog(f4610b, "ga.connectedAudioBluetoothAddress: " + this.f4611a.f3967m);
+        this.f4611a.addLog(f4610b, "              device.getAddress(): " + eVar.f4405g);
         view.setActivated(false);
         String str2 = "";
         if (eVar.audioConnectionState2 == minirigStatusClass.audioConnectionStateEnum.POWER_OFF) {

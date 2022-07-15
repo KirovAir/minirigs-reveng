@@ -96,7 +96,7 @@ import org.json.JSONException;
 public class MainActivity extends C0670c {
 
     /* renamed from: m */
-    protected static final String f3974m = "MainActivity";
+    protected static final String logLevel_info = "MainActivity";
 
     /* renamed from: A */
     Handler f3975A;
@@ -146,9 +146,9 @@ public class MainActivity extends C0670c {
     /* renamed from: P */
     public final BroadcastReceiver f3990P = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
-            GlobalApplication globalApplication = MainActivity.this.f4214k;
-            String str = MainActivity.f3974m;
-            globalApplication.mo5229a(str, "bluetoothTurnedOnOff receiver: " + intent.toString());
+            GlobalApplication globalApplication = MainActivity.this.globalApplication;
+            String str = MainActivity.logLevel_info;
+            globalApplication.addLog(str, "bluetoothTurnedOnOff receiver: " + intent.toString());
             Bundle extras = intent.getExtras();
             if (extras != null) {
                 for (String str2 : extras.keySet()) {
@@ -158,27 +158,27 @@ public class MainActivity extends C0670c {
             if (intent.hasExtra("android.bluetooth.adapter.extra.CONNECTION_STATE")) {
                 BluetoothDevice bluetoothDevice = (BluetoothDevice) intent.getParcelableExtra("android.bluetooth.device.extra.DEVICE");
                 int intExtra = intent.getIntExtra("android.bluetooth.adapter.extra.CONNECTION_STATE", -1);
-                if (MainActivity.this.f4214k.f3966l != null) {
-                    if (bluetoothDevice.getAddress().equals(MainActivity.this.f4214k.f3966l.f4405g) && intExtra == 0) {
-                        MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Bluetooth device disconnected");
+                if (MainActivity.this.globalApplication.f3966l != null) {
+                    if (bluetoothDevice.getAddress().equals(MainActivity.this.globalApplication.f3966l.f4405g) && intExtra == 0) {
+                        MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Bluetooth device disconnected");
                         if (MainActivity.this.f4065bM == MainActivity.this.f4050ax || MainActivity.this.f4065bM == MainActivity.this.f4002aB || MainActivity.this.f4065bM == MainActivity.this.f4001aA) {
-                            MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, " Dont close when disconnected ");
+                            MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, " Dont close when disconnected ");
                             MainActivity.this.f4043aq = true;
                         }
                         MainActivity mainActivity = MainActivity.this;
                         mainActivity.f4227y = null;
-                        GlobalApplication globalApplication2 = mainActivity.f4214k;
-                        String str3 = MainActivity.f3974m;
-                        globalApplication2.mo5229a(str3, " ---- **** ---- Disconnected while view was: " + MainActivity.this.f4065bM.toString());
+                        GlobalApplication globalApplication2 = mainActivity.globalApplication;
+                        String str3 = MainActivity.logLevel_info;
+                        globalApplication2.addLog(str3, " ---- **** ---- Disconnected while view was: " + MainActivity.this.f4065bM.toString());
                         MainActivity.this.m5903bz();
                     }
                 } else if (intExtra == 2 && MainActivity.this.f3982H != null && MainActivity.this.m5715S() != null) {
-                    MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Bluetooth device connection detected");
+                    MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Bluetooth device connection detected");
                     MainActivity.this.f3982H.cancel(true);
                     MainActivity mainActivity2 = MainActivity.this;
                     mainActivity2.m5905c(mainActivity2.m5715S());
                 } else if (intExtra == 2 && MainActivity.this.f4043aq) {
-                    MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Bluetooth device reconnected after broadcast disconnection");
+                    MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Bluetooth device reconnected after broadcast disconnection");
                     MainActivity mainActivity3 = MainActivity.this;
                     mainActivity3.m5905c(mainActivity3.m5715S());
                 }
@@ -320,15 +320,15 @@ public class MainActivity extends C0670c {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             intent.getStringExtra("command");
-            MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "- - - - - - - - - - - - - - - ");
-            MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, " Track info mReceiver ");
-            MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, action);
+            MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "- - - - - - - - - - - - - - - ");
+            MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, " Track info mReceiver ");
+            MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, action);
             Bundle extras = intent.getExtras();
             if (intent != null) {
                 for (String str : extras.keySet()) {
                     Object obj = extras.get(str);
                     if (obj != null) {
-                        Log.d(MainActivity.f3974m, String.format("%s %s (%s)", new Object[]{str, obj.toString(), obj.getClass().getName()}));
+                        Log.d(MainActivity.logLevel_info, String.format("%s %s (%s)", new Object[]{str, obj.toString(), obj.getClass().getName()}));
                     }
                 }
             }
@@ -356,7 +356,7 @@ public class MainActivity extends C0670c {
             if (!str2.equalsIgnoreCase("")) {
                 MainActivity.this.runOnUiThread(new Runnable() {
                     public void run() {
-                        MainActivity.this.f4214k.f3970p = -1;
+                        MainActivity.this.globalApplication.f3970p = -1;
                         MainActivity.this.f4151cu.setText(Html.fromHtml(str2));
                     }
                 });
@@ -850,15 +850,15 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
 
     /* renamed from: dX */
-    public BluetoothAdapter f4180dX;
+    public BluetoothAdapter bluetoothAdapter;
     /* access modifiers changed from: private */
 
     /* renamed from: dY */
-    public BluetoothLeScanner f4181dY;
+    public BluetoothLeScanner bluetoothLeScanner;
     /* access modifiers changed from: private */
 
     /* renamed from: dZ */
-    public ScanCallback f4182dZ;
+    public ScanCallback scanCallback;
     /* access modifiers changed from: private */
 
     /* renamed from: da */
@@ -885,7 +885,7 @@ public class MainActivity extends C0670c {
     public int f4188df = 0;
 
     /* renamed from: dg */
-    private int f4189dg = 0;
+    private int gainMode = 0;
     /* access modifiers changed from: private */
 
     /* renamed from: dh */
@@ -975,27 +975,27 @@ public class MainActivity extends C0670c {
     public final BluetoothGattCallback f4212ed = new BluetoothGattCallback() {
         public void onaudioConnectionStateEnumChange(BluetoothGatt bluetoothGatt, int i, int i2) {
             super.onaudioConnectionStateEnumChange(bluetoothGatt, i, i2);
-            GlobalApplication globalApplication = MainActivity.this.f4214k;
-            String str = MainActivity.f3974m;
-            globalApplication.mo5229a(str, "onaudioConnectionStateEnumChange newState: " + i2);
+            GlobalApplication globalApplication = MainActivity.this.globalApplication;
+            String str = MainActivity.logLevel_info;
+            globalApplication.addLog(str, "onaudioConnectionStateEnumChange newState: " + i2);
             if (i == 257) {
-                GlobalApplication globalApplication2 = MainActivity.this.f4214k;
-                String str2 = MainActivity.f3974m;
-                globalApplication2.mo5229a(str2, "Connection Gatt failure status " + i);
+                GlobalApplication globalApplication2 = MainActivity.this.globalApplication;
+                String str2 = MainActivity.logLevel_info;
+                globalApplication2.addLog(str2, "Connection Gatt failure status " + i);
                 MainActivity.this.mo5240I();
             } else if (i != 0) {
-                GlobalApplication globalApplication3 = MainActivity.this.f4214k;
-                String str3 = MainActivity.f3974m;
-                globalApplication3.mo5229a(str3, "Connection not GATT sucess status " + i);
+                GlobalApplication globalApplication3 = MainActivity.this.globalApplication;
+                String str3 = MainActivity.logLevel_info;
+                globalApplication3.addLog(str3, "Connection not GATT sucess status " + i);
                 MainActivity.this.mo5240I();
             } else if (i2 == 2) {
-                GlobalApplication globalApplication4 = MainActivity.this.f4214k;
-                String str4 = MainActivity.f3974m;
-                globalApplication4.mo5229a(str4, "Connected to device " + bluetoothGatt.getDevice().getAddress());
+                GlobalApplication globalApplication4 = MainActivity.this.globalApplication;
+                String str4 = MainActivity.logLevel_info;
+                globalApplication4.addLog(str4, "Connected to device " + bluetoothGatt.getDevice().getAddress());
                 int unused = MainActivity.this.f4210eb = 2;
                 bluetoothGatt.discoverServices();
             } else if (i2 == 0) {
-                MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Disconnected from device");
+                MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Disconnected from device");
                 MainActivity.this.mo5240I();
             }
         }
@@ -1003,9 +1003,9 @@ public class MainActivity extends C0670c {
         public void onServicesDiscovered(BluetoothGatt bluetoothGatt, int i) {
             super.onServicesDiscovered(bluetoothGatt, i);
             if (i != 0) {
-                GlobalApplication globalApplication = MainActivity.this.f4214k;
-                String str = MainActivity.f3974m;
-                globalApplication.mo5229a(str, "Device service discovery unsuccessful, status " + i);
+                GlobalApplication globalApplication = MainActivity.this.globalApplication;
+                String str = MainActivity.logLevel_info;
+                globalApplication.addLog(str, "Device service discovery unsuccessful, status " + i);
                 MainActivity.this.f4043aq = false;
                 return;
             }
@@ -1029,9 +1029,9 @@ public class MainActivity extends C0670c {
             MainActivity mainActivity = MainActivity.this;
             mainActivity.f4072bT = false;
             if (i != 0) {
-                GlobalApplication globalApplication = mainActivity.f4214k;
-                String str = MainActivity.f3974m;
-                globalApplication.mo5229a(str, "Characteristic write unsuccessful, status: " + i);
+                GlobalApplication globalApplication = mainActivity.globalApplication;
+                String str = MainActivity.logLevel_info;
+                globalApplication.addLog(str, "Characteristic write unsuccessful, status: " + i);
                 MainActivity.this.mo5240I();
             } else if (mainActivity.f4070bR.size() > 0) {
                 MainActivity mainActivity2 = MainActivity.this;
@@ -1047,9 +1047,9 @@ public class MainActivity extends C0670c {
                 m5993a(bluetoothGattCharacteristic);
                 return;
             }
-            GlobalApplication globalApplication = MainActivity.this.f4214k;
-            String str = MainActivity.f3974m;
-            globalApplication.mo5229a(str, "Characteristic read unsuccessful, status: " + i);
+            GlobalApplication globalApplication = MainActivity.this.globalApplication;
+            String str = MainActivity.logLevel_info;
+            globalApplication.addLog(str, "Characteristic read unsuccessful, status: " + i);
             MainActivity.this.mo5240I();
         }
 
@@ -1062,20 +1062,20 @@ public class MainActivity extends C0670c {
             if (i == 0) {
                 bluetoothGatt.requestMtu(512);
             } else {
-                MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Descriptor write failed");
+                MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Descriptor write failed");
             }
         }
 
         public void onMtuChanged(BluetoothGatt bluetoothGatt, int i, int i2) {
             super.onMtuChanged(bluetoothGatt, i, i2);
             if (i2 == 0) {
-                GlobalApplication globalApplication = MainActivity.this.f4214k;
-                String str = MainActivity.f3974m;
-                globalApplication.mo5229a(str, "MTU changed: " + i);
+                GlobalApplication globalApplication = MainActivity.this.globalApplication;
+                String str = MainActivity.logLevel_info;
+                globalApplication.addLog(str, "MTU changed: " + i);
                 MainActivity.this.mo5238G();
                 return;
             }
-            MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "MTU change failed");
+            MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "MTU change failed");
         }
 
         /* renamed from: a */
@@ -1087,16 +1087,16 @@ public class MainActivity extends C0670c {
                 bluetoothGatt.requestMtu(512);
                 return;
             }
-            GlobalApplication globalApplication = MainActivity.this.f4214k;
-            String str = MainActivity.f3974m;
-            globalApplication.mo5229a(str, "Characteristic notification set failure for " + bluetoothGattCharacteristic.getUuid().toString());
+            GlobalApplication globalApplication = MainActivity.this.globalApplication;
+            String str = MainActivity.logLevel_info;
+            globalApplication.addLog(str, "Characteristic notification set failure for " + bluetoothGattCharacteristic.getUuid().toString());
         }
 
         /* renamed from: a */
         private void m5993a(BluetoothGattCharacteristic bluetoothGattCharacteristic) {
             String a = C1257f.m6120a(bluetoothGattCharacteristic.getValue());
             if (a == null) {
-                MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Unable to convert bytes to string");
+                MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Unable to convert bytes to string");
             } else {
                 MainActivity.this.m5943o(a);
             }
@@ -1108,13 +1108,13 @@ public class MainActivity extends C0670c {
     public boolean f4213ee = false;
 
     /* renamed from: k */
-    public GlobalApplication f4214k;
+    public GlobalApplication globalApplication;
 
     /* renamed from: l */
     public C1246d f4215l;
 
     /* renamed from: n */
-    public C1218b f4216n = C1218b.SPP;
+    public btConnectionModeEnum btConnectionMode = btConnectionModeEnum.SPP;
 
     /* renamed from: o */
     ArrayList<BluetoothDevice> f4217o = new ArrayList<>();
@@ -1153,7 +1153,7 @@ public class MainActivity extends C0670c {
     boolean f4228z = false;
 
     /* renamed from: com.minirig.android.MainActivity$b */
-    public enum C1218b {
+    public enum btConnectionModeEnum {
         BLE,
         SPP
     }
@@ -1161,9 +1161,9 @@ public class MainActivity extends C0670c {
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         this.f4221s = true;
-        this.f4214k = (GlobalApplication) getApplicationContext();
-        this.f4214k.mo5229a(f3974m, "onCreate() ");
-        this.f4215l = new C1246d(this.f4214k, this);
+        this.globalApplication = (GlobalApplication) getApplicationContext();
+        this.globalApplication.addLog(logLevel_info, "onCreate() ");
+        this.f4215l = new C1246d(this.globalApplication, this);
         this.f4218p = (BluetoothManager) getSystemService("bluetooth");
         this.f4220r = (AudioManager) getSystemService("audio");
         this.f3975A = new Handler(getApplicationContext().getMainLooper());
@@ -1174,7 +1174,7 @@ public class MainActivity extends C0670c {
             }
         };
         if (!getPackageManager().hasSystemFeature("android.hardware.bluetooth_le")) {
-            this.f4214k.mo5229a(f3974m, "Device does not support bluetooth low energy");
+            this.globalApplication.addLog(logLevel_info, "Device does not support bluetooth low energy");
             mo5246b("BLE not supported", "Your device does not support bluetooth low energy");
         }
         m5720U();
@@ -1183,8 +1183,8 @@ public class MainActivity extends C0670c {
         if (!this.f4061bI) {
             m5892bo();
         }
-        this.f4180dX = BluetoothAdapter.getDefaultAdapter();
-        if (!this.f4180dX.isEnabled()) {
+        this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+        if (!this.bluetoothAdapter.isEnabled()) {
             m5901bx();
         }
         this.f4138ch = new C1258c(this);
@@ -1200,7 +1200,7 @@ public class MainActivity extends C0670c {
         if (!mo5235D()) {
             mo5236E();
         }
-        if (mo5235D() && this.f4180dX.isEnabled()) {
+        if (mo5235D() && this.bluetoothAdapter.isEnabled()) {
             m5871bC();
         }
     }
@@ -1210,10 +1210,10 @@ public class MainActivity extends C0670c {
         this.f4221s = false;
         m5710P();
         this.f3989O = null;
-        this.f4214k.mo5229a(f3974m, "onPause()");
+        this.globalApplication.addLog(logLevel_info, "onPause()");
         m5701L();
         if (this.f4045as) {
-            this.f4214k.mo5229a(f3974m, "Don't do anything on pause if broadcast scanning because probably pairing");
+            this.globalApplication.addLog(logLevel_info, "Don't do anything on pause if broadcast scanning because probably pairing");
         } else {
             m5700K();
         }
@@ -1225,13 +1225,13 @@ public class MainActivity extends C0670c {
         m5903bz();
         setView(this.f4067bO);
         this.f4138ch.mo5559a();
-        this.f4180dX.closeProfileProxy(2, this.f4219q);
+        this.bluetoothAdapter.closeProfileProxy(2, this.f4219q);
         try {
             unregisterReceiver(this.f3990P);
         } catch (IllegalArgumentException e) {
-            GlobalApplication globalApplication = this.f4214k;
-            String str = f3974m;
-            globalApplication.mo5229a(str, "Failed to unregister receiver 'bluetoothTurnedOnOff' excpetion: " + e.getMessage());
+            GlobalApplication globalApplication = this.globalApplication;
+            String str = logLevel_info;
+            globalApplication.addLog(str, "Failed to unregister receiver 'bluetoothTurnedOnOff' excpetion: " + e.getMessage());
         }
         this.f3984J.removeCallbacks(this.f3986L);
     }
@@ -1239,7 +1239,7 @@ public class MainActivity extends C0670c {
     public void onResume() {
         super.onResume();
         this.f4221s = true;
-        this.f4214k.mo5229a(f3974m, "- - - - - onResume() - - - - ");
+        this.globalApplication.addLog(logLevel_info, "- - - - - onResume() - - - - ");
         if (this.f4144cn != null) {
             runOnUiThread(new Runnable() {
                 public void run() {
@@ -1254,7 +1254,7 @@ public class MainActivity extends C0670c {
         m5712Q();
         m5718T();
         if (this.f4222t) {
-            if (!(this.f4227y == null || this.f4216n != C1218b.SPP || this.f4065bM == this.f4136cf)) {
+            if (!(this.f4227y == null || this.btConnectionMode != btConnectionModeEnum.SPP || this.f4065bM == this.f4136cf)) {
                 m5905c(this.f4227y);
             }
             if (this.f4065bM == this.f4136cf) {
@@ -1262,7 +1262,7 @@ public class MainActivity extends C0670c {
                 this.f4226x = false;
                 this.f4138ch.mo5559a();
                 m5876bH();
-                if (mo5235D() && this.f4180dX.isEnabled()) {
+                if (mo5235D() && this.bluetoothAdapter.isEnabled()) {
                     m5871bC();
                 }
             }
@@ -1276,25 +1276,25 @@ public class MainActivity extends C0670c {
         Runnable runnable;
         super.onDestroy();
         this.f4221s = false;
-        this.f4214k.mo5229a(f3974m, "onDestroy()");
+        this.globalApplication.addLog(logLevel_info, "onDestroy()");
         m5903bz();
         this.f4138ch.mo5559a();
         m5876bH();
         this.f3975A = null;
-        this.f4180dX.closeProfileProxy(2, this.f4219q);
+        this.bluetoothAdapter.closeProfileProxy(2, this.f4219q);
         try {
             unregisterReceiver(this.f4034ah);
         } catch (IllegalArgumentException e) {
-            GlobalApplication globalApplication = this.f4214k;
-            String str = f3974m;
-            globalApplication.mo5229a(str, "Failed to unregister Audio listener: " + e.getMessage());
+            GlobalApplication globalApplication = this.globalApplication;
+            String str = logLevel_info;
+            globalApplication.addLog(str, "Failed to unregister Audio listener: " + e.getMessage());
         }
         try {
             unregisterReceiver(this.f3990P);
         } catch (IllegalArgumentException e2) {
-            GlobalApplication globalApplication2 = this.f4214k;
-            String str2 = f3974m;
-            globalApplication2.mo5229a(str2, "Failed to unregister receiver 'bluetoothTurnedOnOff' excpetion: " + e2.getMessage());
+            GlobalApplication globalApplication2 = this.globalApplication;
+            String str2 = logLevel_info;
+            globalApplication2.addLog(str2, "Failed to unregister receiver 'bluetoothTurnedOnOff' excpetion: " + e2.getMessage());
         }
         Handler handler = this.f3984J;
         if (handler != null && (runnable = this.f3986L) != null) {
@@ -1314,12 +1314,12 @@ public class MainActivity extends C0670c {
     private void m5701L() {
         if (mo5284r() && !this.f4162dF.equals("")) {
             if (m5868b(this.f4085bg)) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4724ak++;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4724ak++;
                 }
             } else if (m5868b(this.f4087bi)) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4725al++;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4725al++;
                 }
             } else if (!m5868b(this.f4089bk)) {
                 String[] split = this.f4162dF.substring(2).split(" ");
@@ -1327,29 +1327,29 @@ public class MainActivity extends C0670c {
                     return;
                 }
                 if (!split[0].equals("50") || !split[1].equals("50") || !split[2].equals("50") || !split[3].equals("50") || !split[4].equals("50")) {
-                    if (this.f4214k.f3964j.f4685f != null) {
-                        this.f4214k.f3964j.f4685f.f4719af += Integer.parseInt(split[0]);
+                    if (this.globalApplication.f3964j.f4685f != null) {
+                        this.globalApplication.f3964j.f4685f.f4719af += Integer.parseInt(split[0]);
                     }
-                    if (this.f4214k.f3964j.f4685f != null) {
-                        this.f4214k.f3964j.f4685f.f4720ag += Integer.parseInt(split[1]);
+                    if (this.globalApplication.f3964j.f4685f != null) {
+                        this.globalApplication.f3964j.f4685f.f4720ag += Integer.parseInt(split[1]);
                     }
-                    if (this.f4214k.f3964j.f4685f != null) {
-                        this.f4214k.f3964j.f4685f.f4721ah += Integer.parseInt(split[2]);
+                    if (this.globalApplication.f3964j.f4685f != null) {
+                        this.globalApplication.f3964j.f4685f.f4721ah += Integer.parseInt(split[2]);
                     }
-                    if (this.f4214k.f3964j.f4685f != null) {
-                        this.f4214k.f3964j.f4685f.f4722ai += Integer.parseInt(split[3]);
+                    if (this.globalApplication.f3964j.f4685f != null) {
+                        this.globalApplication.f3964j.f4685f.f4722ai += Integer.parseInt(split[3]);
                     }
-                    if (this.f4214k.f3964j.f4685f != null) {
-                        this.f4214k.f3964j.f4685f.f4723aj += Integer.parseInt(split[4]);
+                    if (this.globalApplication.f3964j.f4685f != null) {
+                        this.globalApplication.f3964j.f4685f.f4723aj += Integer.parseInt(split[4]);
                     }
-                    if (this.f4214k.f3964j.f4685f != null) {
-                        this.f4214k.f3964j.f4685f.f4718ae++;
+                    if (this.globalApplication.f3964j.f4685f != null) {
+                        this.globalApplication.f3964j.f4685f.f4718ae++;
                     }
-                } else if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4717ad++;
+                } else if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4717ad++;
                 }
-            } else if (this.f4214k.f3964j.f4685f != null) {
-                this.f4214k.f3964j.f4685f.f4726am++;
+            } else if (this.globalApplication.f3964j.f4685f != null) {
+                this.globalApplication.f3964j.f4685f.f4726am++;
             }
         }
     }
@@ -1360,11 +1360,11 @@ public class MainActivity extends C0670c {
         this.f3987M = new String[]{"x", "q p 00 50", "B"};
         this.f3984J.postDelayed(new Runnable() {
             public void run() {
-                if (MainActivity.this.f4214k.f3966l != null && MainActivity.this.f4177dU) {
+                if (MainActivity.this.globalApplication.f3966l != null && MainActivity.this.f4177dU) {
                     MainActivity.this.m5876bH();
                 }
                 if (((int) ((new Date().getTime() - MainActivity.this.f4141ck.getTime()) / 1000)) <= 45) {
-                    MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "RoutinelyRunnable get decvice status check...");
+                    MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "RoutinelyRunnable get decvice status check...");
                     MainActivity mainActivity = MainActivity.this;
                     String str = mainActivity.f3987M[MainActivity.this.f3988N];
                     mainActivity.sendCommand(str, "ROUTINELY_" + MainActivity.this.f3987M[MainActivity.this.f3988N]);
@@ -1373,7 +1373,7 @@ public class MainActivity extends C0670c {
                     if (MainActivity.this.f3988N == MainActivity.this.f3987M.length) {
                         MainActivity.this.f3988N = 0;
                     }
-                } else if (MainActivity.this.f4142cl == null && MainActivity.this.f4214k.f3966l != null) {
+                } else if (MainActivity.this.f4142cl == null && MainActivity.this.globalApplication.f3966l != null) {
                     MainActivity.this.m5706N();
                 }
                 MainActivity mainActivity3 = MainActivity.this;
@@ -1412,7 +1412,7 @@ public class MainActivity extends C0670c {
             setView(this.f4136cf);
             return;
         }
-        this.f4214k.mo5229a(f3974m, "Found connected device for SPP reconnect for inactivity wake");
+        this.globalApplication.addLog(logLevel_info, "Found connected device for SPP reconnect for inactivity wake");
         this.f4141ck = new Date();
         m5905c(m5715S());
     }
@@ -1425,80 +1425,80 @@ public class MainActivity extends C0670c {
         }
         int time = (int) ((new Date().getTime() - this.f3989O.getTime()) / 1000);
         this.f3989O = new Date();
-        if (this.f4214k.f3964j.f4685f != null) {
-            if (this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.MONO)) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4705S += time;
+        if (this.globalApplication.f3964j.f4685f != null) {
+            if (this.globalApplication.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.MONO)) {
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4705S += time;
                 }
-            } else if (this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.MONO_MIC)) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4699M += time;
+            } else if (this.globalApplication.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.MONO_MIC)) {
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4699M += time;
                 }
-            } else if (this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.MONO_SUB)) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4700N += time;
+            } else if (this.globalApplication.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.MONO_SUB)) {
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4700N += time;
                 }
-            } else if (this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.STEREO_AUX)) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4701O += time;
+            } else if (this.globalApplication.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.STEREO_AUX)) {
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4701O += time;
                 }
-            } else if (this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.STEREO_ONE_SUB)) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4702P += time;
+            } else if (this.globalApplication.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.STEREO_ONE_SUB)) {
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4702P += time;
                 }
-            } else if (this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.STEREO_TWO_SUBS)) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4703Q += time;
+            } else if (this.globalApplication.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.STEREO_TWO_SUBS)) {
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4703Q += time;
                 }
-            } else if (this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.MONO_LINK) && this.f4214k.f3964j.f4685f != null) {
-                this.f4214k.f3964j.f4685f.f4704R += time;
+            } else if (this.globalApplication.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.MONO_LINK) && this.globalApplication.f3964j.f4685f != null) {
+                this.globalApplication.f3964j.f4685f.f4704R += time;
             }
         }
-        if (this.f4065bM != null && this.f4214k.f3964j.f4685f != null) {
+        if (this.f4065bM != null && this.globalApplication.f3964j.f4685f != null) {
             View view = this.f4065bM;
             if (view == this.f4028ab) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4730e += time;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4730e += time;
                 }
             } else if (view == this.f4079ba) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4731f += time;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4731f += time;
                 }
             } else if (view == this.f4090bl) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4732g += time;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4732g += time;
                 }
             } else if (view == this.f4037ak) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4733h += time;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4733h += time;
                 }
             } else if (view == this.f4091bm) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4734i += time;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4734i += time;
                 }
             } else if (view == this.f4103by) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4735j += time;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4735j += time;
                 }
             } else if (view == this.f4104bz) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4737l += time;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4737l += time;
                 }
             } else if (view == this.f4046at || view == this.f4050ax || view == this.f4001aA || view == this.f4002aB) {
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4738m += time;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4738m += time;
                 }
-            } else if ((view == this.f4010aJ || view == this.f4018aR) && this.f4214k.f3964j.f4685f != null) {
-                this.f4214k.f3964j.f4685f.f4739n += time;
+            } else if ((view == this.f4010aJ || view == this.f4018aR) && this.globalApplication.f3964j.f4685f != null) {
+                this.globalApplication.f3964j.f4685f.f4739n += time;
             }
-            this.f4214k.f3964j.f4684e.mo5588j().mo5595b(this.f4214k.f3964j.f4685f);
+            this.globalApplication.f3964j.f4684e.mo5588j().mo5595b(this.globalApplication.f3964j.f4685f);
         }
     }
 
     /* renamed from: Q */
     private void m5712Q() {
-        this.f4180dX.closeProfileProxy(2, this.f4219q);
-        this.f4180dX.getProfileProxy(getApplicationContext(), this.f4145co, 2);
+        this.bluetoothAdapter.closeProfileProxy(2, this.f4219q);
+        this.bluetoothAdapter.getProfileProxy(getApplicationContext(), this.f4145co, 2);
     }
 
     /* access modifiers changed from: private */
@@ -1581,7 +1581,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: T */
     private void m5718T() {
-        this.f4214k.mo5229a(f3974m, "setupBluetoothConnectionReceiver");
+        this.globalApplication.addLog(logLevel_info, "setupBluetoothConnectionReceiver");
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("android.bluetooth.adapter.action.STATE_CHANGED");
         intentFilter.addAction("android.bluetooth.adapter.action.CONNECTION_STATE_CHANGED");
@@ -1591,7 +1591,7 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: e */
     public BluetoothDevice m5914e(String str) {
-        Set<BluetoothDevice> bondedDevices = this.f4180dX.getBondedDevices();
+        Set<BluetoothDevice> bondedDevices = this.bluetoothAdapter.getBondedDevices();
         if (bondedDevices.size() <= 0) {
             return null;
         }
@@ -1606,7 +1606,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: U */
     private void m5720U() {
-        this.f4214k.f3963i.mo5552a("https://settings.minirigs.co.uk/GET_LATEST_UPDATES", C1250e.C1256a.GET_LATEST_VERSIONS);
+        this.globalApplication.f3963i.mo5552a("https://settings.minirigs.co.uk/GET_LATEST_UPDATES", C1250e.C1256a.GET_LATEST_VERSIONS);
     }
 
     /* access modifiers changed from: private */
@@ -1638,7 +1638,7 @@ public class MainActivity extends C0670c {
         this.f3993S = (Button) findViewById(R.id.batteryChargeOut);
         this.f3991Q.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Tapped battery");
+                MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Tapped battery");
                 MainActivity.this.m5726X();
             }
         });
@@ -1658,25 +1658,25 @@ public class MainActivity extends C0670c {
                 if (MainActivity.this.f4151cu.getText().toString().equals("Tap for the latest Minirig Mixtapes")) {
                     MainActivity mainActivity = MainActivity.this;
                     mainActivity.setView(mainActivity.f4100bv);
-                } else if (MainActivity.this.f4214k.f3970p > -1) {
+                } else if (MainActivity.this.globalApplication.f3970p > -1) {
                     try {
-                        if (MainActivity.this.f4214k.f3968n.getJSONObject(MainActivity.this.f4214k.f3970p).getString("image").equalsIgnoreCase("null") || MainActivity.this.f4214k.f3968n.getJSONObject(MainActivity.this.f4214k.f3970p).getString("image").equalsIgnoreCase("") || !MainActivity.this.f4214k.f3969o.containsKey(Integer.toString(MainActivity.this.f4214k.f3970p))) {
-                            if (!MainActivity.this.f4214k.f3968n.getJSONObject(MainActivity.this.f4214k.f3970p).getString("description").equals("")) {
-                                if (!MainActivity.this.f4214k.f3968n.getJSONObject(MainActivity.this.f4214k.f3970p).getString("description").equals("null")) {
-                                    C1250e eVar = MainActivity.this.f4214k.f3963i;
-                                    eVar.mo5552a("https://dreambaked.com/minirig_data_collection/controller/API.php?class=Broadcasts&function=saveClick&broadcastID=" + MainActivity.this.f4214k.f3968n.getJSONObject(MainActivity.this.f4214k.f3970p).getInt("broadcastID"), C1250e.C1256a.SAVE_BROADCAST_CLICK);
-                                    MainActivity.this.mo5271d(MainActivity.this.f4214k.f3970p);
+                        if (MainActivity.this.globalApplication.f3968n.getJSONObject(MainActivity.this.globalApplication.f3970p).getString("image").equalsIgnoreCase("null") || MainActivity.this.globalApplication.f3968n.getJSONObject(MainActivity.this.globalApplication.f3970p).getString("image").equalsIgnoreCase("") || !MainActivity.this.globalApplication.f3969o.containsKey(Integer.toString(MainActivity.this.globalApplication.f3970p))) {
+                            if (!MainActivity.this.globalApplication.f3968n.getJSONObject(MainActivity.this.globalApplication.f3970p).getString("description").equals("")) {
+                                if (!MainActivity.this.globalApplication.f3968n.getJSONObject(MainActivity.this.globalApplication.f3970p).getString("description").equals("null")) {
+                                    C1250e eVar = MainActivity.this.globalApplication.f3963i;
+                                    eVar.mo5552a("https://dreambaked.com/minirig_data_collection/controller/API.php?class=Broadcasts&function=saveClick&broadcastID=" + MainActivity.this.globalApplication.f3968n.getJSONObject(MainActivity.this.globalApplication.f3970p).getInt("broadcastID"), C1250e.C1256a.SAVE_BROADCAST_CLICK);
+                                    MainActivity.this.mo5271d(MainActivity.this.globalApplication.f3970p);
                                     return;
                                 }
                             }
-                            C1250e eVar2 = MainActivity.this.f4214k.f3963i;
-                            eVar2.mo5552a("https://dreambaked.com/minirig_data_collection/controller/API.php?class=Broadcasts&function=saveClick&broadcastID=" + MainActivity.this.f4214k.f3968n.getJSONObject(MainActivity.this.f4214k.f3970p).getInt("broadcastID"), C1250e.C1256a.SAVE_BROADCAST_CLICK);
-                            MainActivity.this.mo5249c(MainActivity.this.f4214k.f3970p);
+                            C1250e eVar2 = MainActivity.this.globalApplication.f3963i;
+                            eVar2.mo5552a("https://dreambaked.com/minirig_data_collection/controller/API.php?class=Broadcasts&function=saveClick&broadcastID=" + MainActivity.this.globalApplication.f3968n.getJSONObject(MainActivity.this.globalApplication.f3970p).getInt("broadcastID"), C1250e.C1256a.SAVE_BROADCAST_CLICK);
+                            MainActivity.this.mo5249c(MainActivity.this.globalApplication.f3970p);
                             return;
                         }
-                        C1250e eVar3 = MainActivity.this.f4214k.f3963i;
-                        eVar3.mo5552a("https://dreambaked.com/minirig_data_collection/controller/API.php?class=Broadcasts&function=saveClick&broadcastID=" + MainActivity.this.f4214k.f3968n.getJSONObject(MainActivity.this.f4214k.f3970p).getInt("broadcastID"), C1250e.C1256a.SAVE_BROADCAST_CLICK);
-                        MainActivity.this.m5916e(MainActivity.this.f4214k.f3970p);
+                        C1250e eVar3 = MainActivity.this.globalApplication.f3963i;
+                        eVar3.mo5552a("https://dreambaked.com/minirig_data_collection/controller/API.php?class=Broadcasts&function=saveClick&broadcastID=" + MainActivity.this.globalApplication.f3968n.getJSONObject(MainActivity.this.globalApplication.f3970p).getInt("broadcastID"), C1250e.C1256a.SAVE_BROADCAST_CLICK);
+                        MainActivity.this.m5916e(MainActivity.this.globalApplication.f3970p);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -1690,7 +1690,7 @@ public class MainActivity extends C0670c {
     public void m5726X() {
         this.f4146cp++;
         if (this.f4146cp == 16) {
-            this.f4214k.f3956b = true;
+            this.globalApplication.f3956b = true;
             runOnUiThread(new Runnable() {
                 public void run() {
                     MainActivity.this.f4150ct.setText("Debug mode");
@@ -1704,15 +1704,15 @@ public class MainActivity extends C0670c {
 
     /* renamed from: Y */
     private void m5728Y() {
-        this.f4214k.f3963i.mo5552a("https://dreambaked.com/minirig_data_collection/controller/API.php?class=Broadcasts&function=getBroadcastsAPI", C1250e.C1256a.GET_BROADCASTS);
+        this.globalApplication.f3963i.mo5552a("https://dreambaked.com/minirig_data_collection/controller/API.php?class=Broadcasts&function=getBroadcastsAPI", C1250e.C1256a.GET_BROADCASTS);
     }
 
     /* renamed from: k */
     public void mo5272k() {
         try {
-            if (this.f4214k.f3968n != null) {
-                this.f4151cu.setText(Html.fromHtml(this.f4214k.f3968n.getJSONObject(0).getString("title")));
-                this.f4214k.f3970p = 0;
+            if (this.globalApplication.f3968n != null) {
+                this.f4151cu.setText(Html.fromHtml(this.globalApplication.f3968n.getJSONObject(0).getString("title")));
+                this.globalApplication.f3970p = 0;
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -1721,18 +1721,18 @@ public class MainActivity extends C0670c {
 
     /* renamed from: l */
     public void mo5273l() {
-        if (this.f4214k.f3970p > -1) {
+        if (this.globalApplication.f3970p > -1) {
             try {
-                String str = "broadcast_auto_opens_" + this.f4214k.f3968n.getJSONObject(this.f4214k.f3970p).getString("broadcastID");
-                int i = this.f4214k.f3957c.getInt(str, 0);
-                if (i < 1 && this.f4214k.f3968n.getJSONObject(this.f4214k.f3970p).getString("auto_open").equalsIgnoreCase("1")) {
-                    this.f4214k.f3957c.edit().putInt(str, i + 1).apply();
-                    if (!this.f4214k.f3968n.getJSONObject(this.f4214k.f3970p).getString("image").equalsIgnoreCase("null") && !this.f4214k.f3968n.getJSONObject(this.f4214k.f3970p).getString("image").equalsIgnoreCase("") && this.f4214k.f3969o.containsKey(Integer.toString(this.f4214k.f3970p))) {
-                        m5916e(this.f4214k.f3970p);
-                    } else if (this.f4214k.f3968n.getJSONObject(this.f4214k.f3970p).getString("description").equals("")) {
+                String str = "broadcast_auto_opens_" + this.globalApplication.f3968n.getJSONObject(this.globalApplication.f3970p).getString("broadcastID");
+                int i = this.globalApplication.f3957c.getInt(str, 0);
+                if (i < 1 && this.globalApplication.f3968n.getJSONObject(this.globalApplication.f3970p).getString("auto_open").equalsIgnoreCase("1")) {
+                    this.globalApplication.f3957c.edit().putInt(str, i + 1).apply();
+                    if (!this.globalApplication.f3968n.getJSONObject(this.globalApplication.f3970p).getString("image").equalsIgnoreCase("null") && !this.globalApplication.f3968n.getJSONObject(this.globalApplication.f3970p).getString("image").equalsIgnoreCase("") && this.globalApplication.f3969o.containsKey(Integer.toString(this.globalApplication.f3970p))) {
+                        m5916e(this.globalApplication.f3970p);
+                    } else if (this.globalApplication.f3968n.getJSONObject(this.globalApplication.f3970p).getString("description").equals("")) {
                     } else {
-                        if (!this.f4214k.f3968n.getJSONObject(this.f4214k.f3970p).getString("description").equals("null")) {
-                            mo5271d(this.f4214k.f3970p);
+                        if (!this.globalApplication.f3968n.getJSONObject(this.globalApplication.f3970p).getString("description").equals("null")) {
+                            mo5271d(this.globalApplication.f3970p);
                         }
                     }
                 }
@@ -1745,8 +1745,8 @@ public class MainActivity extends C0670c {
     /* renamed from: c */
     public void mo5249c(int i) {
         try {
-            if (!this.f4214k.f3968n.getJSONObject(i).getString("hyperlink").equals("")) {
-                Intent intent = new Intent("android.intent.action.VIEW", Uri.parse(this.f4214k.f3968n.getJSONObject(i).getString("hyperlink")));
+            if (!this.globalApplication.f3968n.getJSONObject(i).getString("hyperlink").equals("")) {
+                Intent intent = new Intent("android.intent.action.VIEW", Uri.parse(this.globalApplication.f3968n.getJSONObject(i).getString("hyperlink")));
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
                 } else {
@@ -1765,13 +1765,13 @@ public class MainActivity extends C0670c {
             this.f3995U = new Dialog(this);
             this.f3995U.setContentView(R.layout.broadcast_dialog);
             final LinearLayout linearLayout = (LinearLayout) this.f3995U.findViewById(R.id.broadcastImage);
-            final C1066m mVar = this.f4214k.f3969o.get(Integer.toString(i));
+            final C1066m mVar = this.globalApplication.f3969o.get(Integer.toString(i));
             linearLayout.addView(mVar);
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
                     MainActivity.this.f3995U.dismiss();
                     try {
-                        if (!MainActivity.this.f4214k.f3968n.getJSONObject(i).getString("hyperlink").equals("")) {
+                        if (!MainActivity.this.globalApplication.f3968n.getJSONObject(i).getString("hyperlink").equals("")) {
                             MainActivity.this.mo5249c(i);
                         }
                     } catch (JSONException e) {
@@ -1798,8 +1798,8 @@ public class MainActivity extends C0670c {
     /* renamed from: d */
     public void mo5271d(final int i) {
         try {
-            if (this.f4214k.f3968n.getJSONObject(i).getString("hyperlink").equals("")) {
-                mo5246b("Notice", this.f4214k.f3968n.getJSONObject(i).getString("description"));
+            if (this.globalApplication.f3968n.getJSONObject(i).getString("hyperlink").equals("")) {
+                mo5246b("Notice", this.globalApplication.f3968n.getJSONObject(i).getString("description"));
                 return;
             }
             AlertDialog.Builder negativeButton = new AlertDialog.Builder(this).setPositiveButton("Go", new DialogInterface.OnClickListener() {
@@ -1812,7 +1812,7 @@ public class MainActivity extends C0670c {
             });
             negativeButton.setTitle("Feed");
             negativeButton.setIcon(17301659);
-            negativeButton.setMessage(this.f4214k.f3968n.getJSONObject(i).getString("description"));
+            negativeButton.setMessage(this.globalApplication.f3968n.getJSONObject(i).getString("description"));
             negativeButton.show();
         } catch (JSONException e) {
             e.printStackTrace();
@@ -1836,7 +1836,7 @@ public class MainActivity extends C0670c {
             public void run() {
                 String str;
                 String str2 = "";
-                if (MainActivity.this.f4214k.minirigf3.powerStatef4468h == minirigStatusClass.powerStateEnum.CHARGING) {
+                if (MainActivity.this.globalApplication.minirigf3.powerStatef4468h == minirigStatusClass.powerStateEnum.CHARGING) {
                     str2 = "ON CHARGE - ";
                 }
                 if (i < 20) {
@@ -1856,27 +1856,27 @@ public class MainActivity extends C0670c {
     private void m5809aa() {
         runOnUiThread(new Runnable() {
             public void run() {
-                if (MainActivity.this.f4214k.minirigf3.ledColorf4469i == minirigStatusClass.anotherledColorEnum.GREEN) {
+                if (MainActivity.this.globalApplication.minirigf3.ledColorf4469i == minirigStatusClass.anotherledColorEnum.GREEN) {
                     MainActivity.this.f3994T.setBackgroundResource(R.drawable.battery_very_high);
                     MainActivity.this.f3993S.setBackgroundResource(R.drawable.battery_very_high);
                     MainActivity.this.f3994T.setTextColor(-7829368);
                     MainActivity.this.f3993S.setTextColor(-7829368);
-                } else if (MainActivity.this.f4214k.minirigf3.ledColorf4469i == minirigStatusClass.anotherledColorEnum.CYAN) {
+                } else if (MainActivity.this.globalApplication.minirigf3.ledColorf4469i == minirigStatusClass.anotherledColorEnum.CYAN) {
                     MainActivity.this.f3994T.setBackgroundResource(R.drawable.battery_high);
                     MainActivity.this.f3993S.setBackgroundResource(R.drawable.battery_high);
                     MainActivity.this.f3994T.setTextColor(-7829368);
                     MainActivity.this.f3993S.setTextColor(-7829368);
-                } else if (MainActivity.this.f4214k.minirigf3.ledColorf4469i == minirigStatusClass.anotherledColorEnum.BLUE) {
+                } else if (MainActivity.this.globalApplication.minirigf3.ledColorf4469i == minirigStatusClass.anotherledColorEnum.BLUE) {
                     MainActivity.this.f3994T.setBackgroundResource(R.drawable.battery_medium);
                     MainActivity.this.f3993S.setBackgroundResource(R.drawable.battery_medium);
                     MainActivity.this.f3994T.setTextColor(-1);
                     MainActivity.this.f3993S.setTextColor(-1);
-                } else if (MainActivity.this.f4214k.minirigf3.ledColorf4469i == minirigStatusClass.anotherledColorEnum.PURPLE) {
+                } else if (MainActivity.this.globalApplication.minirigf3.ledColorf4469i == minirigStatusClass.anotherledColorEnum.PURPLE) {
                     MainActivity.this.f3994T.setBackgroundResource(R.drawable.battery_low);
                     MainActivity.this.f3993S.setBackgroundResource(R.drawable.battery_low);
                     MainActivity.this.f3994T.setTextColor(-1);
                     MainActivity.this.f3993S.setTextColor(-1);
-                } else if (MainActivity.this.f4214k.minirigf3.ledColorf4469i == minirigStatusClass.anotherledColorEnum.RED) {
+                } else if (MainActivity.this.globalApplication.minirigf3.ledColorf4469i == minirigStatusClass.anotherledColorEnum.RED) {
                     MainActivity.this.f3994T.setBackgroundResource(R.drawable.battery_very_low);
                     MainActivity.this.f3993S.setBackgroundResource(R.drawable.battery_very_low);
                     MainActivity.this.f3994T.setTextColor(-1);
@@ -1890,18 +1890,18 @@ public class MainActivity extends C0670c {
     private void m5811ab() {
         runOnUiThread(new Runnable() {
             public void run() {
-                if (MainActivity.this.f4214k.minirigf3.powerStatef4468h == minirigStatusClass.powerStateEnum.CHARGING) {
-                    MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "      CHARGING");
+                if (MainActivity.this.globalApplication.minirigf3.powerStatef4468h == minirigStatusClass.powerStateEnum.CHARGING) {
+                    MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "      CHARGING");
                     MainActivity.this.f3994T.startAnimation(MainActivity.this.f4148cr);
                     MainActivity.this.f3993S.clearAnimation();
                     MainActivity.this.f3993S.setText("Power out");
-                } else if (MainActivity.this.f4214k.minirigf3.powerStatef4468h == minirigStatusClass.powerStateEnum.POWER_OUT) {
-                    MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "      POWER_OUT");
+                } else if (MainActivity.this.globalApplication.minirigf3.powerStatef4468h == minirigStatusClass.powerStateEnum.POWER_OUT) {
+                    MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "      POWER_OUT");
                     MainActivity.this.f3994T.clearAnimation();
                     MainActivity.this.f3993S.startAnimation(MainActivity.this.f4147cq);
                     MainActivity.this.f3993S.setText("Charging device");
                 } else {
-                    MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "      NO CHARGE STATE");
+                    MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "      NO CHARGE STATE");
                     MainActivity.this.f3994T.clearAnimation();
                     MainActivity.this.f3993S.clearAnimation();
                     MainActivity.this.f3993S.setText("Power out");
@@ -1966,22 +1966,22 @@ public class MainActivity extends C0670c {
                         mainActivity.f4033ag = true;
                         if (mainActivity.mo5284r()) {
                             MainActivity mainActivity2 = MainActivity.this;
-                            mainActivity2.sendCommand(mainActivity2.f4214k.f3958d.mo5467a("08", 99), MainActivity.this.f4214k.f3958d.f4394a);
+                            mainActivity2.sendCommand(mainActivity2.globalApplication.mrCommandGenerator.setEqBand("08", 99), MainActivity.this.globalApplication.mrCommandGenerator.currentCommand);
                             MainActivity mainActivity3 = MainActivity.this;
-                            mainActivity3.sendCommand(mainActivity3.f4214k.f3958d.mo5467a("09", Integer.parseInt(MainActivity.this.f4119cO)), MainActivity.this.f4214k.f3958d.f4394a);
+                            mainActivity3.sendCommand(mainActivity3.globalApplication.mrCommandGenerator.setEqBand("09", Integer.parseInt(MainActivity.this.f4119cO)), MainActivity.this.globalApplication.mrCommandGenerator.currentCommand);
                         }
-                        if (MainActivity.this.f4214k.f3966l != null && MainActivity.this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2) {
+                        if (MainActivity.this.globalApplication.f3966l != null && MainActivity.this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2) {
                             MainActivity.this.sendCommand("Z", "MUTE_1");
                         }
                         MainActivity.this.sendCommand("F", "MUTE_2");
                         boolean unused = MainActivity.this.f4117cM = true;
-                        if (MainActivity.this.f4214k.f3964j.f4685f != null) {
-                            MainActivity.this.f4214k.f3964j.f4685f.f4697K++;
+                        if (MainActivity.this.globalApplication.f3964j.f4685f != null) {
+                            MainActivity.this.globalApplication.f3964j.f4685f.f4697K++;
                         }
                     } else {
                         if (MainActivity.this.f4033ag) {
                             if (MainActivity.this.mo5284r()) {
-                                if (MainActivity.this.f4214k.f3966l != null && MainActivity.this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2) {
+                                if (MainActivity.this.globalApplication.f3966l != null && MainActivity.this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2) {
                                     MainActivity.this.sendCommand("Y", "UNMUTE_1");
                                 }
                                 MainActivity.this.sendCommand("A", "UNMUTE_2");
@@ -2032,23 +2032,23 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: g */
     public void m5927g(String str) {
-        GlobalApplication globalApplication = this.f4214k;
-        String str2 = f3974m;
-        globalApplication.mo5229a(str2, "Set new name(" + str + ")");
-        GlobalApplication globalApplication2 = this.f4214k;
+        GlobalApplication globalApplication = this.globalApplication;
+        String str2 = logLevel_info;
+        globalApplication.addLog(str2, "Set new name(" + str + ")");
+        GlobalApplication globalApplication2 = this.globalApplication;
         globalApplication2.f3972r = str;
         globalApplication2.f3971q = globalApplication2.f3966l.f4405g;
-        GlobalApplication globalApplication3 = this.f4214k;
-        String str3 = f3974m;
-        globalApplication3.mo5229a(str3, "Set new name(" + this.f4214k.f3966l.f4405g + ")");
-        sendCommand(this.f4214k.f3958d.mo5466a(str), this.f4214k.f3958d.f4394a);
-        sendCommand(this.f4214k.f3958d.mo5469b(str), this.f4214k.f3958d.f4394a);
+        GlobalApplication globalApplication3 = this.globalApplication;
+        String str3 = logLevel_info;
+        globalApplication3.addLog(str3, "Set new name(" + this.globalApplication.f3966l.f4405g + ")");
+        sendCommand(this.globalApplication.mrCommandGenerator.setName(str), this.globalApplication.mrCommandGenerator.currentCommand);
+        sendCommand(this.globalApplication.mrCommandGenerator.setNameShort(str), this.globalApplication.mrCommandGenerator.currentCommand);
         sendCommand("N WRITE", "N WRITE".toString());
         mo5246b("Name changed", "The change will take effect after you restart your MINIRIG.");
-        this.f4214k.f3966l.f4403e = str;
+        this.globalApplication.f3966l.f4403e = str;
         runOnUiThread(new Runnable() {
             public void run() {
-                MainActivity.this.f4150ct.setText(MainActivity.this.f4214k.f3966l.f4403e);
+                MainActivity.this.f4150ct.setText(MainActivity.this.globalApplication.f3966l.f4403e);
             }
         });
     }
@@ -2058,7 +2058,7 @@ public class MainActivity extends C0670c {
         if (this.f4065bM == this.f4028ab && !this.f4115cK) {
             runOnUiThread(new Runnable() {
                 public void run() {
-                    MainActivity.this.f4150ct.setText(MainActivity.this.f4214k.f3966l.f4403e);
+                    MainActivity.this.f4150ct.setText(MainActivity.this.globalApplication.f3966l.f4403e);
                 }
             });
         }
@@ -2090,7 +2090,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: ai */
     private void m5824ai() {
-        this.f4214k.mo5229a(f3974m, "setupTrackInfoListener()");
+        this.globalApplication.addLog(logLevel_info, "setupTrackInfoListener()");
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("com.android.music.metachanged");
         intentFilter.addAction("com.android.music.playstatechanged");
@@ -2142,8 +2142,8 @@ public class MainActivity extends C0670c {
         KeyEvent keyEvent;
         KeyEvent keyEvent2;
         this.f4036aj = true;
-        if (this.f4214k.f3964j.f4685f != null) {
-            this.f4214k.f3964j.f4685f.f4693G++;
+        if (this.globalApplication.f3964j.f4685f != null) {
+            this.globalApplication.f3964j.f4685f.f4693G++;
         }
         runOnUiThread(new Runnable() {
             public void run() {
@@ -2173,8 +2173,8 @@ public class MainActivity extends C0670c {
         KeyEvent keyEvent2 = new KeyEvent(1, 87);
         mo5247b(keyEvent);
         mo5247b(keyEvent2);
-        if (this.f4214k.f3964j.f4685f != null) {
-            this.f4214k.f3964j.f4685f.f4692F++;
+        if (this.globalApplication.f3964j.f4685f != null) {
+            this.globalApplication.f3964j.f4685f.f4692F++;
         }
     }
 
@@ -2183,23 +2183,23 @@ public class MainActivity extends C0670c {
         KeyEvent keyEvent2 = new KeyEvent(1, 88);
         mo5247b(keyEvent);
         mo5247b(keyEvent2);
-        if (this.f4214k.f3964j.f4685f != null) {
-            this.f4214k.f3964j.f4685f.f4691E++;
+        if (this.globalApplication.f3964j.f4685f != null) {
+            this.globalApplication.f3964j.f4685f.f4691E++;
         }
     }
 
     public void openPlayersClicked(View view) {
         if (mo5284r()) {
-            if (this.f4214k.f3964j.f4685f != null) {
-                this.f4214k.f3964j.f4685f.f4716ac++;
+            if (this.globalApplication.f3964j.f4685f != null) {
+                this.globalApplication.f3964j.f4685f.f4716ac++;
             }
             setView(this.f4028ab);
             return;
         }
         setView(this.f4100bv);
         m5827aj();
-        if (this.f4214k.f3964j.f4685f != null) {
-            this.f4214k.f3964j.f4685f.f4694H++;
+        if (this.globalApplication.f3964j.f4685f != null) {
+            this.globalApplication.f3964j.f4685f.f4694H++;
         }
     }
 
@@ -2233,24 +2233,24 @@ public class MainActivity extends C0670c {
 
     public void toggleGain(View view) {
         if (mo5284r()) {
-            if (this.f4189dg > 9) {
+            if (this.gainMode > 9) {
                 sendCommand("7", "HIGH_GAIN");
             } else {
                 sendCommand("3", "LOW_GAIN");
             }
             sendCommand("q p 00 50", "GET_EQ");
         } else {
-            if (this.f4214k.minirigf3.mo5507j() == 3) {
+            if (this.globalApplication.minirigf3.getGainMode() == 3) {
                 sendCommand("7", "HIGH_GAIN");
-            } else if (this.f4214k.minirigf3.mo5507j() == 7) {
+            } else if (this.globalApplication.minirigf3.getGainMode() == 7) {
                 sendCommand("3", "LOW_GAIN");
             } else {
-                Log.d(f3974m, "!-!  Could not change gain  !-! UNKNOWN GAIN: " + this.f4214k.minirigf3.mo5507j());
+                Log.d(logLevel_info, "!-!  Could not change gain  !-! UNKNOWN GAIN: " + this.globalApplication.minirigf3.getGainMode());
             }
             sendCommand("x", "GET_STATUS");
         }
-        if (this.f4214k.f3964j.f4685f != null) {
-            this.f4214k.f3964j.f4685f.f4698L++;
+        if (this.globalApplication.f3964j.f4685f != null) {
+            this.globalApplication.f3964j.f4685f.f4698L++;
         }
         this.f4215l.mo5543a(getResources().getString(R.string.helpGainTitle), getResources().getString(R.string.helpGainBody));
     }
@@ -2266,7 +2266,7 @@ public class MainActivity extends C0670c {
             Class.forName("android.media.IAudioService").getDeclaredMethod("dispatchMediaKeyEvent", new Class[]{KeyEvent.class}).invoke(invoke, new Object[]{keyEvent});
             return true;
         } catch (Exception e) {
-            this.f4214k.mo5229a(f3974m, e.getLocalizedMessage());
+            this.globalApplication.addLog(logLevel_info, e.getLocalizedMessage());
             return false;
         }
     }
@@ -2274,7 +2274,7 @@ public class MainActivity extends C0670c {
     /* renamed from: al */
     private void m5831al() {
         if (!mo5284r()) {
-            if (this.f4214k.f3966l != null && this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2) {
+            if (this.globalApplication.f3966l != null && this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2) {
                 sendCommand("Z", "MUTE_1");
             }
             sendCommand("F", "MUTE_2");
@@ -2282,8 +2282,8 @@ public class MainActivity extends C0670c {
             sendCommand("x", "GET_STATUS");
             return;
         }
-        sendCommand(this.f4214k.f3958d.mo5467a("08", 99), this.f4214k.f3958d.f4394a);
-        sendCommand(this.f4214k.f3958d.mo5467a("09", 99), this.f4214k.f3958d.f4394a);
+        sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("08", 99), this.globalApplication.mrCommandGenerator.currentCommand);
+        sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("09", 99), this.globalApplication.mrCommandGenerator.currentCommand);
         this.f4117cM = true;
     }
 
@@ -2291,7 +2291,7 @@ public class MainActivity extends C0670c {
     /* renamed from: am */
     public void m5833am() {
         if (!mo5284r()) {
-            if (this.f4214k.f3966l != null && this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2) {
+            if (this.globalApplication.f3966l != null && this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2) {
                 sendCommand("Y", "UNMUTE_1");
             }
             sendCommand("A", "UNMUTE_2");
@@ -2299,8 +2299,8 @@ public class MainActivity extends C0670c {
             sendCommand("x", "GET_STATUS");
             return;
         }
-        sendCommand(this.f4214k.f3958d.mo5467a("08", Integer.parseInt(this.f4118cN)), this.f4214k.f3958d.f4394a);
-        sendCommand(this.f4214k.f3958d.mo5467a("09", Integer.parseInt(this.f4119cO)), this.f4214k.f3958d.f4394a);
+        sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("08", Integer.parseInt(this.f4118cN)), this.globalApplication.mrCommandGenerator.currentCommand);
+        sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("09", Integer.parseInt(this.f4119cO)), this.globalApplication.mrCommandGenerator.currentCommand);
         this.f4117cM = false;
     }
 
@@ -2320,8 +2320,8 @@ public class MainActivity extends C0670c {
                 }
             }
         });
-        if (this.f4214k.f3964j.f4685f != null) {
-            this.f4214k.f3964j.f4685f.f4696J++;
+        if (this.globalApplication.f3964j.f4685f != null) {
+            this.globalApplication.f3964j.f4685f.f4696J++;
         }
         this.f4215l.mo5543a(getResources().getString(R.string.helpMuteTitle), getResources().getString(R.string.helpMuteBody));
     }
@@ -2331,8 +2331,8 @@ public class MainActivity extends C0670c {
             mo5246b("Demo mode", "This feature allows you to switch the audio stream if two phones are connected to one speaker.");
             return;
         }
-        if (this.f4214k.f3964j.f4685f != null) {
-            this.f4214k.f3964j.f4685f.f4741p++;
+        if (this.globalApplication.f3964j.f4685f != null) {
+            this.globalApplication.f3964j.f4685f.f4741p++;
         }
         sendCommand("X", "SWITCH_DEVICE");
         this.f4215l.mo5543a(getResources().getString(R.string.helpABTitle), getResources().getString(R.string.helpABBody));
@@ -2343,9 +2343,9 @@ public class MainActivity extends C0670c {
             setView(this.f4046at);
             return;
         }
-        if (this.f4214k.f3966l != null && this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
+        if (this.globalApplication.f3966l != null && this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
             setView(this.f4046at);
-        } else if (this.f4214k.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_SLAVE || this.f4214k.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_MASTER || this.f4214k.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_UNKNOWN) {
+        } else if (this.globalApplication.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_SLAVE || this.globalApplication.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_MASTER || this.globalApplication.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_UNKNOWN) {
             mo5281p();
         } else {
             this.f4031ae = true;
@@ -2361,8 +2361,8 @@ public class MainActivity extends C0670c {
 
     public void clickedAudioConfig(View view) {
         if (mo5284r() || this.f4224v) {
-            if (this.f4214k.f3964j.f4685f != null) {
-                this.f4214k.f3964j.f4685f.f4695I++;
+            if (this.globalApplication.f3964j.f4685f != null) {
+                this.globalApplication.f3964j.f4685f.f4695I++;
             }
             setView(this.f4100bv);
             m5827aj();
@@ -2375,20 +2375,20 @@ public class MainActivity extends C0670c {
     public void clickedEq(View view) {
         if (this.f4224v) {
             setView(this.f4009aI);
-        } else if (this.f4214k.f3966l == null) {
+        } else if (this.globalApplication.f3966l == null) {
             setView(this.f4136cf);
-        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2) {
+        } else if (this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2) {
             setView(this.f4079ba);
-        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
+        } else if (this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
             if (mo5284r()) {
                 this.f4215l.mo5543a(getResources().getString(R.string.helpEQTitle), getResources().getString(R.string.helpEQBody));
                 setView(this.f4009aI);
                 return;
             }
             setView(this.f4079ba);
-        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2) {
+        } else if (this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2) {
             setView(this.f4090bl);
-        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG1) {
+        } else if (this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG1) {
             mo5246b("Feature unavailable", getResources().getString(R.string.feature_unavailable));
         }
     }
@@ -2401,8 +2401,8 @@ public class MainActivity extends C0670c {
     private void m5834an() {
         new AlertDialog.Builder(this).setTitle("Turn device off").setMessage("Are you sure?").setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (MainActivity.this.f4214k.f3964j.f4685f != null) {
-                    MainActivity.this.f4214k.f3964j.f4685f.f4740o++;
+                if (MainActivity.this.globalApplication.f3964j.f4685f != null) {
+                    MainActivity.this.globalApplication.f3964j.f4685f.f4740o++;
                 }
                 MainActivity.this.sendCommand("O", "POWER_TOGGLE");
             }
@@ -2452,19 +2452,19 @@ public class MainActivity extends C0670c {
     /* renamed from: ap */
     public void m5839ap() {
         if (mo5284r()) {
-            if (this.f4189dg > 9) {
+            if (this.gainMode > 9) {
                 this.f4156cz.setImageResource(R.drawable.low_gain_button);
             } else {
                 this.f4156cz.setImageResource(R.drawable.high_gain_button);
             }
-        } else if (this.f4214k.minirigf3.mo5507j() == 7) {
+        } else if (this.globalApplication.minirigf3.getGainMode() == 7) {
             this.f4156cz.setImageResource(R.drawable.high_gain_button);
-        } else if (this.f4214k.minirigf3.mo5507j() == 3) {
+        } else if (this.globalApplication.minirigf3.getGainMode() == 3) {
             this.f4156cz.setImageResource(R.drawable.low_gain_button);
         } else {
-            GlobalApplication globalApplication = this.f4214k;
-            String str = f3974m;
-            globalApplication.mo5229a(str, "!-!  Uncaught  !-! GAIN SET TO: " + this.f4214k.minirigf3.mo5507j());
+            GlobalApplication globalApplication = this.globalApplication;
+            String str = logLevel_info;
+            globalApplication.addLog(str, "!-!  Uncaught  !-! GAIN SET TO: " + this.globalApplication.minirigf3.getGainMode());
         }
     }
 
@@ -2477,7 +2477,7 @@ public class MainActivity extends C0670c {
             } else {
                 this.f4105cA.setImageResource(R.drawable.mute_button);
             }
-        } else if (!this.f4214k.minirigf3.getHasAmplifierActive()) {
+        } else if (!this.globalApplication.minirigf3.getHasAmplifierActive()) {
             this.f4105cA.setImageResource(R.drawable.mute_button);
         } else {
             this.f4105cA.setImageResource(R.drawable.unmute_button);
@@ -2487,7 +2487,7 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: ar */
     public void m5843ar() {
-        if (this.f4214k.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_SLAVE || this.f4214k.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_MASTER || this.f4214k.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_UNKNOWN || this.f4214k.minirigf3.broadcastStatef4467g != minirigStatusClass.broadcastStateEnum.NO_BROADCAST) {
+        if (this.globalApplication.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_SLAVE || this.globalApplication.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_MASTER || this.globalApplication.minirigf3.twsConnectionStatef4466f == minirigStatusClass.twsConnectionStateEnum.CONNECTED_UNKNOWN || this.globalApplication.minirigf3.broadcastStatef4467g != minirigStatusClass.broadcastStateEnum.NO_BROADCAST) {
             this.f4106cB.setImageResource(R.drawable.tws_paired_button);
             this.f4106cB.setImageResource(R.drawable.tws_paired_button);
             return;
@@ -2498,7 +2498,7 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: as */
     public void m5845as() {
-        if (this.f4214k.minirigf3.getChannelCode() == 1) {
+        if (this.globalApplication.minirigf3.getChannelCode() == 1) {
             this.f4107cC.setImageResource(R.drawable.a_phone_button);
         } else {
             this.f4107cC.setImageResource(R.drawable.b_phone_button);
@@ -2520,7 +2520,7 @@ public class MainActivity extends C0670c {
         if (this.f4042ap) {
             runOnUiThread(new Runnable() {
                 public void run() {
-                    if (MainActivity.this.f4214k.minirigf3.isTwsConnected()) {
+                    if (MainActivity.this.globalApplication.minirigf3.isTwsConnected()) {
                         MainActivity.this.f4039am.setImageResource(R.drawable.stereo_with_one_sub);
                         MainActivity.this.f4041ao.setImageResource(R.drawable.mono_link_mode);
                         MainActivity.this.f4038al.setVisibility(0);
@@ -2532,11 +2532,11 @@ public class MainActivity extends C0670c {
                     MainActivity.this.f4039am.setBackgroundResource(R.drawable.device_list_selector);
                     MainActivity.this.f4040an.setBackgroundResource(R.drawable.device_list_selector);
                     MainActivity.this.f4041ao.setBackgroundResource(R.drawable.device_list_selector);
-                    if (!MainActivity.this.f4214k.minirigf3.isTwsConnected()) {
-                        if (!MainActivity.this.f4214k.minirigf3.getHasJackInsertedTop() && !MainActivity.this.f4214k.minirigf3.getHasJackInsertedBottom()) {
+                    if (!MainActivity.this.globalApplication.minirigf3.isTwsConnected()) {
+                        if (!MainActivity.this.globalApplication.minirigf3.getHasJackInsertedTop() && !MainActivity.this.globalApplication.minirigf3.getHasJackInsertedBottom()) {
                             return;
                         }
-                        if (!MainActivity.this.f4214k.minirigf3.getHasLeftChannelActive() || !MainActivity.this.f4214k.minirigf3.getHasRightChannelActive()) {
+                        if (!MainActivity.this.globalApplication.minirigf3.getHasLeftChannelActive() || !MainActivity.this.globalApplication.minirigf3.getHasRightChannelActive()) {
                             MainActivity.this.f4039am.setBackgroundResource(R.drawable.bg_device_list_selected);
                         } else {
                             MainActivity.this.f4041ao.setBackgroundResource(R.drawable.bg_device_list_selected);
@@ -2561,7 +2561,7 @@ public class MainActivity extends C0670c {
     private void m5850av() {
         if (!m5792aO()) {
             String str = "The Minirigs will play in stereo but with reduced volume to match the output of the single subwoofer.";
-            if (!this.f4214k.minirigf3.isTwsConnected()) {
+            if (!this.globalApplication.minirigf3.isTwsConnected()) {
                 str = "This will allow you to Bluetooth to one of your Minirigs and use a cable to the other whilst keeping them in stereo.";
             }
             new AlertDialog.Builder(this).setTitle("Change audio configuration?").setMessage(str).setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -2594,7 +2594,7 @@ public class MainActivity extends C0670c {
     /* renamed from: ax */
     private void m5855ax() {
         String str = "The Minirigs will play in mono at full volume. Useful for playing music in different rooms and for large link ups.";
-        if (!this.f4214k.minirigf3.isTwsConnected()) {
+        if (!this.globalApplication.minirigf3.isTwsConnected()) {
             str = "This will put your Minirig & subwoofer into mono.";
         }
         new AlertDialog.Builder(this).setTitle("Change audio configuration?").setMessage(str).setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -2635,21 +2635,21 @@ public class MainActivity extends C0670c {
     public void clickedBroadcastOption(View view) {
         if (view.getTag() != null) {
             if (view.getTag().equals("broadcastStandAlone")) {
-                if (this.f4214k.minirigf3.broadcastStatef4467g != minirigStatusClass.broadcastStateEnum.NO_BROADCAST) {
+                if (this.globalApplication.minirigf3.broadcastStatef4467g != minirigStatusClass.broadcastStateEnum.NO_BROADCAST) {
                     m5858az();
-                } else if (this.f4214k.minirigf3.isTwsConnected() || this.f4214k.minirigf3.isTwsScanning()) {
+                } else if (this.globalApplication.minirigf3.isTwsConnected() || this.globalApplication.minirigf3.isTwsScanning()) {
                     sendCommand("J", "J");
                 }
             } else if (view.getTag().equals("broadcastWirelessStereo")) {
                 m5763aA();
             } else if (!view.getTag().equals("broadcastLinkUp")) {
             } else {
-                if (this.f4214k.minirigf3.mo5502g()) {
+                if (this.globalApplication.minirigf3.mo5502g()) {
                     setView(this.f4002aB);
-                } else if (this.f4214k.minirigf3.mo5496d() || this.f4214k.minirigf3.mo5494c()) {
+                } else if (this.globalApplication.minirigf3.mo5496d() || this.globalApplication.minirigf3.mo5494c()) {
                     setView(this.f4001aA);
                 } else {
-                    m5765aB();
+                    linkupHelpDialog();
                 }
             }
         }
@@ -2659,7 +2659,7 @@ public class MainActivity extends C0670c {
     private void m5858az() {
         new AlertDialog.Builder(this).setTitle("STANDALONE").setMessage("If you only want to connect to one Minirig this is the button you need.").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
-                MainActivity.this.m5777aH();
+                MainActivity.this.leaveLinkup();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -2682,7 +2682,7 @@ public class MainActivity extends C0670c {
     }
 
     /* renamed from: aB */
-    private void m5765aB() {
+    private void linkupHelpDialog() {
         new AlertDialog.Builder(this).setTitle("LINKUP").setMessage("If you would like to start or join a LINKUP with other Minirigs hit this button.").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
                 MainActivity mainActivity = MainActivity.this;
@@ -2695,14 +2695,14 @@ public class MainActivity extends C0670c {
     }
 
     /* renamed from: aC */
-    private void m5767aC() {
+    private void startLinkupDialog() {
         new AlertDialog.Builder(this).setTitle("START LINKUP").setMessage("This will start a linkup with your Minirig as the master. Your Minirig may disconnect, it should auto re-connect within 10 seconds. Use your bluetooth settings to manually reconnect if it dosen't.").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
                 MainActivity mainActivity = MainActivity.this;
                 mainActivity.setView(mainActivity.f4001aA);
                 MainActivity mainActivity2 = MainActivity.this;
                 mainActivity2.setView(mainActivity2.f3996V);
-                MainActivity.this.m5776aG();
+                MainActivity.this.startLinkup();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -2711,7 +2711,7 @@ public class MainActivity extends C0670c {
     }
 
     /* renamed from: aD */
-    private void m5769aD() {
+    private void joinLinkupDialog() {
         new AlertDialog.Builder(this).setTitle("JOIN LINKUP").setMessage("Your Minirig will attempt to join a linkup, ensure the master of the linkup is starting a linkup. Your Minirig may disconnect, it should auto re-connect within 10 seconds. Use your bluetooth settings to manually reconnect if it dosen't.").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
                 MainActivity mainActivity = MainActivity.this;
@@ -2727,10 +2727,10 @@ public class MainActivity extends C0670c {
     }
 
     /* renamed from: aE */
-    private void m5771aE() {
+    private void leaveLinkupDialog() {
         new AlertDialog.Builder(this).setTitle("LEAVE THE LINKUP").setMessage("Your Minirig may disconnect, it should auto re-connect within 10 seconds. Use your bluetooth settings to manually reconnect if it dosen't. Have you had enough of this linkup?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
-                MainActivity.this.m5777aH();
+                MainActivity.this.leaveLinkup();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -2742,7 +2742,7 @@ public class MainActivity extends C0670c {
     private void m5773aF() {
         new AlertDialog.Builder(this).setTitle("ADD MINIRIGS").setMessage("Press the LED button on the Minirig 3 times to join the LINKUP!").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
-                MainActivity.this.m5776aG();
+                MainActivity.this.startLinkup();
             }
         }).setNegativeButton("No", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -2753,9 +2753,9 @@ public class MainActivity extends C0670c {
     public void clickedLinkupOption(View view) {
         if (view.getTag() != null) {
             if (view.getTag().equals("linkupJoin")) {
-                m5769aD();
+                joinLinkupDialog();
             } else if (view.getTag().equals("linkupStart")) {
-                m5767aC();
+                startLinkupDialog();
             }
         }
         sendCommand("x", "GET_STATUS");
@@ -2764,11 +2764,11 @@ public class MainActivity extends C0670c {
     public void clickedBroadcastStartOption(View view) {
         if (view.getTag() != null) {
             if (view.getTag().equals("start")) {
-                if (!this.f4214k.minirigf3.mo5496d()) {
-                    if (!this.f4214k.minirigf3.mo5494c()) {
+                if (!this.globalApplication.minirigf3.mo5496d()) {
+                    if (!this.globalApplication.minirigf3.mo5494c()) {
                         setView(this.f3996V);
                     }
-                    m5776aG();
+                    startLinkup();
                 }
             } else if (view.getTag().equals("add")) {
                 m5773aF();
@@ -2781,7 +2781,7 @@ public class MainActivity extends C0670c {
     public void clickedBroadcastJoinOption(View view) {
         if (view.getTag() != null) {
             if (view.getTag().equals("join")) {
-                if (!this.f4214k.minirigf3.mo5502g()) {
+                if (!this.globalApplication.minirigf3.mo5502g()) {
                     setView(this.f3996V);
                 }
                 joinLinkup();
@@ -2793,18 +2793,18 @@ public class MainActivity extends C0670c {
 
     /* access modifiers changed from: private */
     /* renamed from: aG */
-    public void m5776aG() {
+    public void startLinkup() {
         sendCommand("H", "BROADCAST_START");
-        if (!this.f4214k.minirigf3.mo5494c() && !this.f4214k.minirigf3.mo5496d()) {
+        if (!this.globalApplication.minirigf3.mo5494c() && !this.globalApplication.minirigf3.mo5496d()) {
             this.f4043aq = true;
         }
-        this.f4214k.minirigf3.broadcastStatef4467g = minirigStatusClass.broadcastStateEnum.TX_PAIRING_MUSIC_OFF;
+        this.globalApplication.minirigf3.broadcastStatef4467g = minirigStatusClass.broadcastStateEnum.TX_PAIRING_MUSIC_OFF;
         mo5283q();
     }
 
     /* access modifiers changed from: private */
     /* renamed from: aH */
-    public void m5777aH() {
+    public void leaveLinkup() {
         setView(this.f3996V);
         sendCommand("J", "BROADCAST_LEAVE");
         this.f4043aq = true;
@@ -2815,16 +2815,16 @@ public class MainActivity extends C0670c {
     /* renamed from: aI */
     public void joinLinkup() {
         sendCommand("I", "BROADCAST_JOIN");
-        if (!this.f4214k.minirigf3.mo5502g()) {
+        if (!this.globalApplication.minirigf3.mo5502g()) {
             this.f4043aq = true;
         }
-        this.f4214k.minirigf3.broadcastStatef4467g = minirigStatusClass.broadcastStateEnum.RX_SEARCHING;
+        this.globalApplication.minirigf3.broadcastStatef4467g = minirigStatusClass.broadcastStateEnum.RX_SEARCHING;
         mo5283q();
     }
 
     /* renamed from: aJ */
     private void m5782aJ() {
-        m5771aE();
+        leaveLinkupDialog();
     }
 
     public void cancelTWSClicked(View view) {
@@ -2846,10 +2846,10 @@ public class MainActivity extends C0670c {
 
     /* renamed from: aK */
     private void m5784aK() {
-        if (this.f4214k.minirigf3.twsConnectionStatef4466f != minirigStatusClass.twsConnectionStateEnum.NO_TWS && this.f4214k.minirigf3.twsConnectionStatef4466f != minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_MASTER && this.f4214k.minirigf3.twsConnectionStatef4466f != minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_SLAVE && this.f4214k.minirigf3.twsConnectionStatef4466f != minirigStatusClass.twsConnectionStateEnum.CONNECTED_UNKNOWN) {
+        if (this.globalApplication.minirigf3.twsConnectionStatef4466f != minirigStatusClass.twsConnectionStateEnum.NO_TWS && this.globalApplication.minirigf3.twsConnectionStatef4466f != minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_MASTER && this.globalApplication.minirigf3.twsConnectionStatef4466f != minirigStatusClass.twsConnectionStateEnum.CONNECTED_AS_SLAVE && this.globalApplication.minirigf3.twsConnectionStatef4466f != minirigStatusClass.twsConnectionStateEnum.CONNECTED_UNKNOWN) {
             return;
         }
-        if (this.f4214k.f3966l == null || this.f4214k.f3966l.f4406h != "MRBT3") {
+        if (this.globalApplication.f3966l == null || this.globalApplication.f3966l.f4406h != "MRBT3") {
             m5786aL();
         }
     }
@@ -2857,7 +2857,7 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: aL */
     public void m5786aL() {
-        this.f4214k.mo5229a(f3974m, "- - - - - returnedFromTWSScan()");
+        this.globalApplication.addLog(logLevel_info, "- - - - - returnedFromTWSScan()");
         sendCommand("x", "GET_STATUS");
         this.f4031ae = false;
         runOnUiThread(new Runnable() {
@@ -2894,30 +2894,30 @@ public class MainActivity extends C0670c {
                 MainActivity.this.f4049aw.setBackgroundResource(R.drawable.device_list_selector);
                 MainActivity.this.f4003aC.setBackgroundResource(R.drawable.device_list_selector);
                 MainActivity.this.f4004aD.setBackgroundResource(R.drawable.device_list_selector);
-                GlobalApplication globalApplication = MainActivity.this.f4214k;
-                String str = MainActivity.f3974m;
-                globalApplication.mo5229a(str, "Broadcast state: " + MainActivity.this.f4214k.minirigf3.broadcastStatef4467g.toString());
-                if (MainActivity.this.f4214k.minirigf3.broadcastStatef4467g != minirigStatusClass.broadcastStateEnum.NO_BROADCAST) {
+                GlobalApplication globalApplication = MainActivity.this.globalApplication;
+                String str = MainActivity.logLevel_info;
+                globalApplication.addLog(str, "Broadcast state: " + MainActivity.this.globalApplication.minirigf3.broadcastStatef4467g.toString());
+                if (MainActivity.this.globalApplication.minirigf3.broadcastStatef4467g != minirigStatusClass.broadcastStateEnum.NO_BROADCAST) {
                     MainActivity.this.f4049aw.setBackgroundResource(R.drawable.bg_device_list_selected);
                     z = false;
                 } else {
                     z = true;
                 }
-                if (MainActivity.this.f4214k.minirigf3.isTwsScanning()) {
+                if (MainActivity.this.globalApplication.minirigf3.isTwsScanning()) {
                     MainActivity mainActivity = MainActivity.this;
                     mainActivity.m5746a(mainActivity.f4048av);
-                } else if (MainActivity.this.f4214k.minirigf3.isTwsConnected()) {
+                } else if (MainActivity.this.globalApplication.minirigf3.isTwsConnected()) {
                     MainActivity.this.f4048av.setBackgroundResource(R.drawable.bg_device_list_selected);
                     z = false;
                 }
-                if (MainActivity.this.f4214k.minirigf3.mo5496d()) {
+                if (MainActivity.this.globalApplication.minirigf3.mo5496d()) {
                     MainActivity mainActivity2 = MainActivity.this;
                     mainActivity2.m5746a(mainActivity2.f4003aC);
                 }
-                if (MainActivity.this.f4214k.minirigf3.mo5498e()) {
+                if (MainActivity.this.globalApplication.minirigf3.mo5498e()) {
                     MainActivity mainActivity3 = MainActivity.this;
                     mainActivity3.m5746a(mainActivity3.f4004aD);
-                } else if (MainActivity.this.f4214k.minirigf3.mo5500f()) {
+                } else if (MainActivity.this.globalApplication.minirigf3.mo5500f()) {
                     MainActivity.this.f4004aD.setBackgroundResource(R.drawable.bg_device_list_selected);
                 }
                 if (z) {
@@ -2951,7 +2951,7 @@ public class MainActivity extends C0670c {
         }
         this.f4007aG++;
         if (this.f4007aG > 2) {
-            this.f4214k.mo5229a(f3974m, "SLAVE DETECTION CLOSE");
+            this.globalApplication.addLog(logLevel_info, "SLAVE DETECTION CLOSE");
             runOnUiThread(new Runnable() {
                 public void run() {
                     if (MainActivity.this.f4006aF == null) {
@@ -2981,7 +2981,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: r */
     public boolean mo5284r() {
-        if (this.f4214k.f3966l != null && this.f4214k.minirigf3.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3 && Integer.parseInt(this.f4214k.f3966l.f4407i) >= 15) {
+        if (this.globalApplication.f3966l != null && this.globalApplication.minirigf3.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3 && Integer.parseInt(this.globalApplication.f3966l.f4407i) >= 15) {
             return true;
         }
         String str = this.f4162dF;
@@ -2996,7 +2996,7 @@ public class MainActivity extends C0670c {
         runOnUiThread(new Runnable() {
             public void run() {
                 if (MainActivity.this.f4204dv != null) {
-                    if (MainActivity.this.f4214k.f3957c.getString(MainActivity.this.f4160dD, "00").equals("00")) {
+                    if (MainActivity.this.globalApplication.f3957c.getString(MainActivity.this.f4160dD, "00").equals("00")) {
                         MainActivity.this.f4204dv.setActivated(true);
                         MainActivity.this.f4204dv.setImageResource(R.drawable.eq_preset1_on);
                     } else {
@@ -3005,7 +3005,7 @@ public class MainActivity extends C0670c {
                     }
                 }
                 if (MainActivity.this.f4205dw != null) {
-                    if (MainActivity.this.f4214k.f3957c.getString(MainActivity.this.f4160dD, "00").equals("01")) {
+                    if (MainActivity.this.globalApplication.f3957c.getString(MainActivity.this.f4160dD, "00").equals("01")) {
                         MainActivity.this.f4205dw.setActivated(true);
                         MainActivity.this.f4205dw.setImageResource(R.drawable.eq_preset2_on);
                     } else {
@@ -3014,7 +3014,7 @@ public class MainActivity extends C0670c {
                     }
                 }
                 if (MainActivity.this.f4206dx != null) {
-                    if (MainActivity.this.f4214k.f3957c.getString(MainActivity.this.f4160dD, "00").equals("02")) {
+                    if (MainActivity.this.globalApplication.f3957c.getString(MainActivity.this.f4160dD, "00").equals("02")) {
                         MainActivity.this.f4206dx.setActivated(true);
                         MainActivity.this.f4206dx.setImageResource(R.drawable.eq_preset3_on);
                     } else {
@@ -3025,7 +3025,7 @@ public class MainActivity extends C0670c {
                 if (MainActivity.this.f4207dy == null) {
                     return;
                 }
-                if (MainActivity.this.f4214k.f3957c.getString(MainActivity.this.f4160dD, "00").equals("03")) {
+                if (MainActivity.this.globalApplication.f3957c.getString(MainActivity.this.f4160dD, "00").equals("03")) {
                     MainActivity.this.f4207dy.setActivated(true);
                     MainActivity.this.f4207dy.setImageResource(R.drawable.eq_preset4_on);
                     return;
@@ -3038,13 +3038,13 @@ public class MainActivity extends C0670c {
 
     public void clickedEQHome(View view) {
         if (view.getTag().equals("eqHome1")) {
-            if (this.f4214k.f3964j.f4685f != null) {
-                this.f4214k.f3964j.f4685f.f4707U++;
+            if (this.globalApplication.f3964j.f4685f != null) {
+                this.globalApplication.f3964j.f4685f.f4707U++;
             }
             setView(this.f4079ba);
         } else if (view.getTag().equals("eqHome2")) {
-            if (this.f4214k.f3964j.f4685f != null) {
-                this.f4214k.f3964j.f4685f.f4706T++;
+            if (this.globalApplication.f3964j.f4685f != null) {
+                this.globalApplication.f3964j.f4685f.f4706T++;
             }
             setView(this.f4010aJ);
         }
@@ -3067,7 +3067,7 @@ public class MainActivity extends C0670c {
         if (this.f4016aP) {
             runOnUiThread(new Runnable() {
                 public void run() {
-                    if (!MainActivity.this.f4214k.minirigf3.isTwsConnected()) {
+                    if (!MainActivity.this.globalApplication.minirigf3.isTwsConnected()) {
                         MainActivity.this.f4012aL.setImageResource(R.drawable.config_mono);
                         MainActivity.this.f4013aM.setImageResource(R.drawable.config_mono_sub);
                         MainActivity.this.f4014aN.setImageResource(R.drawable.config_stereo_aux);
@@ -3083,51 +3083,51 @@ public class MainActivity extends C0670c {
                     MainActivity.this.f4013aM.setBackgroundResource(R.drawable.device_list_selector);
                     MainActivity.this.f4014aN.setBackgroundResource(R.drawable.device_list_selector);
                     MainActivity.this.f4015aO.setBackgroundResource(R.drawable.device_list_selector);
-                    if (MainActivity.this.f4214k.minirigf3.isTwsConnected()) {
+                    if (MainActivity.this.globalApplication.minirigf3.isTwsConnected()) {
                         if (!MainActivity.this.f4017aQ) {
-                            MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO_LINK;
+                            MainActivity.this.globalApplication.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO_LINK;
                             MainActivity.this.f4014aN.setBackgroundResource(R.drawable.bg_device_list_selected);
                         } else if (MainActivity.this.f4123cS == 0) {
                             if (MainActivity.this.f4188df <= 7) {
-                                MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.STEREO_TWO_SUBS;
+                                MainActivity.this.globalApplication.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.STEREO_TWO_SUBS;
                                 MainActivity.this.f4012aL.setBackgroundResource(R.drawable.bg_device_list_selected);
                                 return;
                             }
-                            MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.STEREO_ONE_SUB;
+                            MainActivity.this.globalApplication.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.STEREO_ONE_SUB;
                             MainActivity.this.f4013aM.setBackgroundResource(R.drawable.bg_device_list_selected);
                         } else if (MainActivity.this.f4123cS == 1) {
-                            MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.STEREO_ONE_SUB;
+                            MainActivity.this.globalApplication.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.STEREO_ONE_SUB;
                             MainActivity.this.f4012aL.setBackgroundResource(R.drawable.bg_device_list_selected);
                         } else {
-                            MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.STEREO_TWO_SUBS;
+                            MainActivity.this.globalApplication.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.STEREO_TWO_SUBS;
                             MainActivity.this.f4013aM.setBackgroundResource(R.drawable.bg_device_list_selected);
                         }
                     } else if (MainActivity.this.f4187de) {
-                        MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO_MIC;
+                        MainActivity.this.globalApplication.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO_MIC;
                         MainActivity.this.f4015aO.setBackgroundResource(R.drawable.bg_device_list_selected);
-                    } else if (!MainActivity.this.f4214k.minirigf3.getHasLeftChannelActive() || !MainActivity.this.f4214k.minirigf3.getHasRightChannelActive()) {
-                        MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.STEREO_AUX;
+                    } else if (!MainActivity.this.globalApplication.minirigf3.getHasLeftChannelActive() || !MainActivity.this.globalApplication.minirigf3.getHasRightChannelActive()) {
+                        MainActivity.this.globalApplication.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.STEREO_AUX;
                         MainActivity.this.f4014aN.setBackgroundResource(R.drawable.bg_device_list_selected);
                     } else {
                         MainActivity mainActivity = MainActivity.this;
                         if (mainActivity.m5868b(mainActivity.f4083be)) {
-                            MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO_SUB;
+                            MainActivity.this.globalApplication.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO_SUB;
                             MainActivity.this.f4013aM.setBackgroundResource(R.drawable.bg_device_list_selected);
                             return;
                         }
                         MainActivity mainActivity2 = MainActivity.this;
                         if (mainActivity2.m5868b(mainActivity2.f4086bh)) {
-                            MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO_SUB;
+                            MainActivity.this.globalApplication.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO_SUB;
                             MainActivity.this.f4013aM.setBackgroundResource(R.drawable.bg_device_list_selected);
                             return;
                         }
                         MainActivity mainActivity3 = MainActivity.this;
                         if (mainActivity3.m5868b(mainActivity3.f4088bj)) {
-                            MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO_SUB;
+                            MainActivity.this.globalApplication.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO_SUB;
                             MainActivity.this.f4013aM.setBackgroundResource(R.drawable.bg_device_list_selected);
                             return;
                         }
-                        MainActivity.this.f4214k.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO;
+                        MainActivity.this.globalApplication.minirigf3.minirigAudioModef4463c = minirigStatusClass.minirigModeEnum.MONO;
                         MainActivity.this.f4012aL.setBackgroundResource(R.drawable.bg_device_list_selected);
                     }
                 }
@@ -3137,87 +3137,87 @@ public class MainActivity extends C0670c {
 
     public void clickedEqConfig(View view) {
         if (view.getTag().equals("eqConfig1")) {
-            if (this.f4214k.f3966l == null || !this.f4214k.minirigf3.isTwsConnected()) {
+            if (this.globalApplication.f3966l == null || !this.globalApplication.minirigf3.isTwsConnected()) {
                 this.f4186dd = 8;
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4708V++;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4708V++;
                 }
                 sendCommand("M", "MONO_WITH_SUB");
-                sendCommand(this.f4214k.f3958d.mo5467a("18", 0), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("18", 0), this.globalApplication.mrCommandGenerator.currentCommand);
                 m5759a(false);
                 this.f4215l.mo5543a(getResources().getString(R.string.helpAcStandaloneTitle), getResources().getString(R.string.helpAcStandaloneBody));
             } else {
                 this.f4186dd = 4;
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4714aa++;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4714aa++;
                 }
                 sendCommand("L", "STEREO_WITH_ONE_SUB");
-                sendCommand(this.f4214k.f3958d.mo5467a("18", 0), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("18", 0), this.globalApplication.mrCommandGenerator.currentCommand);
                 m5759a(true);
                 this.f4123cS = 1;
                 this.f4215l.mo5543a(getResources().getString(R.string.helpAcStereo1SubTitle), getResources().getString(R.string.helpAcStereo1SubBody));
             }
         } else if (view.getTag().equals("eqConfig2")) {
-            if (this.f4214k.f3966l != null && this.f4214k.minirigf3.isTwsConnected()) {
+            if (this.globalApplication.f3966l != null && this.globalApplication.minirigf3.isTwsConnected()) {
                 this.f4186dd = 5;
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4715ab++;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4715ab++;
                 }
                 sendCommand("R", "STEREO_WITH_TWO_SUBS");
-                sendCommand(this.f4214k.f3958d.mo5467a("18", 0), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("18", 0), this.globalApplication.mrCommandGenerator.currentCommand);
                 m5759a(true);
                 this.f4123cS = 2;
                 this.f4215l.mo5543a(getResources().getString(R.string.helpAcStereo2SubsTitle), getResources().getString(R.string.helpAcStereo2SubsBody));
             } else if (!m5792aO()) {
                 this.f4186dd = 1;
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4710X++;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4710X++;
                 }
                 sendCommand("M", "MONO_WITH_SUB");
-                sendCommand(this.f4214k.f3958d.mo5467a("18", 0), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("18", 0), this.globalApplication.mrCommandGenerator.currentCommand);
                 m5759a(true);
                 this.f4215l.mo5543a(getResources().getString(R.string.helpAcMono1SubTitle), getResources().getString(R.string.helpAcMono1SubBody));
             } else {
                 return;
             }
         } else if (view.getTag().equals("eqConfig3")) {
-            if (this.f4214k.f3966l != null && this.f4214k.minirigf3.isTwsConnected()) {
+            if (this.globalApplication.f3966l != null && this.globalApplication.minirigf3.isTwsConnected()) {
                 this.f4186dd = 6;
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4712Z++;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4712Z++;
                 }
                 sendCommand("M", "MONO_WITH_SUB");
-                sendCommand(this.f4214k.f3958d.mo5467a("18", 0), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("18", 0), this.globalApplication.mrCommandGenerator.currentCommand);
                 m5759a(false);
                 this.f4215l.mo5543a(getResources().getString(R.string.helpAcLinkTitle), getResources().getString(R.string.helpAcLinkBody));
             } else if (!m5792aO()) {
                 this.f4186dd = 2;
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4711Y++;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4711Y++;
                 }
                 sendCommand("L", "STEREO_WITH_ONE_SUB");
-                sendCommand(this.f4214k.f3958d.mo5467a("18", 0), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("18", 0), this.globalApplication.mrCommandGenerator.currentCommand);
                 m5759a(false);
                 this.f4215l.mo5543a(getResources().getString(R.string.helpAcStereoTitle), getResources().getString(R.string.helpAcStereoBody));
             } else {
                 return;
             }
         } else if (view.getTag().equals("eqConfig4")) {
-            if (this.f4214k.f3966l != null && this.f4214k.minirigf3.isTwsConnected()) {
+            if (this.globalApplication.f3966l != null && this.globalApplication.minirigf3.isTwsConnected()) {
                 this.f4186dd = 6;
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4712Z++;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4712Z++;
                 }
                 sendCommand("M", "MONO_WITH_SUB");
-                sendCommand(this.f4214k.f3958d.mo5467a("18", 0), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("18", 0), this.globalApplication.mrCommandGenerator.currentCommand);
                 this.f4215l.mo5543a(getResources().getString(R.string.helpAcLinkTitle), getResources().getString(R.string.helpAcLinkBody));
             } else if (!m5792aO()) {
                 this.f4186dd = 3;
-                if (this.f4214k.f3964j.f4685f != null) {
-                    this.f4214k.f3964j.f4685f.f4709W++;
+                if (this.globalApplication.f3964j.f4685f != null) {
+                    this.globalApplication.f3964j.f4685f.f4709W++;
                 }
                 sendCommand("M", "MONO_WITH_SUB");
-                sendCommand(this.f4214k.f3958d.mo5467a("18", 1), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("18", 1), this.globalApplication.mrCommandGenerator.currentCommand);
                 this.f4215l.mo5543a(getResources().getString(R.string.helpAcLiveTitle), getResources().getString(R.string.helpAcLiveBody));
             } else {
                 return;
@@ -3226,7 +3226,7 @@ public class MainActivity extends C0670c {
         }
         sendCommand("q p 00 50", "GET_EQ");
         sendCommand("x", "GET_STATUS");
-        if (this.f4214k.f3966l != null && this.f4214k.minirigf3.isTwsConnected()) {
+        if (this.globalApplication.f3966l != null && this.globalApplication.minirigf3.isTwsConnected()) {
             m5794aP();
         }
         mo5293u();
@@ -3235,7 +3235,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: aO */
     private boolean m5792aO() {
-        if (this.f4214k.minirigf3.getHasJackInsertedTop() || this.f4214k.minirigf3.getHasJackInsertedBottom()) {
+        if (this.globalApplication.minirigf3.getHasJackInsertedTop() || this.globalApplication.minirigf3.getHasJackInsertedBottom()) {
             return false;
         }
         mo5246b("No AUX detected", "Please connect a second device with an AUX cable first.");
@@ -3284,22 +3284,22 @@ public class MainActivity extends C0670c {
     public void twinDefault(View view) {
         int i = this.f4186dd;
         if (i == 3 || i == 7) {
-            sendCommand(this.f4214k.f3958d.mo5467a("08", this.f4190dh), this.f4214k.f3958d.f4394a);
-            sendCommand(this.f4214k.f3958d.mo5467a("10", this.f4193dk), this.f4214k.f3958d.f4394a);
-            sendCommand(this.f4214k.f3958d.mo5467a("11", this.f4193dk), this.f4214k.f3958d.f4394a);
+            sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("08", this.f4190dh), this.globalApplication.mrCommandGenerator.currentCommand);
+            sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("10", this.f4193dk), this.globalApplication.mrCommandGenerator.currentCommand);
+            sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("11", this.f4193dk), this.globalApplication.mrCommandGenerator.currentCommand);
         } else if (i == 8) {
             float f = (float) this.f4191di;
-            if (this.f4189dg > 9) {
+            if (this.gainMode > 9) {
                 f = (float) this.f4190dh;
             }
-            sendCommand(this.f4214k.f3958d.mo5467a("08", (int) f), this.f4214k.f3958d.f4394a);
+            sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("08", (int) f), this.globalApplication.mrCommandGenerator.currentCommand);
         } else {
             float f2 = (float) this.f4191di;
-            if (this.f4189dg > 9) {
+            if (this.gainMode > 9) {
                 f2 = (float) this.f4190dh;
             }
-            sendCommand(this.f4214k.f3958d.mo5467a("08", (int) f2), this.f4214k.f3958d.f4394a);
-            sendCommand(this.f4214k.f3958d.mo5467a("09", this.f4192dj), this.f4214k.f3958d.f4394a);
+            sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("08", (int) f2), this.globalApplication.mrCommandGenerator.currentCommand);
+            sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("09", this.f4192dj), this.globalApplication.mrCommandGenerator.currentCommand);
         }
     }
 
@@ -3466,7 +3466,7 @@ public class MainActivity extends C0670c {
             }
             int parseInt2 = Integer.parseInt("08") - 1;
             if (split.length >= parseInt2 + 1 && m5743a(split[parseInt2]) != null) {
-                this.f4189dg = Integer.parseInt(split[parseInt2]);
+                this.gainMode = Integer.parseInt(split[parseInt2]);
             }
             int parseInt3 = Integer.parseInt("09") - 1;
             if (split.length >= parseInt3 + 1 && m5743a(split[parseInt3]) != null) {
@@ -3488,12 +3488,12 @@ public class MainActivity extends C0670c {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 String str;
                 if (MainActivity.this.f4186dd == 3 || MainActivity.this.f4186dd == 7) {
-                    str = MainActivity.this.f4214k.f3958d.mo5467a("10", MainActivity.this.m5731a(seekBar.getProgress(), new int[]{0, 99}));
+                    str = MainActivity.this.globalApplication.mrCommandGenerator.setEqBand("10", MainActivity.this.m5731a(seekBar.getProgress(), new int[]{0, 99}));
                 } else {
-                    str = MainActivity.this.f4214k.f3958d.mo5467a("08", MainActivity.this.m5731a(100 - seekBar.getProgress(), new int[]{0, 30}));
+                    str = MainActivity.this.globalApplication.mrCommandGenerator.setEqBand("08", MainActivity.this.m5731a(100 - seekBar.getProgress(), new int[]{0, 30}));
                 }
                 MainActivity mainActivity = MainActivity.this;
-                mainActivity.sendCommand(str, mainActivity.f4214k.f3958d.f4394a);
+                mainActivity.sendCommand(str, mainActivity.globalApplication.mrCommandGenerator.currentCommand);
             }
         });
         this.f4125cU = (VerticalSeekBar) findViewById(R.id.midSlider);
@@ -3505,9 +3505,9 @@ public class MainActivity extends C0670c {
             }
 
             public void onStopTrackingTouch(SeekBar seekBar) {
-                String a = MainActivity.this.f4214k.f3958d.mo5467a("08", MainActivity.this.m5731a(100 - seekBar.getProgress(), new int[]{0, 30}));
+                String a = MainActivity.this.globalApplication.mrCommandGenerator.setEqBand("08", MainActivity.this.m5731a(100 - seekBar.getProgress(), new int[]{0, 30}));
                 MainActivity mainActivity = MainActivity.this;
-                mainActivity.sendCommand(a, mainActivity.f4214k.f3958d.f4394a);
+                mainActivity.sendCommand(a, mainActivity.globalApplication.mrCommandGenerator.currentCommand);
             }
         });
         this.f4126cV = (VerticalSeekBar) findViewById(R.id.rightSlider);
@@ -3521,12 +3521,12 @@ public class MainActivity extends C0670c {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 String str;
                 if (MainActivity.this.f4186dd == 3 || MainActivity.this.f4186dd == 7) {
-                    str = MainActivity.this.f4214k.f3958d.mo5467a("11", MainActivity.this.m5731a(seekBar.getProgress(), new int[]{0, 99}));
+                    str = MainActivity.this.globalApplication.mrCommandGenerator.setEqBand("11", MainActivity.this.m5731a(seekBar.getProgress(), new int[]{0, 99}));
                 } else {
-                    str = MainActivity.this.f4214k.f3958d.mo5467a("09", MainActivity.this.m5731a(seekBar.getProgress(), new int[]{0, 10}));
+                    str = MainActivity.this.globalApplication.mrCommandGenerator.setEqBand("09", MainActivity.this.m5731a(seekBar.getProgress(), new int[]{0, 10}));
                 }
                 MainActivity mainActivity = MainActivity.this;
-                mainActivity.sendCommand(str, mainActivity.f4214k.f3958d.f4394a);
+                mainActivity.sendCommand(str, mainActivity.globalApplication.mrCommandGenerator.currentCommand);
             }
         });
     }
@@ -3534,8 +3534,8 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: aT */
     public void m5801aT() {
-        if (this.f4214k.f3966l != null) {
-            if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2 || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
+        if (this.globalApplication.f3966l != null) {
+            if (this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2 || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
                 m5804aW();
                 m5880bc();
                 return;
@@ -3552,22 +3552,22 @@ public class MainActivity extends C0670c {
                 if (MainActivity.this.f4208dz == null) {
                     return;
                 }
-                if (MainActivity.this.f4214k.minirigf3.mo5506i()) {
+                if (MainActivity.this.globalApplication.minirigf3.mo5506i()) {
                     MainActivity.this.f4208dz.setActivated(true);
                     MainActivity.this.f4208dz.setImageResource(R.drawable.eq_lock_on);
-                    MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Refresh eq lock: ON");
+                    MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Refresh eq lock: ON");
                     return;
                 }
                 MainActivity.this.f4208dz.setActivated(false);
                 MainActivity.this.f4208dz.setImageResource(R.drawable.eq_lock_off);
-                MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Refresh eq lock: OFF");
+                MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Refresh eq lock: OFF");
             }
         });
     }
 
     /* renamed from: aV */
     private void m5803aV() {
-        if (this.f4214k.f3966l != null) {
+        if (this.globalApplication.f3966l != null) {
             m5878ba();
             m5802aU();
         }
@@ -3595,9 +3595,9 @@ public class MainActivity extends C0670c {
 
             public void onStopTrackingTouch(SeekBar seekBar) {
                 if (MainActivity.this.f4163dG) {
-                    String a = MainActivity.this.f4214k.f3958d.mo5467a("01", MainActivity.this.m5733a(seekBar.getProgress(), MainActivity.this.f4157dA, MainActivity.this.f4159dC));
+                    String a = MainActivity.this.globalApplication.mrCommandGenerator.setEqBand("01", MainActivity.this.m5733a(seekBar.getProgress(), MainActivity.this.f4157dA, MainActivity.this.f4159dC));
                     MainActivity mainActivity = MainActivity.this;
-                    mainActivity.sendCommand(a, mainActivity.f4214k.f3958d.f4394a);
+                    mainActivity.sendCommand(a, mainActivity.globalApplication.mrCommandGenerator.currentCommand);
                 }
             }
         });
@@ -3611,9 +3611,9 @@ public class MainActivity extends C0670c {
 
             public void onStopTrackingTouch(SeekBar seekBar) {
                 if (MainActivity.this.f4163dG) {
-                    String a = MainActivity.this.f4214k.f3958d.mo5467a("02", MainActivity.this.m5733a(seekBar.getProgress(), MainActivity.this.f4157dA, MainActivity.this.f4159dC));
+                    String a = MainActivity.this.globalApplication.mrCommandGenerator.setEqBand("02", MainActivity.this.m5733a(seekBar.getProgress(), MainActivity.this.f4157dA, MainActivity.this.f4159dC));
                     MainActivity mainActivity = MainActivity.this;
-                    mainActivity.sendCommand(a, mainActivity.f4214k.f3958d.f4394a);
+                    mainActivity.sendCommand(a, mainActivity.globalApplication.mrCommandGenerator.currentCommand);
                 }
             }
         });
@@ -3627,9 +3627,9 @@ public class MainActivity extends C0670c {
 
             public void onStopTrackingTouch(SeekBar seekBar) {
                 if (MainActivity.this.f4163dG) {
-                    String a = MainActivity.this.f4214k.f3958d.mo5467a("03", MainActivity.this.m5733a(seekBar.getProgress(), MainActivity.this.f4157dA, MainActivity.this.f4159dC));
+                    String a = MainActivity.this.globalApplication.mrCommandGenerator.setEqBand("03", MainActivity.this.m5733a(seekBar.getProgress(), MainActivity.this.f4157dA, MainActivity.this.f4159dC));
                     MainActivity mainActivity = MainActivity.this;
-                    mainActivity.sendCommand(a, mainActivity.f4214k.f3958d.f4394a);
+                    mainActivity.sendCommand(a, mainActivity.globalApplication.mrCommandGenerator.currentCommand);
                 }
             }
         });
@@ -3643,9 +3643,9 @@ public class MainActivity extends C0670c {
 
             public void onStopTrackingTouch(SeekBar seekBar) {
                 if (MainActivity.this.f4163dG) {
-                    String a = MainActivity.this.f4214k.f3958d.mo5467a("04", MainActivity.this.m5733a(seekBar.getProgress(), MainActivity.this.f4157dA, MainActivity.this.f4159dC));
+                    String a = MainActivity.this.globalApplication.mrCommandGenerator.setEqBand("04", MainActivity.this.m5733a(seekBar.getProgress(), MainActivity.this.f4157dA, MainActivity.this.f4159dC));
                     MainActivity mainActivity = MainActivity.this;
-                    mainActivity.sendCommand(a, mainActivity.f4214k.f3958d.f4394a);
+                    mainActivity.sendCommand(a, mainActivity.globalApplication.mrCommandGenerator.currentCommand);
                 }
             }
         });
@@ -3659,9 +3659,9 @@ public class MainActivity extends C0670c {
 
             public void onStopTrackingTouch(SeekBar seekBar) {
                 if (MainActivity.this.f4163dG) {
-                    String a = MainActivity.this.f4214k.f3958d.mo5467a("05", MainActivity.this.m5733a(seekBar.getProgress(), MainActivity.this.f4157dA, MainActivity.this.f4159dC));
+                    String a = MainActivity.this.globalApplication.mrCommandGenerator.setEqBand("05", MainActivity.this.m5733a(seekBar.getProgress(), MainActivity.this.f4157dA, MainActivity.this.f4159dC));
                     MainActivity mainActivity = MainActivity.this;
-                    mainActivity.sendCommand(a, mainActivity.f4214k.f3958d.f4394a);
+                    mainActivity.sendCommand(a, mainActivity.globalApplication.mrCommandGenerator.currentCommand);
                 }
             }
         });
@@ -3852,7 +3852,7 @@ public class MainActivity extends C0670c {
                     android.widget.ImageButton r0 = r0.f4204dv
                     if (r0 == 0) goto L_0x01a7
                     com.minirig.android.MainActivity r0 = com.minirig.android.MainActivity.this
-                    com.minirig.android.GlobalApplication r0 = r0.f4214k
+                    com.minirig.android.GlobalApplication r0 = r0.globalApplication
                     android.content.SharedPreferences r0 = r0.f3957c
                     com.minirig.android.MainActivity r3 = com.minirig.android.MainActivity.this
                     java.lang.String r3 = r3.f4160dD
@@ -3882,7 +3882,7 @@ public class MainActivity extends C0670c {
                     android.widget.ImageButton r0 = r0.f4205dw
                     if (r0 == 0) goto L_0x01f4
                     com.minirig.android.MainActivity r0 = com.minirig.android.MainActivity.this
-                    com.minirig.android.GlobalApplication r0 = r0.f4214k
+                    com.minirig.android.GlobalApplication r0 = r0.globalApplication
                     android.content.SharedPreferences r0 = r0.f3957c
                     com.minirig.android.MainActivity r3 = com.minirig.android.MainActivity.this
                     java.lang.String r3 = r3.f4160dD
@@ -3912,7 +3912,7 @@ public class MainActivity extends C0670c {
                     android.widget.ImageButton r0 = r0.f4206dx
                     if (r0 == 0) goto L_0x0241
                     com.minirig.android.MainActivity r0 = com.minirig.android.MainActivity.this
-                    com.minirig.android.GlobalApplication r0 = r0.f4214k
+                    com.minirig.android.GlobalApplication r0 = r0.globalApplication
                     android.content.SharedPreferences r0 = r0.f3957c
                     com.minirig.android.MainActivity r3 = com.minirig.android.MainActivity.this
                     java.lang.String r3 = r3.f4160dD
@@ -3942,7 +3942,7 @@ public class MainActivity extends C0670c {
                     android.widget.ImageButton r0 = r0.f4207dy
                     if (r0 == 0) goto L_0x028e
                     com.minirig.android.MainActivity r0 = com.minirig.android.MainActivity.this
-                    com.minirig.android.GlobalApplication r0 = r0.f4214k
+                    com.minirig.android.GlobalApplication r0 = r0.globalApplication
                     android.content.SharedPreferences r0 = r0.f3957c
                     com.minirig.android.MainActivity r3 = com.minirig.android.MainActivity.this
                     java.lang.String r3 = r3.f4160dD
@@ -4021,10 +4021,10 @@ public class MainActivity extends C0670c {
     }
 
     /* renamed from: j */
-    private void m5933j(String str) {
-        GlobalApplication globalApplication = this.f4214k;
-        String str2 = f3974m;
-        globalApplication.mo5229a(str2, "setBars(data: " + str);
+    private void setBars(String str) {
+        GlobalApplication globalApplication = this.globalApplication;
+        String str2 = logLevel_info;
+        globalApplication.addLog(str2, "setBars(data: " + str);
         if (str != null && str.length() >= 3) {
             final String[] split = str.substring(2).split(" ");
             runOnUiThread(new Runnable() {
@@ -4040,9 +4040,9 @@ public class MainActivity extends C0670c {
                 this.f4162dF = str;
             }
             if (!this.f4163dG) {
-                this.f4214k.mo5229a(f3974m, "DID NOT SET BARS - !vBandBarsActive");
+                this.globalApplication.addLog(logLevel_info, "DID NOT SET BARS - !vBandBarsActive");
             } else if (this.f4164dH) {
-                this.f4214k.mo5229a(f3974m, "DID NOT SET BARS - settingToCustomEQ");
+                this.globalApplication.addLog(logLevel_info, "DID NOT SET BARS - settingToCustomEQ");
             } else {
                 runOnUiThread(new Runnable() {
                     public void run() {
@@ -4083,7 +4083,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: bb */
     private boolean m5879bb() {
-        if (!this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.MONO_SUB) && !this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.STEREO_TWO_SUBS) && !this.f4214k.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.STEREO_ONE_SUB)) {
+        if (!this.globalApplication.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.MONO_SUB) && !this.globalApplication.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.STEREO_TWO_SUBS) && !this.globalApplication.minirigf3.minirigAudioModef4463c.equals(minirigStatusClass.minirigModeEnum.STEREO_ONE_SUB)) {
             return false;
         }
         return true;
@@ -4140,25 +4140,25 @@ public class MainActivity extends C0670c {
     private void m5759a(boolean z) {
         if (m5868b(this.f4083be) || m5868b(this.f4084bf)) {
             if (z) {
-                sendCommand(this.f4214k.f3958d.mo5467a("07", 4), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("07", 4), this.globalApplication.mrCommandGenerator.currentCommand);
             } else {
-                sendCommand(this.f4214k.f3958d.mo5467a("07", 7), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("07", 7), this.globalApplication.mrCommandGenerator.currentCommand);
             }
         } else if (m5868b(this.f4086bh) || m5868b(this.f4087bi)) {
             if (z) {
-                sendCommand(this.f4214k.f3958d.mo5467a("13", 4), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("13", 4), this.globalApplication.mrCommandGenerator.currentCommand);
             } else {
-                sendCommand(this.f4214k.f3958d.mo5467a("13", 3), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("13", 3), this.globalApplication.mrCommandGenerator.currentCommand);
             }
         } else if (m5868b(this.f4088bj) || m5868b(this.f4089bk)) {
             if (z) {
-                sendCommand(this.f4214k.f3958d.mo5467a("07", 0), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("07", 0), this.globalApplication.mrCommandGenerator.currentCommand);
             } else {
-                sendCommand(this.f4214k.f3958d.mo5467a("07", 2), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("07", 2), this.globalApplication.mrCommandGenerator.currentCommand);
             }
         }
         if (z) {
-            sendCommand(this.f4214k.f3958d.mo5467a("06", 0), this.f4214k.f3958d.f4394a);
+            sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("06", 0), this.globalApplication.mrCommandGenerator.currentCommand);
         }
     }
 
@@ -4166,7 +4166,7 @@ public class MainActivity extends C0670c {
     private void m5758a(HashMap<String, Integer> hashMap) {
         int i;
         if (this.f4082bd > 0) {
-            this.f4214k.mo5229a(f3974m, "in the middle of setting a preset");
+            this.globalApplication.addLog(logLevel_info, "in the middle of setting a preset");
             return;
         }
         String str = this.f4162dF;
@@ -4178,17 +4178,17 @@ public class MainActivity extends C0670c {
                 i = 5;
                 m5882be();
                 int i2 = 0;
-                for (String str2 : this.f4214k.f3957c.getString(this.f4161dE + "00", "50 50 50 50 50").split(" ")) {
+                for (String str2 : this.globalApplication.f3957c.getString(this.f4161dE + "00", "50 50 50 50 50").split(" ")) {
                     split[i2] = str2;
                     i2++;
                 }
             } else {
-                sendCommand(this.f4214k.f3958d.mo5470b("00", 0), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setPowerSaving("00", 0), this.globalApplication.mrCommandGenerator.currentCommand);
                 i = 1;
             }
             for (Map.Entry next : hashMap.entrySet()) {
                 i++;
-                sendCommand(this.f4214k.f3958d.mo5467a((String) next.getKey(), ((Integer) next.getValue()).intValue()), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand((String) next.getKey(), ((Integer) next.getValue()).intValue()), this.globalApplication.mrCommandGenerator.currentCommand);
                 split[Integer.parseInt((String) next.getKey()) - 1] = ((Integer) next.getValue()).toString();
             }
             this.f4162dF = "q";
@@ -4200,7 +4200,7 @@ public class MainActivity extends C0670c {
                 }
             }
             this.f4163dG = true;
-            m5933j(this.f4162dF);
+            setBars(this.f4162dF);
             if (!(hashMap == this.f4084bf || hashMap == this.f4083be)) {
                 m5865b(false);
             }
@@ -4321,7 +4321,7 @@ public class MainActivity extends C0670c {
                 }
             }
         } else {
-            SharedPreferences.Editor edit = this.f4214k.f3957c.edit();
+            SharedPreferences.Editor edit = this.globalApplication.f3957c.edit();
             String str = this.f4160dD;
             edit.putString(str, view.getTag() + "").apply();
             m5881bd();
@@ -4334,9 +4334,9 @@ public class MainActivity extends C0670c {
     }
 
     public void clickedEqLock(View view) {
-        if (this.f4214k.minirigf3.mo5506i()) {
+        if (this.globalApplication.minirigf3.mo5506i()) {
             if (mo5284r()) {
-                sendCommand(this.f4214k.f3958d.mo5467a("06", 0), this.f4214k.f3958d.f4394a);
+                sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("06", 0), this.globalApplication.mrCommandGenerator.currentCommand);
             } else {
                 sendCommand("q p 06 00", "EQ_LOCK_ON");
             }
@@ -4345,7 +4345,7 @@ public class MainActivity extends C0670c {
         } else if (m5879bb()) {
             mo5246b("Notice", "You can't lock the EQ while in a subwoofer configuration.");
         } else {
-            sendCommand(this.f4214k.f3958d.mo5467a("06", 1), this.f4214k.f3958d.f4394a);
+            sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("06", 1), this.globalApplication.mrCommandGenerator.currentCommand);
         }
         this.f4215l.mo5543a(getResources().getString(R.string.helpEQLockTitle), getResources().getString(R.string.helpEQLockBody));
         sendCommand("q p 00 50", "GET_EQ");
@@ -4354,42 +4354,42 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: k */
     public void m5935k(String str) {
-        this.f4214k.minirigf3.mo5522q(str);
+        this.globalApplication.minirigf3.mo5522q(str);
     }
 
     /* renamed from: l */
     private void m5937l(String str) {
         String[] split = str.split(" ");
         if (split.length >= 7) {
-            String str2 = this.f4161dE + this.f4214k.f3957c.getString(this.f4160dD, "00");
+            String str2 = this.f4161dE + this.globalApplication.f3957c.getString(this.f4160dD, "00");
             String str3 = split[1] + " " + split[2] + " " + split[3] + " " + split[4] + " " + split[5];
-            this.f4214k.mo5229a(f3974m, "- - - - SAVE KEY: " + str2);
-            this.f4214k.mo5229a(f3974m, "- - - -SAVE Text: " + str3);
-            this.f4214k.f3957c.edit().putString(str2, str3).apply();
+            this.globalApplication.addLog(logLevel_info, "- - - - SAVE KEY: " + str2);
+            this.globalApplication.addLog(logLevel_info, "- - - -SAVE Text: " + str3);
+            this.globalApplication.f3957c.edit().putString(str2, str3).apply();
             m5935k(split[6]);
         }
     }
 
     /* renamed from: bd */
     private void m5881bd() {
-        SharedPreferences sharedPreferences = this.f4214k.f3957c;
-        String[] split = sharedPreferences.getString(this.f4161dE + this.f4214k.f3957c.getString(this.f4160dD, "00"), "50 50 50 50 50").split(" ");
-        sendCommand(this.f4214k.f3958d.mo5467a("01", Integer.parseInt(split[0])), this.f4214k.f3958d.f4394a);
-        sendCommand(this.f4214k.f3958d.mo5467a("02", Integer.parseInt(split[1])), this.f4214k.f3958d.f4394a);
-        sendCommand(this.f4214k.f3958d.mo5467a("03", Integer.parseInt(split[2])), this.f4214k.f3958d.f4394a);
-        sendCommand(this.f4214k.f3958d.mo5467a("04", Integer.parseInt(split[3])), this.f4214k.f3958d.f4394a);
-        sendCommand(this.f4214k.f3958d.mo5467a("05", Integer.parseInt(split[4])), this.f4214k.f3958d.f4394a);
+        SharedPreferences sharedPreferences = this.globalApplication.f3957c;
+        String[] split = sharedPreferences.getString(this.f4161dE + this.globalApplication.f3957c.getString(this.f4160dD, "00"), "50 50 50 50 50").split(" ");
+        sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("01", Integer.parseInt(split[0])), this.globalApplication.mrCommandGenerator.currentCommand);
+        sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("02", Integer.parseInt(split[1])), this.globalApplication.mrCommandGenerator.currentCommand);
+        sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("03", Integer.parseInt(split[2])), this.globalApplication.mrCommandGenerator.currentCommand);
+        sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("04", Integer.parseInt(split[3])), this.globalApplication.mrCommandGenerator.currentCommand);
+        sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("05", Integer.parseInt(split[4])), this.globalApplication.mrCommandGenerator.currentCommand);
     }
 
     /* renamed from: be */
     private void m5882be() {
-        SharedPreferences sharedPreferences = this.f4214k.f3957c;
+        SharedPreferences sharedPreferences = this.globalApplication.f3957c;
         String[] split = sharedPreferences.getString(this.f4161dE + "00", "50 50 50 50 50").split(" ");
-        sendCommand(this.f4214k.f3958d.mo5467a("01", Integer.parseInt(split[0])), this.f4214k.f3958d.f4394a);
-        sendCommand(this.f4214k.f3958d.mo5467a("02", Integer.parseInt(split[1])), this.f4214k.f3958d.f4394a);
-        sendCommand(this.f4214k.f3958d.mo5467a("03", Integer.parseInt(split[2])), this.f4214k.f3958d.f4394a);
-        sendCommand(this.f4214k.f3958d.mo5467a("04", Integer.parseInt(split[3])), this.f4214k.f3958d.f4394a);
-        sendCommand(this.f4214k.f3958d.mo5467a("05", Integer.parseInt(split[4])), this.f4214k.f3958d.f4394a);
+        sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("01", Integer.parseInt(split[0])), this.globalApplication.mrCommandGenerator.currentCommand);
+        sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("02", Integer.parseInt(split[1])), this.globalApplication.mrCommandGenerator.currentCommand);
+        sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("03", Integer.parseInt(split[2])), this.globalApplication.mrCommandGenerator.currentCommand);
+        sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("04", Integer.parseInt(split[3])), this.globalApplication.mrCommandGenerator.currentCommand);
+        sendCommand(this.globalApplication.mrCommandGenerator.setEqBand("05", Integer.parseInt(split[4])), this.globalApplication.mrCommandGenerator.currentCommand);
     }
 
     /* renamed from: bf */
@@ -4416,7 +4416,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: bh */
     private void m5885bh() {
-        if (this.f4214k.f3966l != null) {
+        if (this.globalApplication.f3966l != null) {
             m5887bj();
             m5886bi();
         }
@@ -4426,7 +4426,7 @@ public class MainActivity extends C0670c {
     private void m5886bi() {
         runOnUiThread(new Runnable() {
             public void run() {
-                if (MainActivity.this.f4214k.minirigf3.mo5506i()) {
+                if (MainActivity.this.globalApplication.minirigf3.mo5506i()) {
                     MainActivity.this.f4170dN.setActivated(true);
                     MainActivity.this.f4170dN.setImageResource(R.drawable.eq_lock_on);
                     ImageButton ao = MainActivity.this.f4170dN;
@@ -4455,10 +4455,10 @@ public class MainActivity extends C0670c {
                 MainActivity.this.f4168dL.setImageResource(R.drawable.eq_preset3_off);
                 MainActivity.this.f4169dM.setActivated(false);
                 MainActivity.this.f4169dM.setImageResource(R.drawable.eq_preset4_off);
-                String string = MainActivity.this.f4214k.f3957c.getString(MainActivity.this.f4171dO, "1");
-                GlobalApplication globalApplication = MainActivity.this.f4214k;
-                String str = MainActivity.f3974m;
-                globalApplication.mo5229a(str, "Refresh defin3ed EQ buttons: " + string);
+                String string = MainActivity.this.globalApplication.f3957c.getString(MainActivity.this.f4171dO, "1");
+                GlobalApplication globalApplication = MainActivity.this.globalApplication;
+                String str = MainActivity.logLevel_info;
+                globalApplication.addLog(str, "Refresh defin3ed EQ buttons: " + string);
                 if (string.equals("0")) {
                     MainActivity.this.f4166dJ.setActivated(true);
                     MainActivity.this.f4166dJ.setImageResource(R.drawable.eq_preset1_on);
@@ -4485,16 +4485,16 @@ public class MainActivity extends C0670c {
 
     public void setDefinedPreset(View view) {
         String str = view.getTag() + "";
-        if (this.f4214k.f3957c.getString(this.f4171dO, "1").equalsIgnoreCase(str)) {
+        if (this.globalApplication.f3957c.getString(this.f4171dO, "1").equalsIgnoreCase(str)) {
             str = "1";
         }
-        sendCommand(this.f4214k.f3958d.mo5471c(str), this.f4214k.f3958d.f4394a);
-        this.f4214k.f3957c.edit().putString(this.f4171dO, str).apply();
+        sendCommand(this.globalApplication.mrCommandGenerator.setDefinedEq(str), this.globalApplication.mrCommandGenerator.currentCommand);
+        this.globalApplication.f3957c.edit().putString(this.f4171dO, str).apply();
         m5887bj();
     }
 
     public void clickedDefinedEqLock(View view) {
-        if (this.f4214k.minirigf3.mo5506i()) {
+        if (this.globalApplication.minirigf3.mo5506i()) {
             sendCommand("q5", "DEFINED_EQ_LOCK_ON");
         } else {
             sendCommand("q6", "DEFINED_EQ_LOCK_OFF");
@@ -4504,7 +4504,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: m */
     private void m5939m(String str) {
-        this.f4214k.minirigf3.mo5522q(str);
+        this.globalApplication.minirigf3.mo5522q(str);
     }
 
     /* renamed from: n */
@@ -4512,8 +4512,8 @@ public class MainActivity extends C0670c {
         if (str != null && str.length() == 3) {
             String substring = str.substring(1, 2);
             String substring2 = str.substring(2, 3);
-            this.f4214k.f3957c.edit().putString(this.f4171dO, substring).apply();
-            this.f4214k.f3957c.edit().putString(this.f4172dP, substring2).apply();
+            this.globalApplication.f3957c.edit().putString(this.f4171dO, substring).apply();
+            this.globalApplication.f3957c.edit().putString(this.f4172dP, substring2).apply();
             m5939m(substring2);
             m5887bj();
         }
@@ -4522,13 +4522,13 @@ public class MainActivity extends C0670c {
     /* renamed from: bk */
     private void m5888bk() {
         this.f4098bt = false;
-        if (this.f4214k.f3966l != null) {
-            if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
+        if (this.globalApplication.f3966l != null) {
+            if (this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
                 this.f4098bt = true;
             }
-            if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2) {
+            if (this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2) {
                 try {
-                    if (Integer.parseInt(this.f4214k.f3966l.f4407i.trim()) >= 9) {
+                    if (Integer.parseInt(this.globalApplication.f3966l.f4407i.trim()) >= 9) {
                         this.f4098bt = true;
                     }
                 } catch (NumberFormatException e) {
@@ -4539,7 +4539,7 @@ public class MainActivity extends C0670c {
         }
         this.f4099bu.clear();
         int i = 3;
-        if (this.f4214k.f3966l == null || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2) {
+        if (this.globalApplication.f3966l == null || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2) {
             this.f4099bu.put(0, C1266b.C1270b.HELP_MODE);
             this.f4099bu.put(1, C1266b.C1270b.POWER_SAVING);
             if (this.f4098bt) {
@@ -4569,7 +4569,7 @@ public class MainActivity extends C0670c {
             int i11 = i10 + 1;
             this.f4099bu.put(Integer.valueOf(i11), C1266b.C1270b.RESET);
             this.f4099bu.put(Integer.valueOf(i11 + 1), C1266b.C1270b.DEBUG);
-        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
+        } else if (this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
             this.f4099bu.put(0, C1266b.C1270b.HELP_MODE);
             this.f4099bu.put(1, C1266b.C1270b.POWER_SAVING);
             if (this.f4098bt) {
@@ -4646,31 +4646,31 @@ public class MainActivity extends C0670c {
         this.f4095bq.clear();
         this.f4096br.clear();
         m5757a("Help mode", "Helpful information will be displayed when you click on buttons.\n", this.f4215l.mo5544a());
-        if (this.f4214k.f3966l == null) {
-            m5757a("Power saving mode", "Reduces bass and maximum volume. Use this to extend battery life or to reduce bass at lower volumes.\n", this.f4214k.minirigf3.getHasBLE_StandByEnabledCode());
-        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2 || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
-            m5757a("Power saving mode", "Reduces bass and maximum volume. Use this to extend battery life or to reduce bass at lower volumes.\n", this.f4214k.minirigf3.getHasBLE_StandByEnabledCode());
+        if (this.globalApplication.f3966l == null) {
+            m5757a("Power saving mode", "Reduces bass and maximum volume. Use this to extend battery life or to reduce bass at lower volumes.\n", this.globalApplication.minirigf3.getHasBLE_StandByEnabledCode());
+        } else if (this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2 || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
+            m5757a("Power saving mode", "Reduces bass and maximum volume. Use this to extend battery life or to reduce bass at lower volumes.\n", this.globalApplication.minirigf3.getHasBLE_StandByEnabledCode());
         }
         if (this.f4098bt) {
-            m5757a("REMEMBER GAIN", "The Minirig will not always start in high gain and instead, recall the gain setting from when it was last turned off.\n", this.f4214k.minirigf3.mo5510k());
+            m5757a("REMEMBER GAIN", "The Minirig will not always start in high gain and instead, recall the gain setting from when it was last turned off.\n", this.globalApplication.minirigf3.mo5510k());
         }
-        m5757a("Wireless stereo lock", "Lock these two devices together so they automatically connect in wireless stereo when powered on.", this.f4214k.minirigf3.getIsInLockedMode());
-        m5757a("Pause/Play", "If enabled, a single button press will play or pause the track. You must use the app to change gain.", this.f4214k.minirigf3.getIsSingleButtonPressMediaControl());
-        m5757a("Skip track", "If enabled, a double button press will skip to the next track. You must use the app for TWS pairing.", this.f4214k.minirigf3.getIsDoubleButtonPressMediaControlCode());
-        m5757a("Turn off automatically", "If enabled, the Minirig will turn off after half an hour when no music is playing.", this.f4214k.minirigf3.getInactivitySwitchOff());
-        if (this.f4214k.f3966l != null && (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2 || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3)) {
-            m5757a("Stand by mode", "If enabled, the Minirig will go into stand by when turned off. You can then remotely switch it on using this app.\n", this.f4214k.minirigf3.getHasBLE_StandByEnabledCode());
+        m5757a("Wireless stereo lock", "Lock these two devices together so they automatically connect in wireless stereo when powered on.", this.globalApplication.minirigf3.getIsInLockedMode());
+        m5757a("Pause/Play", "If enabled, a single button press will play or pause the track. You must use the app to change gain.", this.globalApplication.minirigf3.getIsSingleButtonPressMediaControl());
+        m5757a("Skip track", "If enabled, a double button press will skip to the next track. You must use the app for TWS pairing.", this.globalApplication.minirigf3.getIsDoubleButtonPressMediaControlCode());
+        m5757a("Turn off automatically", "If enabled, the Minirig will turn off after half an hour when no music is playing.", this.globalApplication.minirigf3.getInactivitySwitchOff());
+        if (this.globalApplication.f3966l != null && (this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2 || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3)) {
+            m5757a("Stand by mode", "If enabled, the Minirig will go into stand by when turned off. You can then remotely switch it on using this app.\n", this.globalApplication.minirigf3.getHasBLE_StandByEnabledCode());
         }
-        m5757a("AUX mode power saving", "If enabled, the Minirig will automatically turn off the amplifier and save power if no signal is detected.", this.f4214k.minirigf3.getAuxPowerSavingEnabled());
-        m5757a("Dim LED", "Just dims the LED a bit as it can be a little distracting sometimes in the dark.", this.f4214k.minirigf3.getHasNightmode());
-        m5757a("VU LED", "The LED will beat in time with the music, just for fun.", this.f4214k.minirigf3.f4470j);
-        m5757a("Tones", "Disables or enables all tones.", this.f4214k.minirigf3.getIsTonesEnabled());
-        if (this.f4214k.f3966l != null && this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
+        m5757a("AUX mode power saving", "If enabled, the Minirig will automatically turn off the amplifier and save power if no signal is detected.", this.globalApplication.minirigf3.getAuxPowerSavingEnabled());
+        m5757a("Dim LED", "Just dims the LED a bit as it can be a little distracting sometimes in the dark.", this.globalApplication.minirigf3.getHasNightmode());
+        m5757a("VU LED", "The LED will beat in time with the music, just for fun.", this.globalApplication.minirigf3.f4470j);
+        m5757a("Tones", "Disables or enables all tones.", this.globalApplication.minirigf3.getIsTonesEnabled());
+        if (this.globalApplication.f3966l != null && this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
             m5757a("Enable power out", getApplicationContext().getString(R.string.enablePowerOutDescription) + "\n", true);
         }
         m5757a("Clear paired devices", getApplicationContext().getString(R.string.clearPairedDescription) + "\n", true);
         m5757a("Factory reset", "Reset your minirig to the default settings.", true);
-        if (this.f4214k.f3956b) {
+        if (this.globalApplication.f3956b) {
             m5757a("Debug screen", "Open debugging screen.", true);
         }
         this.f4092bn = (ListView) findViewById(R.id.listView);
@@ -4689,25 +4689,25 @@ public class MainActivity extends C0670c {
         if (!this.f4097bs) {
             m5889bl();
         }
-        if (this.f4214k.f3966l != null) {
+        if (this.globalApplication.f3966l != null) {
             this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.HELP_MODE), Boolean.valueOf(this.f4215l.mo5544a()));
-            if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2 || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
-                this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.POWER_SAVING), Boolean.valueOf(this.f4214k.minirigf3.mo5504h()));
+            if (this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2 || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
+                this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.POWER_SAVING), Boolean.valueOf(this.globalApplication.minirigf3.mo5504h()));
             }
             if (this.f4098bt) {
-                this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.GAIN_REMEMBERING), Boolean.valueOf(this.f4214k.minirigf3.mo5510k()));
+                this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.GAIN_REMEMBERING), Boolean.valueOf(this.globalApplication.minirigf3.mo5510k()));
             }
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.WIRELESS_STEREO), Boolean.valueOf(this.f4214k.minirigf3.getIsInLockedMode()));
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.PAUSE_PLAY), Boolean.valueOf(this.f4214k.minirigf3.getIsSingleButtonPressMediaControl()));
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.SKIP_TRACK), Boolean.valueOf(this.f4214k.minirigf3.getIsDoubleButtonPressMediaControlCode()));
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.AUTO_OFF), Boolean.valueOf(this.f4214k.minirigf3.getInactivitySwitchOff()));
-            if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2 || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
-                this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.STAND_BY), Boolean.valueOf(this.f4214k.minirigf3.getHasBLE_StandByEnabledCode()));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.WIRELESS_STEREO), Boolean.valueOf(this.globalApplication.minirigf3.getIsInLockedMode()));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.PAUSE_PLAY), Boolean.valueOf(this.globalApplication.minirigf3.getIsSingleButtonPressMediaControl()));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.SKIP_TRACK), Boolean.valueOf(this.globalApplication.minirigf3.getIsDoubleButtonPressMediaControlCode()));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.AUTO_OFF), Boolean.valueOf(this.globalApplication.minirigf3.getInactivitySwitchOff()));
+            if (this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2 || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
+                this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.STAND_BY), Boolean.valueOf(this.globalApplication.minirigf3.getHasBLE_StandByEnabledCode()));
             }
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.AUX_POWER_SAVING), Boolean.valueOf(this.f4214k.minirigf3.getAuxPowerSavingEnabled()));
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.DIM_LED), Boolean.valueOf(this.f4214k.minirigf3.getHasNightmode()));
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.VU_LED), Boolean.valueOf(this.f4214k.minirigf3.f4470j));
-            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.TONES), Boolean.valueOf(this.f4214k.minirigf3.getIsTonesEnabled()));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.AUX_POWER_SAVING), Boolean.valueOf(this.globalApplication.minirigf3.getAuxPowerSavingEnabled()));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.DIM_LED), Boolean.valueOf(this.globalApplication.minirigf3.getHasNightmode()));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.VU_LED), Boolean.valueOf(this.globalApplication.minirigf3.f4470j));
+            this.f4096br.set(this.f4093bo.mo5580a(C1266b.C1270b.TONES), Boolean.valueOf(this.globalApplication.minirigf3.getIsTonesEnabled()));
             runOnUiThread(new Runnable() {
                 public void run() {
                     MainActivity.this.f4093bo.notifyDataSetChanged();
@@ -4720,8 +4720,8 @@ public class MainActivity extends C0670c {
     public void mo5294v() {
         new AlertDialog.Builder(this).setTitle("Reset device?").setMessage("Would you like to peform a factory reset on your speaker? This will restore everything to default.").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (MainActivity.this.f4214k.f3964j.f4685f != null) {
-                    MainActivity.this.f4214k.f3964j.f4685f.f4690D++;
+                if (MainActivity.this.globalApplication.f3964j.f4685f != null) {
+                    MainActivity.this.globalApplication.f3964j.f4685f.f4690D++;
                 }
                 MainActivity.this.sendCommand("*", "RESET");
             }
@@ -4733,13 +4733,13 @@ public class MainActivity extends C0670c {
 
     /* renamed from: w */
     public void mo5295w() {
-        if (this.f4214k.minirigf3.powerStatef4468h == minirigStatusClass.powerStateEnum.POWER_OUT) {
+        if (this.globalApplication.minirigf3.powerStatef4468h == minirigStatusClass.powerStateEnum.POWER_OUT) {
             mo5246b("Notice", "Already charging out. ");
         } else {
             new AlertDialog.Builder(this).setTitle("Enable power out?").setMessage(R.string.enablePowerOutDescription).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    if (MainActivity.this.f4214k.f3964j.f4685f != null) {
-                        MainActivity.this.f4214k.f3964j.f4685f.f4688B++;
+                    if (MainActivity.this.globalApplication.f3964j.f4685f != null) {
+                        MainActivity.this.globalApplication.f3964j.f4685f.f4688B++;
                     }
                     MainActivity.this.sendCommand("^", "ENABLE_POWER_OUT");
                 }
@@ -4754,8 +4754,8 @@ public class MainActivity extends C0670c {
     public void mo5296x() {
         new AlertDialog.Builder(this).setTitle("Clear paired devices?").setMessage(R.string.enablePowerOutDescription).setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int i) {
-                if (MainActivity.this.f4214k.f3964j.f4685f != null) {
-                    MainActivity.this.f4214k.f3964j.f4685f.f4689C++;
+                if (MainActivity.this.globalApplication.f3964j.f4685f != null) {
+                    MainActivity.this.globalApplication.f3964j.f4685f.f4689C++;
                 }
                 MainActivity.this.sendCommand("N UNPAIR", "CLEAR_PAIRED");
             }
@@ -4856,13 +4856,13 @@ public class MainActivity extends C0670c {
 
     /* renamed from: B */
     public void mo5233B() {
-        if (this.f4214k.f3966l == null) {
+        if (this.globalApplication.f3966l == null) {
             mo5245b("https://files.minirigs.co.uk/bluetooth-portable-speaker/Minirig-Users-Guide-MRBT2.pdf");
-        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2 || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG1) {
+        } else if (this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG2 || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG1) {
             mo5245b("https://files.minirigs.co.uk/bluetooth-portable-speaker/Minirig-Users-Guide-MRBT2.pdf");
-        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2) {
+        } else if (this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI || this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIMINI2) {
             mo5245b("https://files.minirigs.co.uk/minirig-mini/MRM-user-guide.pdf");
-        } else if (this.f4214k.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
+        } else if (this.globalApplication.f3966l.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
             mo5245b("https://files.minirigs.co.uk/bluetooth-portable-speaker/Minirig-User-Guide-MRBT3.pdf");
         }
     }
@@ -4881,7 +4881,7 @@ public class MainActivity extends C0670c {
             startActivity(intent2);
             return;
         }
-        this.f4214k.mo5229a(f3974m, "No Intent available to handle action");
+        this.globalApplication.addLog(logLevel_info, "No Intent available to handle action");
         mo5246b("Unable to open", "No application found on your device to open this link.");
     }
 
@@ -4898,16 +4898,16 @@ public class MainActivity extends C0670c {
     /* renamed from: bq */
     private void m5894bq() {
         String str;
-        if (this.f4214k.f3966l != null) {
-            String str2 = ("" + "<b>App version:</b> 0.9.7<br /><br />") + "<b>Name:</b> " + this.f4214k.f3966l.f4403e + "<br />";
-            if (this.f4214k.f3965k.containsKey(this.f4214k.f3966l.f4406h)) {
-                str = str2 + "<b>Model:</b> " + this.f4214k.f3965k.get(this.f4214k.f3966l.f4406h) + "<br />";
+        if (this.globalApplication.f3966l != null) {
+            String str2 = ("" + "<b>App version:</b> 0.9.7<br /><br />") + "<b>Name:</b> " + this.globalApplication.f3966l.f4403e + "<br />";
+            if (this.globalApplication.f3965k.containsKey(this.globalApplication.f3966l.f4406h)) {
+                str = str2 + "<b>Model:</b> " + this.globalApplication.f3965k.get(this.globalApplication.f3966l.f4406h) + "<br />";
             } else {
-                str = str2 + "<b>Model:</b> " + this.f4214k.f3966l.minirigType + "<br />";
+                str = str2 + "<b>Model:</b> " + this.globalApplication.f3966l.minirigType + "<br />";
             }
-            final String str3 = (str + "<b>Software version:</b> " + this.f4214k.f3966l.f4407i + "<br />") + "<b>Total playtime:</b> " + C1229d.m6011c(this.f4214k.f3960f.f4434f + this.f4214k.f3960f.f4436h + this.f4214k.f3960f.f4440l + this.f4214k.f3960f.f4438j) + "<br />";
-            if (this.f4214k.f3956b) {
-                str3 = (((((((((((((((((((((((((((((((str3 + "<br />") + "<b>Colour:</b> " + this.f4214k.f3966l.ledColorStr + "<br />") + "<b>Product type:</b> " + this.f4214k.f3966l.f4406h + "<br />") + "<b>Hardware version:</b> " + this.f4214k.f3966l.f4414p + "<br />") + "<b>Bluetooth version:</b> " + this.f4214k.f3966l.f4416r + "<br />") + "<b>Bootloader version:</b> " + this.f4214k.f3966l.f4417s + "<br />") + "<b>Manufacture date:</b> " + this.f4214k.f3966l.f4418t) + "<br /><br />") + "<b>Time since last charge:</b> " + this.f4214k.f3961g.mo5472a(this.f4214k.f3960f.f4431c) + "<br />") + "<b>Time in standby since last charge:</b> " + this.f4214k.f3961g.mo5472a(this.f4214k.f3960f.f4432d) + "<br />") + "<b>Time in standalone:</b> " + this.f4214k.f3960f.f4433e + "<br />") + "<b>Time in standalone with sub:</b> " + this.f4214k.f3960f.f4435g + "<br />") + "<b>Time in TWS:</b> " + this.f4214k.f3960f.f4437i + "<br />") + "<b>Time in AUX:</b> " + this.f4214k.f3960f.f4439k + "<br />") + "<b>Time on standby:</b> " + this.f4214k.f3960f.f4441m + "<br />") + "<b>Time on charge:</b> " + this.f4214k.f3960f.f4443o + "<br />") + "<b>Discharge cycles:</b> " + this.f4214k.f3960f.f4445q + "<br />") + "<b>Discharge minutes:</b> " + this.f4214k.f3960f.f4446r + "<br />") + "<b>Long button presses:</b> " + this.f4214k.f3960f.f4447s + "<br />") + "<b>Gain changes:</b> " + this.f4214k.f3960f.f4448t + "<br />") + "<b>TWS starts:</b> " + this.f4214k.f3960f.f4449u + "<br />") + "<b>Power out used:</b> " + this.f4214k.f3960f.f4451w + "<br />") + "<b>Media controls used:</b> " + this.f4214k.f3960f.f4450v + "<br />") + "<b>Jacks inserted:</b> " + this.f4214k.f3960f.f4452x + "<br />") + "<b>Charge cables inserted:</b> " + this.f4214k.f3960f.f4453y + "<br />") + "<b>Resets:</b> " + this.f4214k.f3960f.f4454z + "<br />") + "<b>Power outs used (new):</b> " + this.f4214k.f3960f.f4420A + "<br />") + "<b>Linkup receiver starts:</b> " + this.f4214k.f3960f.f4421B + "<br />") + "<b>Linkup transmitter starts:</b> " + this.f4214k.f3960f.f4422C + "<br />") + "<b>Time in power out:</b> " + this.f4214k.f3960f.f4424E + "<br />") + "<b>Time as receiver:</b> " + this.f4214k.f3960f.f4426G + "<br />") + "<b>Time as transmitter:</b> " + this.f4214k.f3960f.f4428I + "<br />";
+            final String str3 = (str + "<b>Software version:</b> " + this.globalApplication.f3966l.f4407i + "<br />") + "<b>Total playtime:</b> " + C1229d.m6011c(this.globalApplication.f3960f.f4434f + this.globalApplication.f3960f.f4436h + this.globalApplication.f3960f.f4440l + this.globalApplication.f3960f.f4438j) + "<br />";
+            if (this.globalApplication.f3956b) {
+                str3 = (((((((((((((((((((((((((((((((str3 + "<br />") + "<b>Colour:</b> " + this.globalApplication.f3966l.ledColorStr + "<br />") + "<b>Product type:</b> " + this.globalApplication.f3966l.f4406h + "<br />") + "<b>Hardware version:</b> " + this.globalApplication.f3966l.f4414p + "<br />") + "<b>Bluetooth version:</b> " + this.globalApplication.f3966l.f4416r + "<br />") + "<b>Bootloader version:</b> " + this.globalApplication.f3966l.f4417s + "<br />") + "<b>Manufacture date:</b> " + this.globalApplication.f3966l.f4418t) + "<br /><br />") + "<b>Time since last charge:</b> " + this.globalApplication.f3961g.mo5472a(this.globalApplication.f3960f.f4431c) + "<br />") + "<b>Time in standby since last charge:</b> " + this.globalApplication.f3961g.mo5472a(this.globalApplication.f3960f.f4432d) + "<br />") + "<b>Time in standalone:</b> " + this.globalApplication.f3960f.f4433e + "<br />") + "<b>Time in standalone with sub:</b> " + this.globalApplication.f3960f.f4435g + "<br />") + "<b>Time in TWS:</b> " + this.globalApplication.f3960f.f4437i + "<br />") + "<b>Time in AUX:</b> " + this.globalApplication.f3960f.f4439k + "<br />") + "<b>Time on standby:</b> " + this.globalApplication.f3960f.f4441m + "<br />") + "<b>Time on charge:</b> " + this.globalApplication.f3960f.f4443o + "<br />") + "<b>Discharge cycles:</b> " + this.globalApplication.f3960f.f4445q + "<br />") + "<b>Discharge minutes:</b> " + this.globalApplication.f3960f.f4446r + "<br />") + "<b>Long button presses:</b> " + this.globalApplication.f3960f.f4447s + "<br />") + "<b>Gain changes:</b> " + this.globalApplication.f3960f.f4448t + "<br />") + "<b>TWS starts:</b> " + this.globalApplication.f3960f.f4449u + "<br />") + "<b>Power out used:</b> " + this.globalApplication.f3960f.f4451w + "<br />") + "<b>Media controls used:</b> " + this.globalApplication.f3960f.f4450v + "<br />") + "<b>Jacks inserted:</b> " + this.globalApplication.f3960f.f4452x + "<br />") + "<b>Charge cables inserted:</b> " + this.globalApplication.f3960f.f4453y + "<br />") + "<b>Resets:</b> " + this.globalApplication.f3960f.f4454z + "<br />") + "<b>Power outs used (new):</b> " + this.globalApplication.f3960f.f4420A + "<br />") + "<b>Linkup receiver starts:</b> " + this.globalApplication.f3960f.f4421B + "<br />") + "<b>Linkup transmitter starts:</b> " + this.globalApplication.f3960f.f4422C + "<br />") + "<b>Time in power out:</b> " + this.globalApplication.f3960f.f4424E + "<br />") + "<b>Time as receiver:</b> " + this.globalApplication.f3960f.f4426G + "<br />") + "<b>Time as transmitter:</b> " + this.globalApplication.f3960f.f4428I + "<br />";
             }
             runOnUiThread(new Runnable() {
                 public void run() {
@@ -4948,12 +4948,12 @@ public class MainActivity extends C0670c {
             if (view == this.f4050ax) {
                 View view3 = this.f4066bN;
                 if (view3 == this.f4001aA || view3 == this.f4002aB) {
-                    if (this.f4214k.minirigf3.mo5494c() || this.f4214k.minirigf3.mo5500f() || this.f4214k.minirigf3.mo5498e()) {
+                    if (this.globalApplication.minirigf3.mo5494c() || this.globalApplication.minirigf3.mo5500f() || this.globalApplication.minirigf3.mo5498e()) {
                         view = this.f4046at;
                     }
-                } else if (this.f4214k.minirigf3.mo5494c()) {
+                } else if (this.globalApplication.minirigf3.mo5494c()) {
                     view = this.f4001aA;
-                } else if (this.f4214k.minirigf3.mo5500f() || this.f4214k.minirigf3.mo5498e()) {
+                } else if (this.globalApplication.minirigf3.mo5500f() || this.globalApplication.minirigf3.mo5498e()) {
                     view = this.f4002aB;
                 }
             }
@@ -4966,9 +4966,9 @@ public class MainActivity extends C0670c {
                 this.f4223u = false;
                 this.f4162dF = "";
                 this.f4008aH = "";
-                this.f4214k.f3962h.f4393b = 0;
+                this.globalApplication.f3962h.f4393b = 0;
                 this.f4097bs = false;
-                if (this.f4214k.f3956b) {
+                if (this.globalApplication.f3956b) {
                     m5898bu();
                 }
                 if (this.f4227y == null) {
@@ -4984,17 +4984,17 @@ public class MainActivity extends C0670c {
                 this.f4115cK = false;
                 if (this.f4224v) {
                     m5823ah();
-                } else if (this.f4214k.f3966l != null && mo5284r()) {
+                } else if (this.globalApplication.f3966l != null && mo5284r()) {
                     m5823ah();
                 }
-                if (this.f4214k.f3964j.f4685f != null && this.f4214k.f3964j.f4685f.f4727b == 0) {
-                    this.f4214k.f3964j.f4683c.mo5589a();
-                } else if (this.f4214k.f3964j.f4685f != null && this.f4214k.f3964j.f4685f.f4727b == 1) {
-                    if (!this.f4214k.f3960f.f4430b) {
+                if (this.globalApplication.f3964j.f4685f != null && this.globalApplication.f3964j.f4685f.f4727b == 0) {
+                    this.globalApplication.f3964j.f4683c.mo5589a();
+                } else if (this.globalApplication.f3964j.f4685f != null && this.globalApplication.f3964j.f4685f.f4727b == 1) {
+                    if (!this.globalApplication.f3960f.f4430b) {
                         sendCommand("o", "GET_RUNTIME_DATA");
                         sendCommand("/", "GET_RUNTIME_DATA2");
-                    } else if (!(this.f4214k.f3966l == null || this.f4214k.f3960f.f4433e == null || this.f4214k.f3966l.f4414p.equals("Unknown"))) {
-                        this.f4214k.f3964j.f4683c.mo5590b();
+                    } else if (!(this.globalApplication.f3966l == null || this.globalApplication.f3960f.f4433e == null || this.globalApplication.f3966l.f4414p.equals("Unknown"))) {
+                        this.globalApplication.f3964j.f4683c.mo5590b();
                     }
                 }
                 this.f4215l.mo5546c();
@@ -5018,7 +5018,7 @@ public class MainActivity extends C0670c {
             LinearLayout.LayoutParams layoutParams2 = new LinearLayout.LayoutParams(-1, 0, 0.0f);
             if (view == this.f4028ab) {
                 m5877bI();
-                if (this.f4214k.f3966l == null && this.f4224v) {
+                if (this.globalApplication.f3966l == null && this.f4224v) {
                     this.f4150ct.setEnabled(false);
                     this.f4150ct.setText("Demo mode");
                 }
@@ -5040,7 +5040,7 @@ public class MainActivity extends C0670c {
                 m5896bs();
             } else if (view == this.f4091bm) {
                 this.f4150ct.setText("Settings");
-                if (this.f4214k.f3966l != null) {
+                if (this.globalApplication.f3966l != null) {
                     this.f4150ct.setEnabled(false);
                 }
                 this.f4029ac.setVisibility(0);
@@ -5062,7 +5062,7 @@ public class MainActivity extends C0670c {
             } else if (view == this.f4079ba) {
                 this.f4150ct.setText("5 BAND EQ");
                 sendCommand("q p 00 50", "GET_EQ");
-                if (this.f4214k.f3966l != null) {
+                if (this.globalApplication.f3966l != null) {
                     this.f4150ct.setEnabled(false);
                 }
                 this.f4029ac.setVisibility(0);
@@ -5083,7 +5083,7 @@ public class MainActivity extends C0670c {
                 m5896bs();
             } else if (view == this.f4010aJ) {
                 this.f4150ct.setText("AUDIO CONFIGURATION");
-                if (this.f4214k.f3966l != null) {
+                if (this.globalApplication.f3966l != null) {
                     this.f4150ct.setEnabled(false);
                 }
                 this.f4029ac.setVisibility(0);
@@ -5103,12 +5103,12 @@ public class MainActivity extends C0670c {
                 m5747a(this.f4002aB, layoutParams2);
                 mo5289t();
                 m5897bt();
-                if (this.f4214k.f3966l != null && this.f4214k.minirigf3.isTwsConnected()) {
+                if (this.globalApplication.f3966l != null && this.globalApplication.minirigf3.isTwsConnected()) {
                     m5794aP();
                 }
             } else if (view == this.f4018aR) {
                 this.f4150ct.setText("AUDIO CONFIGURATION");
-                if (this.f4214k.f3966l != null) {
+                if (this.globalApplication.f3966l != null) {
                     this.f4150ct.setEnabled(false);
                 }
                 this.f4029ac.setVisibility(0);
@@ -5129,7 +5129,7 @@ public class MainActivity extends C0670c {
                 m5896bs();
             } else if (view == this.f4090bl) {
                 this.f4150ct.setText("EQ");
-                if (this.f4214k.f3966l != null) {
+                if (this.globalApplication.f3966l != null) {
                     this.f4150ct.setEnabled(false);
                 }
                 this.f4029ac.setVisibility(0);
@@ -5150,7 +5150,7 @@ public class MainActivity extends C0670c {
                 m5896bs();
             } else if (view == this.f4009aI) {
                 this.f4150ct.setText("LEVELS");
-                if (this.f4214k.f3966l != null) {
+                if (this.globalApplication.f3966l != null) {
                     this.f4150ct.setEnabled(false);
                 }
                 this.f4029ac.setVisibility(0);
@@ -5169,12 +5169,12 @@ public class MainActivity extends C0670c {
                 m5747a(this.f4001aA, layoutParams2);
                 m5747a(this.f4002aB, layoutParams2);
                 m5896bs();
-                if (this.f4214k.f3966l != null && this.f4214k.minirigf3.isTwsConnected()) {
+                if (this.globalApplication.f3966l != null && this.globalApplication.minirigf3.isTwsConnected()) {
                     m5794aP();
                 }
             } else if (view == this.f4103by) {
                 this.f4150ct.setText("Links");
-                if (this.f4214k.f3966l != null) {
+                if (this.globalApplication.f3966l != null) {
                     this.f4150ct.setEnabled(false);
                 }
                 this.f4029ac.setVisibility(0);
@@ -5195,7 +5195,7 @@ public class MainActivity extends C0670c {
                 m5897bt();
             } else if (view == this.f4104bz) {
                 this.f4150ct.setText("About");
-                if (this.f4214k.f3966l != null) {
+                if (this.globalApplication.f3966l != null) {
                     this.f4150ct.setEnabled(false);
                 }
                 this.f4029ac.setVisibility(0);
@@ -5216,7 +5216,7 @@ public class MainActivity extends C0670c {
                 m5897bt();
             } else if (view == this.f4037ak) {
                 this.f4150ct.setText("AUDIO CONFIGURATION");
-                if (this.f4214k.f3966l != null) {
+                if (this.globalApplication.f3966l != null) {
                     this.f4150ct.setEnabled(false);
                 }
                 m5849au();
@@ -5238,7 +5238,7 @@ public class MainActivity extends C0670c {
                 m5897bt();
             } else if (view == this.f4046at) {
                 this.f4150ct.setText("LINKUP MODE");
-                if (this.f4214k.f3966l != null) {
+                if (this.globalApplication.f3966l != null) {
                     this.f4150ct.setEnabled(false);
                 }
                 this.f4029ac.setVisibility(0);
@@ -5259,7 +5259,7 @@ public class MainActivity extends C0670c {
                 m5897bt();
             } else if (view == this.f4050ax) {
                 this.f4150ct.setText("LINK UP");
-                if (this.f4214k.f3966l != null) {
+                if (this.globalApplication.f3966l != null) {
                     this.f4150ct.setEnabled(false);
                 }
                 this.f4029ac.setVisibility(0);
@@ -5280,7 +5280,7 @@ public class MainActivity extends C0670c {
                 m5897bt();
             } else if (view == this.f4001aA) {
                 this.f4150ct.setText("LINK UP");
-                if (this.f4214k.f3966l != null) {
+                if (this.globalApplication.f3966l != null) {
                     this.f4150ct.setEnabled(false);
                 }
                 this.f4029ac.setVisibility(0);
@@ -5301,7 +5301,7 @@ public class MainActivity extends C0670c {
                 m5897bt();
             } else if (view == this.f4002aB) {
                 this.f4150ct.setText("LINK UP");
-                if (this.f4214k.f3966l != null) {
+                if (this.globalApplication.f3966l != null) {
                     this.f4150ct.setEnabled(false);
                 }
                 this.f4029ac.setVisibility(0);
@@ -5322,7 +5322,7 @@ public class MainActivity extends C0670c {
                 m5897bt();
             } else if (view == this.f4100bv) {
                 this.f4150ct.setText("MIXTAPES");
-                if (this.f4214k.f3966l != null) {
+                if (this.globalApplication.f3966l != null) {
                     this.f4150ct.setEnabled(false);
                 }
                 if (!this.f4173dQ) {
@@ -5351,7 +5351,7 @@ public class MainActivity extends C0670c {
                 this.f4029ac.setVisibility(8);
             }
             this.f4065bM = view;
-            if (view == this.f4028ab && this.f4214k.f3966l != null) {
+            if (view == this.f4028ab && this.globalApplication.f3966l != null) {
                 m5818af();
                 this.f4150ct.setEnabled(true);
                 this.f4150ct.clearFocus();
@@ -5367,7 +5367,7 @@ public class MainActivity extends C0670c {
         if (view != null) {
             view.setLayoutParams(layoutParams);
         } else {
-            this.f4214k.mo5229a(f3974m, "THE V|IEW WAS NULL");
+            this.globalApplication.addLog(logLevel_info, "THE V|IEW WAS NULL");
         }
     }
 
@@ -5451,7 +5451,7 @@ public class MainActivity extends C0670c {
                 }
                 Toast.makeText(this, "This application cannot run without the coarse  location permission enabled. Please turn it on in the Settings screen before using the app.", 1).show();
                 finish();
-            } else if (this.f4180dX.isEnabled()) {
+            } else if (this.bluetoothAdapter.isEnabled()) {
                 setView(this.f3996V);
                 m5871bC();
             }
@@ -5461,7 +5461,7 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: bw */
     public void m5900bw() {
-        this.f4214k.mo5229a(f3974m, "Use bluetooth to connect");
+        this.globalApplication.addLog(logLevel_info, "Use bluetooth to connect");
         m5923f("Use your Bluetooth settings to\nconnect to your device.");
         this.f4000Z.setVisibility(0);
         this.f4027aa.setVisibility(0);
@@ -5506,16 +5506,16 @@ public class MainActivity extends C0670c {
     public void onActivityResult(int i, int i2, Intent intent) {
         switch (i) {
             case 2:
-                this.f4214k.mo5229a(f3974m, "- - - - - - Returned from request enable BT - - - - - - ");
-                if (this.f4180dX.isEnabled()) {
+                this.globalApplication.addLog(logLevel_info, "- - - - - - Returned from request enable BT - - - - - - ");
+                if (this.bluetoothAdapter.isEnabled()) {
                     setView(this.f3996V);
                     m5871bC();
                     return;
                 }
                 return;
             case 3:
-                this.f4214k.mo5229a(f3974m, "- - - - - - Returned from bluetooth settings - - - - - - ");
-                if (this.f4180dX.isEnabled()) {
+                this.globalApplication.addLog(logLevel_info, "- - - - - - Returned from bluetooth settings - - - - - - ");
+                if (this.bluetoothAdapter.isEnabled()) {
                     if (!this.f4043aq) {
                         setView(this.f3996V);
                     }
@@ -5602,15 +5602,15 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: bz */
     public void m5903bz() {
-        GlobalApplication globalApplication = this.f4214k;
-        String str = f3974m;
-        globalApplication.mo5229a(str, "closeAllDeviceConnections() currentView: " + this.f4065bM.toString());
+        GlobalApplication globalApplication = this.globalApplication;
+        String str = logLevel_info;
+        globalApplication.addLog(str, "closeAllDeviceConnections() currentView: " + this.f4065bM.toString());
         try {
-            mo5237F();
+            closeSPP();
         } catch (IOException e) {
-            GlobalApplication globalApplication2 = this.f4214k;
-            String str2 = f3974m;
-            globalApplication2.mo5229a(str2, "closeSPP() excpetion: " + e.getMessage());
+            GlobalApplication globalApplication2 = this.globalApplication;
+            String str2 = logLevel_info;
+            globalApplication2.addLog(str2, "closeSPP() excpetion: " + e.getMessage());
         }
         mo5240I();
     }
@@ -5625,11 +5625,11 @@ public class MainActivity extends C0670c {
             sendCommand("i", "GET_INFO");
             sendCommand("x", "GET_STATUS");
         } catch (IOException e) {
-            this.f4214k.mo5229a(f3974m, "openSPP() excpetion: " + e.getMessage());
+            this.globalApplication.addLog(logLevel_info, "openSPP() excpetion: " + e.getMessage());
             try {
-                mo5237F();
+                closeSPP();
             } catch (IOException e2) {
-                this.f4214k.mo5229a(f3974m, "closeSPP() excpetion: " + e2.getMessage());
+                this.globalApplication.addLog(logLevel_info, "closeSPP() excpetion: " + e2.getMessage());
             }
             runOnUiThread(new Runnable() {
                 public void run() {
@@ -5648,20 +5648,20 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: a */
     public void m5745a(BluetoothDevice bluetoothDevice, C1230e eVar) {
-        this.f4214k.mo5229a(f3974m, "----connect----");
-        if (this.f4180dX == null || bluetoothDevice == null || eVar == null) {
-            this.f4214k.mo5229a(f3974m, "BluetoothAdapter not initialized or unspecified address.");
+        this.globalApplication.addLog(logLevel_info, "----connect----");
+        if (this.bluetoothAdapter == null || bluetoothDevice == null || eVar == null) {
+            this.globalApplication.addLog(logLevel_info, "BluetoothAdapter not initialized or unspecified address.");
         } else if (this.f4210eb == 1) {
-            this.f4214k.mo5229a(f3974m, "Already connecting.");
+            this.globalApplication.addLog(logLevel_info, "Already connecting.");
         } else {
             m5876bH();
-            this.f4214k.mo5229a(f3974m, "- - - - - Connecting to device - - - - - ");
+            this.globalApplication.addLog(logLevel_info, "- - - - - Connecting to device - - - - - ");
             this.f4133cc = eVar;
             m5923f("Connecting to device");
             setView(this.f3996V);
-            mo5251c(bluetoothDevice.getAddress());
+            connectToAddress(bluetoothDevice.getAddress());
             if (this.f4226x) {
-                this.f4214k.mo5229a(f3974m, "Wait for power on...");
+                this.globalApplication.addLog(logLevel_info, "Wait for power on...");
             } else if (!this.f4225w) {
                 this.f3981G = new C1219c(this);
                 C1219c cVar = this.f3981G;
@@ -5671,14 +5671,14 @@ public class MainActivity extends C0670c {
     }
 
     /* renamed from: c */
-    public boolean mo5251c(String str) {
-        this.f4214k.mo5229a(f3974m, "----connectToAddress----");
+    public boolean connectToAddress(String str) {
+        this.globalApplication.addLog(logLevel_info, "----connectToAddress----");
         String str2 = this.f4178dV;
         if (str2 == null || !str.equals(str2) || this.f4209ea == null) {
-            this.f4180dX = BluetoothAdapter.getDefaultAdapter();
-            final BluetoothDevice remoteDevice = this.f4180dX.getRemoteDevice(str);
+            this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+            final BluetoothDevice remoteDevice = this.bluetoothAdapter.getRemoteDevice(str);
             if (remoteDevice == null) {
-                this.f4214k.mo5229a(f3974m, "Device not found.  Unable to connect.");
+                this.globalApplication.addLog(logLevel_info, "Device not found.  Unable to connect.");
                 return false;
             }
             runOnUiThread(new Runnable() {
@@ -5687,18 +5687,18 @@ public class MainActivity extends C0670c {
                     BluetoothGatt unused = mainActivity.f4209ea = remoteDevice.connectGatt(mainActivity.getApplicationContext(), false, MainActivity.this.f4212ed);
                 }
             });
-            this.f4214k.mo5229a(f3974m, "Trying to create a new connection.");
+            this.globalApplication.addLog(logLevel_info, "Trying to create a new connection.");
             this.f4178dV = str;
             this.f4210eb = 1;
             return true;
         }
-        this.f4214k.mo5229a(f3974m, "Trying to use an existing mBluetoothGatt for connection.");
+        this.globalApplication.addLog(logLevel_info, "Trying to use an existing mBluetoothGatt for connection.");
         if (this.f4209ea.connect()) {
             this.f4210eb = 1;
-            this.f4214k.mo5229a(f3974m, "Reconnecting to device.");
+            this.globalApplication.addLog(logLevel_info, "Reconnecting to device.");
             return true;
         }
-        this.f4214k.mo5229a(f3974m, "Reconnection  failed.");
+        this.globalApplication.addLog(logLevel_info, "Reconnection  failed.");
         return false;
     }
 
@@ -5706,22 +5706,22 @@ public class MainActivity extends C0670c {
     public void sendCommand(String str, String str2) {
         if (!this.f4224v) {
             if (this.f4043aq) {
-                this.f4214k.mo5229a(f3974m, "Cant send commands while broadcast_disconnection == true");
-            } else if (this.f4216n == C1218b.BLE) {
-                m5917e(str, str2);
-            } else if (this.f4216n == C1218b.SPP) {
+                this.globalApplication.addLog(logLevel_info, "Cant send commands while broadcast_disconnection == true");
+            } else if (this.btConnectionMode == btConnectionModeEnum.BLE) {
+                sendUsingBle(str, str2);
+            } else if (this.btConnectionMode == btConnectionModeEnum.SPP) {
                 try {
-                    m5911d(str, str2);
+                    sendViaSPP(str, str2);
                 } catch (IOException e) {
-                    GlobalApplication globalApplication = this.f4214k;
-                    String str3 = f3974m;
-                    globalApplication.mo5229a(str3, "sendViaSPP() excpetion: " + e.getMessage());
+                    GlobalApplication globalApplication = this.globalApplication;
+                    String str3 = logLevel_info;
+                    globalApplication.addLog(str3, "sendViaSPP() excpetion: " + e.getMessage());
                     try {
-                        mo5237F();
+                        closeSPP();
                     } catch (IOException e2) {
-                        GlobalApplication globalApplication2 = this.f4214k;
-                        String str4 = f3974m;
-                        globalApplication2.mo5229a(str4, "closeSPP() excpetion: " + e2.getMessage());
+                        GlobalApplication globalApplication2 = this.globalApplication;
+                        String str4 = logLevel_info;
+                        globalApplication2.addLog(str4, "closeSPP() excpetion: " + e2.getMessage());
                     }
                     runOnUiThread(new Runnable() {
                         public void run() {
@@ -5731,26 +5731,26 @@ public class MainActivity extends C0670c {
                     });
                 }
             } else {
-                this.f4214k.mo5229a(f3974m, "Connection mode not recognised when trying to send data");
+                this.globalApplication.addLog(logLevel_info, "Connection mode not recognised when trying to send data");
             }
         }
     }
 
     /* renamed from: d */
-    private void m5911d(String str, String str2) {
+    private void sendViaSPP(String str, String str2) {
         if (this.f4074bV != null) {
             if (this.f4073bU) {
-                GlobalApplication globalApplication = this.f4214k;
-                String str3 = f3974m;
-                globalApplication.mo5229a(str3, "Added to SPP send queue: [" + str2 + "] " + str);
+                GlobalApplication globalApplication = this.globalApplication;
+                String str3 = logLevel_info;
+                globalApplication.addLog(str3, "Added to SPP send queue: [" + str2 + "] " + str);
                 this.f4070bR.add(str);
                 this.f4071bS.add(str2);
                 return;
             }
-            byte[] a = this.f4214k.f3958d.mo5468a(str, str2);
-            GlobalApplication globalApplication2 = this.f4214k;
-            String str4 = f3974m;
-            globalApplication2.mo5229a(str4, "Send via SPP: [" + str2 + "] " + str);
+            byte[] a = this.globalApplication.mrCommandGenerator.toByteArray(str, str2);
+            GlobalApplication globalApplication2 = this.globalApplication;
+            String str4 = logLevel_info;
+            globalApplication2.addLog(str4, "Send via SPP: [" + str2 + "] " + str);
             this.f4076bX.write(a);
             this.f4073bU = true;
             this.f3976B.postDelayed(this.f3979E, 100);
@@ -5759,27 +5759,27 @@ public class MainActivity extends C0670c {
 
     /* access modifiers changed from: private */
     /* renamed from: e */
-    public void m5917e(String str, String str2) {
+    public void sendUsingBle(String str, String str2) {
         if (this.f4210eb == 2 && this.f4179dW) {
             final BluetoothGattCharacteristic a = C1244b.m6090a(this.f4209ea);
             if (a == null) {
-                this.f4214k.mo5229a(f3974m, "Unable to find echo characteristic.");
+                this.globalApplication.addLog(logLevel_info, "Unable to find echo characteristic.");
                 mo5240I();
             } else if (this.f4072bT) {
                 this.f4070bR.add(str);
                 this.f4071bS.add(str2);
             } else {
-                GlobalApplication globalApplication = this.f4214k;
-                String str3 = f3974m;
-                globalApplication.mo5229a(str3, "Sending message: " + str);
-                final byte[] a2 = this.f4214k.f3958d.mo5468a(str, str2);
+                GlobalApplication globalApplication = this.globalApplication;
+                String str3 = logLevel_info;
+                globalApplication.addLog(str3, "Sending message: " + str);
+                final byte[] a2 = this.globalApplication.mrCommandGenerator.toByteArray(str, str2);
                 runOnUiThread(new Runnable() {
                     public void run() {
                         a.setValue(a2);
                         if (MainActivity.this.f4209ea.writeCharacteristic(a)) {
                             MainActivity.this.f4072bT = true;
                         } else {
-                            MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Failed to write data");
+                            MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Failed to write data");
                         }
                     }
                 });
@@ -5790,12 +5790,12 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: package-private */
     /* renamed from: a */
     public void mo5242a(BluetoothDevice bluetoothDevice) {
-        this.f4216n = C1218b.SPP;
+        this.btConnectionMode = btConnectionModeEnum.SPP;
         if (this.f4074bV != null) {
-            this.f4214k.mo5229a(f3974m, "Tried to openSPP but mmSocket != null");
+            this.globalApplication.addLog(logLevel_info, "Tried to openSPP but mmSocket != null");
         } else if (bluetoothDevice != null) {
             if (C1230e.m6014a(bluetoothDevice.getAddress())) {
-                this.f4214k.mo5229a(f3974m, "openSPP");
+                this.globalApplication.addLog(logLevel_info, "openSPP");
                 this.f4074bV = bluetoothDevice.createRfcommSocketToServiceRecord(C1241b.f4558d);
                 this.f4074bV.connect();
                 this.f4075bW = this.f4074bV.getInputStream();
@@ -5803,7 +5803,7 @@ public class MainActivity extends C0670c {
                 mo5244b(bluetoothDevice);
                 return;
             }
-            this.f4214k.mo5229a(f3974m, "Connected audio device was not a Minirig address");
+            this.globalApplication.addLog(logLevel_info, "Connected audio device was not a Minirig address");
         }
     }
 
@@ -5827,18 +5827,18 @@ public class MainActivity extends C0670c {
                                 byte[] bArr = new byte[available];
                                 MainActivity.this.f4075bW.read(bArr);
                                 String a = C1257f.m6120a(bArr);
-                                GlobalApplication globalApplication = MainActivity.this.f4214k;
-                                String str = MainActivity.f3974m;
-                                globalApplication.mo5229a(str, "SPP Received: " + a);
-                                if (MainActivity.this.f4214k.f3966l != null) {
+                                GlobalApplication globalApplication = MainActivity.this.globalApplication;
+                                String str = MainActivity.logLevel_info;
+                                globalApplication.addLog(str, "SPP Received: " + a);
+                                if (MainActivity.this.globalApplication.f3966l != null) {
                                     MainActivity.this.m5943o(a);
                                 } else {
-                                    MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Setup connected device");
-                                    C1230e eVar = new C1230e(MainActivity.this.f4214k, MainActivity.this.f4074bV.getRemoteDevice(), a);
-                                    if (!MainActivity.this.f4214k.f3956b) {
+                                    MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Setup connected device");
+                                    C1230e eVar = new C1230e(MainActivity.this.globalApplication, MainActivity.this.f4074bV.getRemoteDevice(), a);
+                                    if (!MainActivity.this.globalApplication.f3956b) {
                                         if (eVar.minirigType == minirigStatusClass.modelTypeEnum.NO_MODEL) {
-                                            MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Failed beginListenForData() so closing SPP connection");
-                                            MainActivity.this.mo5237F();
+                                            MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Failed beginListenForData() so closing SPP connection");
+                                            MainActivity.this.closeSPP();
                                             MainActivity.this.runOnUiThread(new Runnable() {
                                                 public void run() {
                                                     MainActivity.this.setView(MainActivity.this.f4136cf);
@@ -5846,7 +5846,7 @@ public class MainActivity extends C0670c {
                                             });
                                         }
                                     }
-                                    MainActivity.this.f4214k.mo5228a(eVar);
+                                    MainActivity.this.globalApplication.mo5228a(eVar);
                                     MainActivity.this.f4225w = false;
                                     MainActivity.this.f4133cc = null;
                                     MainActivity.this.f4227y = bluetoothDevice;
@@ -5882,9 +5882,9 @@ public class MainActivity extends C0670c {
                                 }
                             }
                         } catch (IOException e) {
-                            GlobalApplication globalApplication2 = MainActivity.this.f4214k;
-                            String str2 = MainActivity.f3974m;
-                            globalApplication2.mo5229a(str2, "Failed reading data: " + e.getMessage());
+                            GlobalApplication globalApplication2 = MainActivity.this.globalApplication;
+                            String str2 = MainActivity.logLevel_info;
+                            globalApplication2.addLog(str2, "Failed reading data: " + e.getMessage());
                             MainActivity.this.f4132cb = true;
                         }
                         if (!MainActivity.this.f4073bU && MainActivity.this.f4071bS.size() > 0) {
@@ -5902,7 +5902,7 @@ public class MainActivity extends C0670c {
 
     /* access modifiers changed from: package-private */
     /* renamed from: F */
-    public void mo5237F() {
+    public void closeSPP() {
         this.f4132cb = true;
         Thread thread = this.f4077bY;
         if (thread != null) {
@@ -5924,19 +5924,19 @@ public class MainActivity extends C0670c {
             inputStream.close();
             this.f4075bW = null;
         }
-        this.f4214k.mo5229a(f3974m, "SPP Bluetooth Closed");
+        this.globalApplication.addLog(logLevel_info, "SPP Bluetooth Closed");
     }
 
     /* renamed from: bA */
     private void m5869bA() {
         List<BluetoothDevice> connectedDevices = this.f4218p.getConnectedDevices(7);
         for (BluetoothDevice name : connectedDevices) {
-            GlobalApplication globalApplication = this.f4214k;
-            String str = f3974m;
-            globalApplication.mo5229a(str, "Found a connected GATT device: " + name.getName());
+            GlobalApplication globalApplication = this.globalApplication;
+            String str = logLevel_info;
+            globalApplication.addLog(str, "Found a connected GATT device: " + name.getName());
         }
         if (connectedDevices.size() == 0) {
-            Log.d(f3974m, "No connected GATT devices found");
+            Log.d(logLevel_info, "No connected GATT devices found");
         }
     }
 
@@ -5944,7 +5944,7 @@ public class MainActivity extends C0670c {
     public void mo5238G() {
         this.f4179dW = true;
         this.f4225w = false;
-        this.f4214k.mo5228a(this.f4133cc);
+        this.globalApplication.mo5228a(this.f4133cc);
         this.f4133cc = null;
         this.f4134cd = false;
         C1219c cVar = this.f3981G;
@@ -5952,7 +5952,7 @@ public class MainActivity extends C0670c {
             cVar.cancel(true);
         }
         if (this.f3980F != null) {
-            this.f4214k.mo5229a(f3974m, "- - - - - waitForAutoConnectScan.onFinish(); - - - - - ");
+            this.globalApplication.addLog(logLevel_info, "- - - - - waitForAutoConnectScan.onFinish(); - - - - - ");
             this.f3980F.cancel(true);
         }
         C1219c cVar2 = this.f3982H;
@@ -5964,8 +5964,8 @@ public class MainActivity extends C0670c {
             this.f3978D = new Runnable() {
                 public void run() {
                     if (!MainActivity.this.f4134cd && MainActivity.this.f4135ce < 5) {
-                        MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Power toggle 'O' did not turn on the device, attempts: " + MainActivity.this.f4135ce);
-                        MainActivity.this.m5917e("O", "POWER_TOGGLE");
+                        MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Power toggle 'O' did not turn on the device, attempts: " + MainActivity.this.f4135ce);
+                        MainActivity.this.sendUsingBle("O", "POWER_TOGGLE");
                         MainActivity.this.f3975A.postDelayed(MainActivity.this.f3978D, 500);
                         MainActivity.this.f4135ce++;
                     } else if (MainActivity.this.f4135ce >= 5) {
@@ -5984,7 +5984,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: H */
     public void mo5239H() {
-        this.f4214k.mo5229a(f3974m, "Disconnecting Gatt device");
+        this.globalApplication.addLog(logLevel_info, "Disconnecting Gatt device");
         if (this.f4209ea != null) {
             sendCommand("!", "CLOSE_CONNECTION");
         }
@@ -6000,34 +6000,34 @@ public class MainActivity extends C0670c {
         if (!this.f4226x || !this.f4179dW) {
             this.f4179dW = false;
             this.f4135ce = 0;
-            GlobalApplication globalApplication = this.f4214k;
+            GlobalApplication globalApplication = this.globalApplication;
             globalApplication.f3966l = null;
             if (this.f4209ea != null) {
-                globalApplication.mo5229a(f3974m, "mGatt was AVAILABLE disconmecting!");
+                globalApplication.addLog(logLevel_info, "mGatt was AVAILABLE disconmecting!");
                 this.f4209ea.disconnect();
             } else {
-                globalApplication.mo5229a(f3974m, "mGatt was NULL when trying to disconmect device!");
+                globalApplication.addLog(logLevel_info, "mGatt was NULL when trying to disconmect device!");
             }
             this.f4072bT = false;
             if (this.f4043aq) {
-                this.f4214k.mo5229a(f3974m, " Dont go to scan page when disconnected in broadcast screens ");
+                this.globalApplication.addLog(logLevel_info, " Dont go to scan page when disconnected in broadcast screens ");
                 this.f4000Z.setVisibility(0);
                 new C1219c(this).execute(new String[]{"waitForBroadcastReconnect-30"});
                 m5923f("Wait for reconnection.");
                 this.f3999Y.setVisibility(0);
                 return;
             }
-            GlobalApplication globalApplication2 = this.f4214k;
-            String str = f3974m;
-            globalApplication2.mo5229a(str, " Going to scan screen because of disconnect from:  " + this.f4065bM.toString());
+            GlobalApplication globalApplication2 = this.globalApplication;
+            String str = logLevel_info;
+            globalApplication2.addLog(str, " Going to scan screen because of disconnect from:  " + this.f4065bM.toString());
             setView(this.f4136cf);
             return;
         }
-        this.f4214k.mo5229a(f3974m, "Reconnect after power on");
+        this.globalApplication.addLog(logLevel_info, "Reconnect after power on");
         this.f4226x = false;
         this.f4134cd = true;
         this.f3975A.removeCallbacks(this.f3978D);
-        this.f4214k.f3966l = null;
+        this.globalApplication.f3966l = null;
         this.f4072bT = false;
         this.f3982H = new C1219c(this);
         this.f3982H.execute(new String[]{"waitForPowerOn-7"});
@@ -6035,17 +6035,17 @@ public class MainActivity extends C0670c {
 
     /* renamed from: I */
     public void mo5240I() {
-        this.f4214k.mo5229a(f3974m, "Closing Gatt connection");
+        this.globalApplication.addLog(logLevel_info, "Closing Gatt connection");
         runOnUiThread(new Runnable() {
             public void run() {
                 MainActivity.this.mo5239H();
                 if (MainActivity.this.f4209ea != null) {
-                    MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "mGatt was AVAILABLE closing!");
+                    MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "mGatt was AVAILABLE closing!");
                     MainActivity.this.f4209ea.close();
                     BluetoothGatt unused = MainActivity.this.f4209ea = null;
                     return;
                 }
-                MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "mGatt was NULL when trying to close!");
+                MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "mGatt was NULL when trying to close!");
             }
         });
     }
@@ -6066,7 +6066,7 @@ public class MainActivity extends C0670c {
         this.f4137cg.setOnNoItemClickListener(new CustomListView.C1262a() {
             /* renamed from: a */
             public void mo5437a() {
-                MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Tapped device list");
+                MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Tapped device list");
                 MainActivity.this.m5726X();
             }
         });
@@ -6076,49 +6076,49 @@ public class MainActivity extends C0670c {
                 BluetoothDevice a = MainActivity.this.f4138ch.mo5558a(i);
                 C1230e b = MainActivity.this.f4138ch.mo5561b(i);
                 if (b == null) {
-                    MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Manufaturer data is NULL");
+                    MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Manufaturer data is NULL");
                 } else {
-                    GlobalApplication globalApplication = MainActivity.this.f4214k;
-                    String str = MainActivity.f3974m;
-                    globalApplication.mo5229a(str, "manufacturerData.isCompatible: " + b.f4401c);
+                    GlobalApplication globalApplication = MainActivity.this.globalApplication;
+                    String str = MainActivity.logLevel_info;
+                    globalApplication.addLog(str, "manufacturerData.isCompatible: " + b.f4401c);
                 }
                 if (b != null && b.f4401c) {
-                    if (MainActivity.this.f4214k.f3963i.f4584e.containsKey(b.f4406h) && Integer.parseInt(b.f4407i) < MainActivity.this.f4214k.f3963i.f4584e.get(b.f4406h).intValue()) {
+                    if (MainActivity.this.globalApplication.f3963i.f4584e.containsKey(b.f4406h) && Integer.parseInt(b.f4407i) < MainActivity.this.globalApplication.f3963i.f4584e.get(b.f4406h).intValue()) {
                         MainActivity.this.m5722V();
                     }
                     boolean e = MainActivity.this.m5913d(b.f4405g);
                     boolean unused = MainActivity.this.m5913d(b.f4405g);
                     if (b.audioConnectionState.equals("POWER_OFF")) {
-                        MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Was OFF turn it on");
+                        MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Was OFF turn it on");
                         MainActivity.this.f4226x = true;
                     }
                     if (MainActivity.this.f4226x) {
                         MainActivity.this.m5745a(a, b);
                     } else if (b.audioConnectionState.equals("AUX")) {
-                        MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Selected connect in AUX mode");
-                        MainActivity.this.f4216n = C1218b.BLE;
+                        MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Selected connect in AUX mode");
+                        MainActivity.this.btConnectionMode = btConnectionModeEnum.BLE;
                         MainActivity.this.m5745a(a, b);
                     } else if (e || MainActivity.this.f4226x) {
-                        if (MainActivity.this.f4216n == C1218b.BLE) {
+                        if (MainActivity.this.btConnectionMode == btConnectionModeEnum.BLE) {
                             MainActivity.this.m5745a(a, b);
                             return;
                         }
                         BluetoothDevice f = MainActivity.this.m5914e(b.f4405g);
                         if (f == null) {
-                            MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Could not match BLE device to a paired device");
+                            MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Could not match BLE device to a paired device");
                             MainActivity.this.m5901bx();
                             return;
                         }
                         MainActivity.this.m5905c(f);
                     } else if (!MainActivity.this.f4045as) {
                         MainActivity.this.m5901bx();
-                    } else if (MainActivity.this.f4214k.f3966l == null || MainActivity.this.f4214k.f3966l.f4405g != b.f4405g) {
+                    } else if (MainActivity.this.globalApplication.f3966l == null || MainActivity.this.globalApplication.f3966l.f4405g != b.f4405g) {
                         MainActivity.this.m5745a(a, b);
                     } else {
                         MainActivity.this.mo5246b("Already connected", "Already connected to this device");
                     }
                 } else if (!C1230e.m6014a(a.getAddress())) {
-                    MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Clicked a device with nothing to do");
+                    MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Clicked a device with nothing to do");
                 } else if (MainActivity.this.m5913d(a.getAddress())) {
                     MainActivity.this.m5905c(MainActivity.this.m5914e(a.getAddress()));
                 } else {
@@ -6130,7 +6130,7 @@ public class MainActivity extends C0670c {
 
     /* renamed from: bC */
     private void m5871bC() {
-        Log.d(f3974m, "           beginConnection()()()))()()()((()()()");
+        Log.d(logLevel_info, "           beginConnection()()()))()()()((()()()");
         this.f4225w = true;
         m5712Q();
         m5923f("Confirming audio stream connection...");
@@ -6140,7 +6140,7 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: bD */
     public void m5872bD() {
-        this.f4214k.mo5229a(f3974m, "Commence auto connect scan");
+        this.globalApplication.addLog(logLevel_info, "Commence auto connect scan");
         m5873bE();
         this.f4225w = true;
         this.f4140cj = false;
@@ -6152,9 +6152,9 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: bE */
     public void m5873bE() {
-        this.f4214k.mo5229a(f3974m, "Refresh device list");
-        if (this.f4214k.f3966l != null) {
-            this.f4214k.mo5229a(f3974m, "Did NOT refresh device list because already have a decive connected");
+        this.globalApplication.addLog(logLevel_info, "Refresh device list");
+        if (this.globalApplication.f3966l != null) {
+            this.globalApplication.addLog(logLevel_info, "Did NOT refresh device list because already have a decive connected");
             return;
         }
         this.f4225w = false;
@@ -6190,18 +6190,18 @@ public class MainActivity extends C0670c {
     /* access modifiers changed from: private */
     /* renamed from: bG */
     public void m5875bG() {
-        if (!this.f4180dX.isEnabled()) {
+        if (!this.bluetoothAdapter.isEnabled()) {
             setView(this.f3996V);
             m5901bx();
             return;
         }
         m5874bF();
         if (this.f4177dU) {
-            Log.d(f3974m, "Was already scanning");
+            Log.d(logLevel_info, "Was already scanning");
             m5876bH();
             return;
         }
-        this.f4214k.f3966l = null;
+        this.globalApplication.f3966l = null;
         this.f4067bO = null;
         if (this.f4210eb == 2) {
             mo5240I();
@@ -6218,22 +6218,22 @@ public class MainActivity extends C0670c {
         if (cVar3 != null) {
             cVar3.cancel(true);
         }
-        this.f4214k.f3967m = m5714R().trim();
+        this.globalApplication.f3967m = m5714R().trim();
         final ArrayList arrayList = new ArrayList();
         final ScanSettings build = new ScanSettings.Builder().setScanMode(1).build();
         runOnUiThread(new Runnable() {
             public void run() {
                 MainActivity mainActivity = MainActivity.this;
-                ScanCallback unused = mainActivity.f4182dZ = new C1216a(mainActivity.f4211ec);
-                BluetoothAdapter unused2 = MainActivity.this.f4180dX = BluetoothAdapter.getDefaultAdapter();
+                ScanCallback unused = mainActivity.scanCallback = new C1216a(mainActivity.f4211ec);
+                BluetoothAdapter unused2 = MainActivity.this.bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
                 MainActivity mainActivity2 = MainActivity.this;
-                BluetoothLeScanner unused3 = mainActivity2.f4181dY = mainActivity2.f4180dX.getBluetoothLeScanner();
-                MainActivity.this.f4181dY.startScan(arrayList, build, MainActivity.this.f4182dZ);
+                BluetoothLeScanner unused3 = mainActivity2.bluetoothLeScanner = mainActivity2.bluetoothAdapter.getBluetoothLeScanner();
+                MainActivity.this.bluetoothLeScanner.startScan(arrayList, build, MainActivity.this.scanCallback);
             }
         });
         this.f3977C = new Runnable() {
             public void run() {
-                if (MainActivity.this.f4214k.f3966l == null) {
+                if (MainActivity.this.globalApplication.f3966l == null) {
                     MainActivity.this.m5876bH();
                     if (MainActivity.this.f4138ch.getCount() == 0) {
                         MainActivity.this.m5898bu();
@@ -6246,32 +6246,32 @@ public class MainActivity extends C0670c {
         }
         this.f3975A.postDelayed(this.f3977C, 10000);
         this.f4177dU = true;
-        this.f4214k.mo5229a(f3974m, "Started scanning.");
+        this.globalApplication.addLog(logLevel_info, "Started scanning.");
     }
 
     /* access modifiers changed from: private */
     /* renamed from: bH */
     public void m5876bH() {
         BluetoothAdapter bluetoothAdapter;
-        if (this.f4177dU && (bluetoothAdapter = this.f4180dX) != null && bluetoothAdapter.isEnabled() && this.f4181dY != null) {
+        if (this.f4177dU && (bluetoothAdapter = this.bluetoothAdapter) != null && bluetoothAdapter.isEnabled() && this.bluetoothLeScanner != null) {
             runOnUiThread(new Runnable() {
                 public void run() {
-                    MainActivity.this.f4181dY.flushPendingScanResults(MainActivity.this.f4182dZ);
-                    MainActivity.this.f4181dY.stopScan(MainActivity.this.f4182dZ);
-                    BluetoothLeScanner unused = MainActivity.this.f4181dY = null;
-                    ScanCallback unused2 = MainActivity.this.f4182dZ = null;
+                    MainActivity.this.bluetoothLeScanner.flushPendingScanResults(MainActivity.this.scanCallback);
+                    MainActivity.this.bluetoothLeScanner.stopScan(MainActivity.this.scanCallback);
+                    BluetoothLeScanner unused = MainActivity.this.bluetoothLeScanner = null;
+                    ScanCallback unused2 = MainActivity.this.scanCallback = null;
                 }
             });
         }
         if (this.f4177dU) {
-            this.f4182dZ = null;
+            this.scanCallback = null;
             this.f4177dU = false;
             this.f3975A.removeCallbacks(this.f3977C);
             this.f3977C = null;
-            this.f4214k.mo5229a(f3974m, "Stopped scanning.");
+            this.globalApplication.addLog(logLevel_info, "Stopped scanning.");
             return;
         }
-        this.f4214k.mo5229a(f3974m, "Wasent scanning but stopScan was called.");
+        this.globalApplication.addLog(logLevel_info, "Wasent scanning but stopScan was called.");
     }
 
     /* renamed from: com.minirig.android.MainActivity$a */
@@ -6288,33 +6288,33 @@ public class MainActivity extends C0670c {
                 public void run() {
                     boolean z;
                     boolean z2;
-                    GlobalApplication globalApplication = MainActivity.this.f4214k;
-                    String str = MainActivity.f3974m;
-                    globalApplication.mo5229a(str, "                 Device found: " + device.getName());
-                    GlobalApplication globalApplication2 = MainActivity.this.f4214k;
-                    String str2 = MainActivity.f3974m;
-                    globalApplication2.mo5229a(str2, "         Device found address: " + device.getAddress());
+                    GlobalApplication globalApplication = MainActivity.this.globalApplication;
+                    String str = MainActivity.logLevel_info;
+                    globalApplication.addLog(str, "                 Device found: " + device.getName());
+                    GlobalApplication globalApplication2 = MainActivity.this.globalApplication;
+                    String str2 = MainActivity.logLevel_info;
+                    globalApplication2.addLog(str2, "         Device found address: " + device.getAddress());
                     String a = C1216a.this.m5996a(bytes);
-                    C1230e eVar = new C1230e(MainActivity.this.f4214k, device.getName(), a);
-                    GlobalApplication globalApplication3 = MainActivity.this.f4214k;
-                    String str3 = MainActivity.f3974m;
-                    globalApplication3.mo5229a(str3, "                     found device: " + device.getName());
-                    GlobalApplication globalApplication4 = MainActivity.this.f4214k;
-                    String str4 = MainActivity.f3974m;
-                    globalApplication4.mo5229a(str4, "          md.realBTaddress.trim(): " + eVar.f4405g);
-                    GlobalApplication globalApplication5 = MainActivity.this.f4214k;
-                    String str5 = MainActivity.f3974m;
-                    globalApplication5.mo5229a(str5, "                      advert data: " + a);
-                    MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
+                    C1230e eVar = new C1230e(MainActivity.this.globalApplication, device.getName(), a);
+                    GlobalApplication globalApplication3 = MainActivity.this.globalApplication;
+                    String str3 = MainActivity.logLevel_info;
+                    globalApplication3.addLog(str3, "                     found device: " + device.getName());
+                    GlobalApplication globalApplication4 = MainActivity.this.globalApplication;
+                    String str4 = MainActivity.logLevel_info;
+                    globalApplication4.addLog(str4, "          md.realBTaddress.trim(): " + eVar.f4405g);
+                    GlobalApplication globalApplication5 = MainActivity.this.globalApplication;
+                    String str5 = MainActivity.logLevel_info;
+                    globalApplication5.addLog(str5, "                      advert data: " + a);
+                    MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
                     boolean z3 = false;
                     if (eVar.f4401c && eVar.audioConnectionState2 != minirigStatusClass.audioConnectionStateEnum.POWER_OFF) {
-                        if (MainActivity.this.f4225w && eVar.f4405g.equals(MainActivity.this.f4214k.f3967m)) {
-                            MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
-                            MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "           FOUND DEVICE FOR AUTO CONNECT ");
-                            GlobalApplication globalApplication6 = MainActivity.this.f4214k;
-                            String str6 = MainActivity.f3974m;
-                            globalApplication6.mo5229a(str6, "advert data: " + a);
-                            MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
+                        if (MainActivity.this.f4225w && eVar.f4405g.equals(MainActivity.this.globalApplication.f3967m)) {
+                            MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
+                            MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "           FOUND DEVICE FOR AUTO CONNECT ");
+                            GlobalApplication globalApplication6 = MainActivity.this.globalApplication;
+                            String str6 = MainActivity.logLevel_info;
+                            globalApplication6.addLog(str6, "advert data: " + a);
+                            MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ");
                             boolean unused = MainActivity.this.f4140cj = true;
                             MainActivity.this.m5745a(device, eVar);
                         }
@@ -6324,16 +6324,16 @@ public class MainActivity extends C0670c {
                         z2 = true;
                         z = true;
                     } else if (C1230e.m6014a(device.getAddress())) {
-                        MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Minirig with no advertisment data, probably an MRBT1 or MRBT2");
+                        MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Minirig with no advertisment data, probably an MRBT1 or MRBT2");
                         eVar.f4405g = device.getAddress();
                         eVar.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
                         eVar.f4406h = "10";
-                        eVar.f4406h = MainActivity.this.f4214k.f3965k.get(eVar.f4406h);
+                        eVar.f4406h = MainActivity.this.globalApplication.f3965k.get(eVar.f4406h);
                         if (eVar.f4405g != null && eVar.f4405g.length() >= 8 && (eVar.f4405g.substring(0, 8).equals("00:12:6F") || eVar.f4405g.substring(0, 8).equals("54:B7:E5"))) {
-                            MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "MRBT1 MRBT1 MRBT1 MRBT1 MRBT1");
+                            MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "MRBT1 MRBT1 MRBT1 MRBT1 MRBT1");
                             eVar.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG1;
                             eVar.f4406h = "1";
-                            eVar.f4406h = MainActivity.this.f4214k.f3965k.get(eVar.f4406h);
+                            eVar.f4406h = MainActivity.this.globalApplication.f3965k.get(eVar.f4406h);
                         }
                         z2 = true;
                         z = true;
@@ -6347,13 +6347,13 @@ public class MainActivity extends C0670c {
                     if (eVar.minirigType != minirigStatusClass.modelTypeEnum.NO_MODEL) {
                         z2 = true;
                     }
-                    GlobalApplication globalApplication7 = MainActivity.this.f4214k;
-                    String str7 = MainActivity.f3974m;
-                    globalApplication7.mo5229a(str7, "broadcastScan: " + MainActivity.this.f4045as);
+                    GlobalApplication globalApplication7 = MainActivity.this.globalApplication;
+                    String str7 = MainActivity.logLevel_info;
+                    globalApplication7.addLog(str7, "broadcastScan: " + MainActivity.this.f4045as);
                     if (!MainActivity.this.f4045as || eVar.minirigType == minirigStatusClass.modelTypeEnum.MINIRIG3) {
                         z3 = z2;
-                    } else if (MainActivity.this.f4214k.f3966l != null && eVar.f4405g == MainActivity.this.f4214k.f3966l.f4405g) {
-                        MainActivity.this.f4214k.mo5229a(MainActivity.f3974m, "Already connected to this device");
+                    } else if (MainActivity.this.globalApplication.f3966l != null && eVar.f4405g == MainActivity.this.globalApplication.f3966l.f4405g) {
+                        MainActivity.this.globalApplication.addLog(MainActivity.logLevel_info, "Already connected to this device");
                     }
                     if (!z3) {
                         return;
@@ -6374,9 +6374,9 @@ public class MainActivity extends C0670c {
         }
 
         public void onScanFailed(int i) {
-            GlobalApplication globalApplication = MainActivity.this.f4214k;
-            String str = MainActivity.f3974m;
-            globalApplication.mo5229a(str, "BLE Scan Failed with code " + i);
+            GlobalApplication globalApplication = MainActivity.this.globalApplication;
+            String str = MainActivity.logLevel_info;
+            globalApplication.addLog(str, "BLE Scan Failed with code " + i);
         }
 
         /* renamed from: a */
@@ -6433,13 +6433,13 @@ public class MainActivity extends C0670c {
                 }
             });
             String substring = str.substring(0, 1);
-            GlobalApplication globalApplication = this.f4214k;
-            String str2 = f3974m;
-            globalApplication.mo5229a(str2, "DEVICE CONTROLS ACTIVITY Handle data received: " + str);
+            GlobalApplication globalApplication = this.globalApplication;
+            String str2 = logLevel_info;
+            globalApplication.addLog(str2, "DEVICE CONTROLS ACTIVITY Handle data received: " + str);
             if (substring.equals("x")) {
-                boolean z = this.f4214k.minirigf3.getHasJackInsertedTop() || this.f4214k.minirigf3.getHasJackInsertedBottom();
-                this.f4214k.minirigf3.handleStatusStr(str);
-                if (!z && (this.f4214k.minirigf3.getHasJackInsertedTop() || this.f4214k.minirigf3.getHasJackInsertedBottom())) {
+                boolean z = this.globalApplication.minirigf3.getHasJackInsertedTop() || this.globalApplication.minirigf3.getHasJackInsertedBottom();
+                this.globalApplication.minirigf3.handleStatusStr(str);
+                if (!z && (this.globalApplication.minirigf3.getHasJackInsertedTop() || this.globalApplication.minirigf3.getHasJackInsertedBottom())) {
                     mo5241J();
                 }
                 if (!this.f4097bs) {
@@ -6472,32 +6472,32 @@ public class MainActivity extends C0670c {
                     }
                 }
             } else if (substring.equals("o")) {
-                this.f4214k.f3960f.mo5478a(str);
+                this.globalApplication.f3960f.mo5478a(str);
                 m5894bq();
             } else if (substring.equals("/")) {
-                this.f4214k.f3960f.mo5479b(str);
+                this.globalApplication.f3960f.mo5479b(str);
                 m5894bq();
             } else if (substring.equals("i")) {
                 m5945p(str);
             } else if (substring.equals("B")) {
-                m5921f(this.f4214k.f3962h.mo5465a(str));
+                m5921f(this.globalApplication.f3962h.mo5465a(str));
             } else if (str.length() >= 5 && str.substring(0, 5).equals("NAME=")) {
-                GlobalApplication globalApplication2 = this.f4214k;
-                String str3 = f3974m;
-                globalApplication2.mo5229a(str3, "Received name, full reply: " + str);
+                GlobalApplication globalApplication2 = this.globalApplication;
+                String str3 = logLevel_info;
+                globalApplication2.addLog(str3, "Received name, full reply: " + str);
             } else if (!substring.equals("q") || str.length() < 16) {
                 if (substring.equals("q") && str.length() == 3) {
                     m5941n(str);
                     m5885bh();
                 } else if (str.length() >= 28 && str.substring(0, 3).equals("MM=")) {
-                    GlobalApplication globalApplication3 = this.f4214k;
-                    String str4 = f3974m;
-                    globalApplication3.mo5229a(str4, "- - - - - - - - Minirig Eq string reply: |" + str + "|");
+                    GlobalApplication globalApplication3 = this.globalApplication;
+                    String str4 = logLevel_info;
+                    globalApplication3.addLog(str4, "- - - - - - - - Minirig Eq string reply: |" + str + "|");
                 } else if (str.length() >= 16 && str.contains("TWS_CONFIG")) {
                     m5931i(str);
                 }
             } else if (str.substring(1, 2).equals(" ")) {
-                m5933j(str);
+                setBars(str);
                 if (this.f4065bM == this.f4079ba) {
                     if (mo5284r() && this.f4160dD.equals("00")) {
                         m5937l(str);
@@ -6520,28 +6520,28 @@ public class MainActivity extends C0670c {
                 this.f4164dH = false;
                 this.f4160dD = "00";
                 m5865b(true);
-                m5933j(this.f4162dF);
+                setBars(this.f4162dF);
             }
         }
     }
 
     /* renamed from: p */
     private void m5945p(String str) {
-        if (str.contains("MRBT2") && this.f4214k.f3966l != null && this.f4214k.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIRIG1)) {
-            this.f4214k.f3966l.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
-            this.f4214k.minirigf3.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
-            this.f4214k.f3966l.f4406h = "10";
+        if (str.contains("MRBT2") && this.globalApplication.f3966l != null && this.globalApplication.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIRIG1)) {
+            this.globalApplication.f3966l.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
+            this.globalApplication.minirigf3.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
+            this.globalApplication.f3966l.f4406h = "10";
             this.f4097bs = false;
             m5890bm();
             m5722V();
-        } else if (this.f4214k.f3966l != null) {
-            if (str.contains("MRBT2") && !this.f4214k.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIRIG2)) {
+        } else if (this.globalApplication.f3966l != null) {
+            if (str.contains("MRBT2") && !this.globalApplication.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIRIG2)) {
                 m5755a(minirigStatusClass.modelTypeEnum.MINIRIG2);
-            } else if (str.contains("MRBT3") && !this.f4214k.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIRIG3)) {
+            } else if (str.contains("MRBT3") && !this.globalApplication.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIRIG3)) {
                 m5755a(minirigStatusClass.modelTypeEnum.MINIRIG3);
-            } else if (str.contains("MRM2") && !this.f4214k.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIMINI2)) {
+            } else if (str.contains("MRM2") && !this.globalApplication.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIMINI2)) {
                 m5755a(minirigStatusClass.modelTypeEnum.MINIMINI2);
-            } else if (str.contains("MRM") && !this.f4214k.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIMINI) && !this.f4214k.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIMINI2)) {
+            } else if (str.contains("MRM") && !this.globalApplication.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIMINI) && !this.globalApplication.f3966l.minirigType.equals(minirigStatusClass.modelTypeEnum.MINIMINI2)) {
                 m5755a(minirigStatusClass.modelTypeEnum.MINIMINI);
             }
         }
@@ -6552,25 +6552,25 @@ public class MainActivity extends C0670c {
     /* renamed from: a */
     private void m5755a(minirigStatusClass.modelTypeEnum eVar) {
         if (eVar.equals(minirigStatusClass.modelTypeEnum.MINIRIG2)) {
-            this.f4214k.f3966l.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
-            this.f4214k.minirigf3.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
-            this.f4214k.f3966l.f4406h = "10";
+            this.globalApplication.f3966l.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
+            this.globalApplication.minirigf3.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG2;
+            this.globalApplication.f3966l.f4406h = "10";
         } else if (eVar.equals(minirigStatusClass.modelTypeEnum.MINIMINI)) {
-            this.f4214k.f3966l.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI;
-            this.f4214k.minirigf3.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI;
-            this.f4214k.f3966l.f4406h = "20";
+            this.globalApplication.f3966l.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI;
+            this.globalApplication.minirigf3.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI;
+            this.globalApplication.f3966l.f4406h = "20";
         } else if (eVar.equals(minirigStatusClass.modelTypeEnum.MINIMINI2)) {
-            this.f4214k.f3966l.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI2;
-            this.f4214k.minirigf3.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI2;
-            this.f4214k.f3966l.f4406h = "21";
+            this.globalApplication.f3966l.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI2;
+            this.globalApplication.minirigf3.minirigType = minirigStatusClass.modelTypeEnum.MINIMINI2;
+            this.globalApplication.f3966l.f4406h = "21";
         } else if (eVar.equals(minirigStatusClass.modelTypeEnum.MINIRIG3)) {
-            this.f4214k.f3966l.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG3;
-            this.f4214k.minirigf3.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG3;
-            this.f4214k.f3966l.f4406h = "30";
+            this.globalApplication.f3966l.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG3;
+            this.globalApplication.minirigf3.minirigType = minirigStatusClass.modelTypeEnum.MINIRIG3;
+            this.globalApplication.f3966l.f4406h = "30";
         }
         this.f4097bs = false;
         m5890bm();
-        if (this.f4214k.f3966l == null || !mo5284r()) {
+        if (this.globalApplication.f3966l == null || !mo5284r()) {
             m5820ag();
         } else {
             m5823ah();
@@ -6580,12 +6580,12 @@ public class MainActivity extends C0670c {
     /* renamed from: bI */
     private void m5877bI() {
         int i;
-        if (this.f4214k.f3966l != null && this.f4214k.f3963i.f4584e.containsKey(this.f4214k.f3966l.f4406h)) {
+        if (this.globalApplication.f3966l != null && this.globalApplication.f3963i.f4584e.containsKey(this.globalApplication.f3966l.f4406h)) {
             int i2 = 0;
             try {
-                i = Integer.parseInt(this.f4214k.f3966l.f4407i);
+                i = Integer.parseInt(this.globalApplication.f3966l.f4407i);
                 try {
-                    i2 = this.f4214k.f3963i.f4584e.get(this.f4214k.f3966l.f4406h).intValue();
+                    i2 = this.globalApplication.f3963i.f4584e.get(this.globalApplication.f3966l.f4406h).intValue();
                 } catch (NumberFormatException unused) {
                 }
             } catch (NumberFormatException unused2) {
@@ -6636,9 +6636,9 @@ public class MainActivity extends C0670c {
             String str = split[0];
             int parseInt = Integer.parseInt(split[1]) * 10;
             for (int i = 0; i < parseInt; i++) {
-                GlobalApplication globalApplication = MainActivity.this.f4214k;
-                String str2 = MainActivity.f3974m;
-                globalApplication.mo5229a(str2, "Loop " + i);
+                GlobalApplication globalApplication = MainActivity.this.globalApplication;
+                String str2 = MainActivity.logLevel_info;
+                globalApplication.addLog(str2, "Loop " + i);
                 SystemClock.sleep(100);
                 if (isCancelled()) {
                     break;
@@ -6779,17 +6779,17 @@ public class MainActivity extends C0670c {
                 goto L_0x02d7
             L_0x00a8:
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
                 com.minirig.android.a.e r4 = r4.f3966l
                 java.lang.String r4 = r4.audioConnectionState
                 java.lang.String r0 = "POWER_OFF"
                 boolean r4 = r4.equals(r0)
                 if (r4 == 0) goto L_0x00dc
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
-                java.lang.String r0 = com.minirig.android.MainActivity.f3974m
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
+                java.lang.String r0 = com.minirig.android.MainActivity.logLevel_info
                 java.lang.String r1 = "POWER WAS OUT"
-                r4.mo5229a(r0, r1)
+                r4.addLog(r0, r1)
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
                 r4.f4226x = r2
                 java.lang.String r0 = "O"
@@ -6803,10 +6803,10 @@ public class MainActivity extends C0670c {
                 goto L_0x02d7
             L_0x00dc:
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
                 android.content.SharedPreferences r4 = r4.f3957c
                 com.minirig.android.MainActivity r0 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r0 = r0.f4214k
+                com.minirig.android.GlobalApplication r0 = r0.globalApplication
                 com.minirig.android.a.e r0 = r0.f3966l
                 java.lang.String r0 = r0.f4405g
                 boolean r4 = r4.contains(r0)
@@ -6831,26 +6831,26 @@ public class MainActivity extends C0670c {
                 goto L_0x02d7
             L_0x011a:
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
                 com.minirig.android.a.e r4 = r4.f3966l
                 if (r4 != 0) goto L_0x02d7
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
-                java.lang.String r0 = com.minirig.android.MainActivity.f3974m
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
+                java.lang.String r0 = com.minirig.android.MainActivity.logLevel_info
                 java.lang.String r1 = "Finished waiting for device to switch on "
-                r4.mo5229a(r0, r1)
+                r4.addLog(r0, r1)
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.MainActivity$b r4 = r4.f4216n
-                com.minirig.android.MainActivity$b r0 = com.minirig.android.MainActivity.C1218b.SPP
+                com.minirig.android.MainActivity$b r4 = r4.btConnectionMode
+                com.minirig.android.MainActivity$b r0 = com.minirig.android.MainActivity.btConnectionModeEnum.SPP
                 if (r4 != r0) goto L_0x016f
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
                 android.bluetooth.BluetoothDevice r4 = r4.m5715S()
                 if (r4 != 0) goto L_0x0159
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
-                java.lang.String r0 = com.minirig.android.MainActivity.f3974m
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
+                java.lang.String r0 = com.minirig.android.MainActivity.logLevel_info
                 java.lang.String r1 = "No connected audio device found after power up... "
-                r4.mo5229a(r0, r1)
+                r4.addLog(r0, r1)
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
                 com.minirig.android.MainActivity$c$4 r0 = new com.minirig.android.MainActivity$c$4
                 r0.<init>()
@@ -6860,10 +6860,10 @@ public class MainActivity extends C0670c {
                 goto L_0x02d7
             L_0x0159:
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
-                java.lang.String r0 = com.minirig.android.MainActivity.f3974m
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
+                java.lang.String r0 = com.minirig.android.MainActivity.logLevel_info
                 java.lang.String r1 = "Found a connected audio device after power up, trying to connect... "
-                r4.mo5229a(r0, r1)
+                r4.addLog(r0, r1)
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
                 android.bluetooth.BluetoothDevice r0 = r4.m5715S()
                 r4.m5905c((android.bluetooth.BluetoothDevice) r0)
@@ -6878,16 +6878,16 @@ public class MainActivity extends C0670c {
                 goto L_0x02d7
             L_0x0180:
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
                 com.minirig.android.a.e r4 = r4.f3966l
                 if (r4 != 0) goto L_0x02d7
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
                 r4.mo5240I()
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
-                java.lang.String r0 = com.minirig.android.MainActivity.f3974m
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
+                java.lang.String r0 = com.minirig.android.MainActivity.logLevel_info
                 java.lang.String r1 = "Manual connection timed out "
-                r4.mo5229a(r0, r1)
+                r4.addLog(r0, r1)
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
                 com.minirig.android.MainActivity$c$3 r0 = new com.minirig.android.MainActivity$c$3
                 r0.<init>()
@@ -6895,7 +6895,7 @@ public class MainActivity extends C0670c {
                 goto L_0x02d7
             L_0x01a4:
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
                 com.minirig.android.a.e r4 = r4.f3966l
                 if (r4 != 0) goto L_0x02d7
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
@@ -6903,7 +6903,7 @@ public class MainActivity extends C0670c {
                 goto L_0x02d7
             L_0x01b3:
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
                 com.minirig.android.a.e r4 = r4.f3966l
                 if (r4 != 0) goto L_0x02d7
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
@@ -6924,20 +6924,20 @@ public class MainActivity extends C0670c {
                 goto L_0x01f6
             L_0x01e0:
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
-                java.lang.String r0 = com.minirig.android.MainActivity.f3974m
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
+                java.lang.String r0 = com.minirig.android.MainActivity.logLevel_info
                 java.lang.String r1 = "Found connected device for SPP connection"
-                r4.mo5229a(r0, r1)
+                r4.addLog(r0, r1)
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
                 android.bluetooth.BluetoothDevice r0 = r4.m5715S()
                 r4.m5905c((android.bluetooth.BluetoothDevice) r0)
                 goto L_0x02d7
             L_0x01f6:
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
-                java.lang.String r0 = com.minirig.android.MainActivity.f3974m
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
+                java.lang.String r0 = com.minirig.android.MainActivity.logLevel_info
                 java.lang.String r1 = "No connected device"
-                r4.mo5229a(r0, r1)
+                r4.addLog(r0, r1)
                 java.lang.ref.WeakReference<com.minirig.android.MainActivity> r4 = r3.f4383b
                 java.lang.Object r4 = r4.get()
                 if (r4 == 0) goto L_0x02d7
@@ -6972,18 +6972,18 @@ public class MainActivity extends C0670c {
                 boolean r4 = r4.equals(r0)
                 if (r4 == 0) goto L_0x026d
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
-                java.lang.String r0 = com.minirig.android.MainActivity.f3974m
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
+                java.lang.String r0 = com.minirig.android.MainActivity.logLevel_info
                 java.lang.String r1 = "No connected device"
-                r4.mo5229a(r0, r1)
+                r4.addLog(r0, r1)
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
                 android.view.View r0 = r4.f4136cf
                 r4.setView(r0)
                 goto L_0x02d7
             L_0x026d:
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.MainActivity$b r4 = r4.f4216n
-                com.minirig.android.MainActivity$b r0 = com.minirig.android.MainActivity.C1218b.BLE
+                com.minirig.android.MainActivity$b r4 = r4.btConnectionMode
+                com.minirig.android.MainActivity$b r0 = com.minirig.android.MainActivity.btConnectionModeEnum.BLE
                 if (r4 != r0) goto L_0x0282
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
                 java.lang.String r0 = "Searching for devices"
@@ -6993,8 +6993,8 @@ public class MainActivity extends C0670c {
                 goto L_0x02d7
             L_0x0282:
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.MainActivity$b r4 = r4.f4216n
-                com.minirig.android.MainActivity$b r0 = com.minirig.android.MainActivity.C1218b.SPP
+                com.minirig.android.MainActivity$b r4 = r4.btConnectionMode
+                com.minirig.android.MainActivity$b r0 = com.minirig.android.MainActivity.btConnectionModeEnum.SPP
                 if (r4 != r0) goto L_0x02cc
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
                 android.bluetooth.BluetoothDevice r4 = r4.m5715S()
@@ -7003,20 +7003,20 @@ public class MainActivity extends C0670c {
                 boolean r4 = r4.f4225w
                 if (r4 == 0) goto L_0x02ad
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
-                java.lang.String r0 = com.minirig.android.MainActivity.f3974m
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
+                java.lang.String r0 = com.minirig.android.MainActivity.logLevel_info
                 java.lang.String r1 = "Found connected device for SPP connection"
-                r4.mo5229a(r0, r1)
+                r4.addLog(r0, r1)
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
                 android.bluetooth.BluetoothDevice r0 = r4.m5715S()
                 r4.m5905c((android.bluetooth.BluetoothDevice) r0)
                 goto L_0x02d7
             L_0x02ad:
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
-                java.lang.String r0 = com.minirig.android.MainActivity.f3974m
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
+                java.lang.String r0 = com.minirig.android.MainActivity.logLevel_info
                 java.lang.String r1 = "No SPP devices found, begin auto connect scan"
-                r4.mo5229a(r0, r1)
+                r4.addLog(r0, r1)
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
                 java.lang.String r0 = "Searching for devices"
                 r4.m5923f((java.lang.String) r0)
@@ -7028,10 +7028,10 @@ public class MainActivity extends C0670c {
                 goto L_0x02d7
             L_0x02cc:
                 com.minirig.android.MainActivity r4 = com.minirig.android.MainActivity.this
-                com.minirig.android.GlobalApplication r4 = r4.f4214k
-                java.lang.String r0 = com.minirig.android.MainActivity.f3974m
+                com.minirig.android.GlobalApplication r4 = r4.globalApplication
+                java.lang.String r0 = com.minirig.android.MainActivity.logLevel_info
                 java.lang.String r1 = "Connection mode not specified for connection after audio listener determined connection device"
-                r4.mo5229a(r0, r1)
+                r4.addLog(r0, r1)
             L_0x02d7:
                 return
             */

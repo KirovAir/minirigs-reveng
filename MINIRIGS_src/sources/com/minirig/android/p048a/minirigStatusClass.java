@@ -694,7 +694,7 @@ public class minirigStatusClass {
     }
 
     /* renamed from: j */
-    public int mo5507j() {
+    public int getGainMode() {
         return this.gainMode;
     }
 
